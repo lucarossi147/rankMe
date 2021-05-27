@@ -1,7 +1,7 @@
 User = require("../models/user");
 
 exports.show_signup_page = function (req, res) {
-    res.sendFile(appRoot  + '/www/signup.html');
+    //TODO res.sendFile(appRoot  + '/www/signup.html');
 }
 
 exports.signup = function(req, res) {
