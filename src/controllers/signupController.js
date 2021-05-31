@@ -10,7 +10,7 @@ exports.signup = function(req, res) {
     let newUser = new User(req.body);
     console.log(newUser);
 
-    decodeAndSaveImage(newUser.picture, createPath(newUser.username));
+    //TODO decodeAndSaveImage(newUser.picture, createPath(newUser.username));
 
     newUser.save(function(err, user) {
         if (err){
@@ -43,7 +43,7 @@ exports.delete_user = function(req, res) {
         if (err)
             res.send(err);
         else{
-            if(result.deletedCount==0){
+            if(result.deletedCount===0){
                 res.status(404).send({
                     description: 'User not found'
                 });
