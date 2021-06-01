@@ -1,25 +1,39 @@
-version: '1'
+version: '3'
 
 services:
   server:
     build:
-      context: ./
+      context: ./server
       dockerfile: Dockerfile
-      args:
     image: server
-    environment:
+    container_name: serverContainer
     ports:
-      -3000:3000
+      - 3000:3000
     networks:
-      - localNetwork
+      - interna
   mongodb:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
-      args:
     image: mymongo
-    environment:
+    container_name: mongodbContainer
     ports:
       - 27017-27019:27017-27019
     networks:
-      - localNetwork
+      - interna
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    container_name: clientContainer
+    ports:
+      - 5000:5000
+    networks:
+      - interna
+
+networks:
+  interna:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: "brinterna"

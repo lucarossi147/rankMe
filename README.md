@@ -1,6 +1,6 @@
 # rankMe
 
-progetto applicazioni e servizi web
+Progetto applicazioni e servizi web
 
 Per lanciare il server:
 
@@ -13,3 +13,11 @@ Per il client:
 Per entrambi:
 
 #npm run dev
+
+Per lanciare l'intero applicativo usando docker-compose:
+
+docker-compose -f docker-compose.yml up -d
+
+Questo comando lancierà tre container, client server e un database mongodb
+Tutti e tre condividono una rete, "interna" sulla quale il client comunica con il server
+e il server con il DB
