@@ -1,0 +1,25 @@
+version: '1'
+
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+    image: server
+    environment:
+    ports:
+      -3000:3000
+    networks:
+      - localNetwork
+  mongodb:
+    build:
+      context: ./mongodb
+      dockerfile: Dockerfile
+      args:
+    image: mymongo
+    environment:
+    ports:
+      - 27017-27019:27017-27019
+    networks:
+      - localNetwork

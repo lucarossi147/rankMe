@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path');
+const passport = require("passport");
 
 global.appRoot = path.resolve(__dirname);
 

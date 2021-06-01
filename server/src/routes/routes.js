@@ -1,3 +1,4 @@
+const passport = require("passport");
 module.exports = function(app) {
     const loginController = require('../controllers/loginController');
     const signupController = require('../controllers/signupController');
@@ -10,4 +11,5 @@ module.exports = function(app) {
     app.route('/signup')
         .get(signupController.show_signup_page)
         .post(signupController.signup);
+
 };
