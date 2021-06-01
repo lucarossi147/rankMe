@@ -2,6 +2,7 @@
 
 Progetto applicazioni e servizi web
 
+Per server e client entrare nella rispettiva cartella, per lanciare entrambi entrare in /server
 Per lanciare il server:
 
 #npm run server
