@@ -24,7 +24,7 @@ mongoose.set('useFindAndModify', false);
 mongoose
     .connect(
         LOCAL_DB,
-        { useNewUrlParser: true })
+        { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Connected'))
     .catch((err) => console.log(err));
 app.use(cors())
