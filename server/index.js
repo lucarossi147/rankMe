@@ -8,9 +8,9 @@ global.appRoot = path.resolve(__dirname);
 
 const PORT = 3000;
 const LOCAL_DB = 'mongodb://localhost:27017/rankMe';
+const DOCKER_DB = 'mongodb://mongodbContainer.rankMe_interna:27017';
 
 // aspetto 10 sec che il container di mongo sia su
-
 function pausecomp(millis)
 {
     var date = new Date();
@@ -23,7 +23,7 @@ pausecomp(10000);
 mongoose.set('useFindAndModify', false);
 mongoose
     .connect(
-        'mongodb://mongodbContainer.rankMe_interna:27017',
+        LOCAL_DB,
         { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch((err) => console.log(err));
