@@ -53,6 +53,9 @@ let UserSchema = new Schema({
     },
     lockUntil: {
         type: Number
+    },
+    token:{
+        type:String,
     }
 
 });

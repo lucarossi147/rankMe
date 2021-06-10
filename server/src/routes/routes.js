@@ -12,4 +12,15 @@ module.exports = function(app) {
         .get(signupController.show_signup_page)
         .post(signupController.signup);
 
+    app.route('/token')
+        .post(loginController.token)
+
+    app.route('/logout')
+        .delete(loginController.logout)
+
+    app.route('/non')
+        .get(loginController.stampa)
+
+    app.route('/prova')
+        .get(loginController.authenticate, loginController.prova)
 };
