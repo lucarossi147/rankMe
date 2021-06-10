@@ -2,9 +2,6 @@ User = require("../models/user");
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
 
-//TODO da togliere
-let refreshTokens = [];
-
 exports.show_login_page = function (req, res) {
     res.sendFile(appRoot  + '/www/login.html');
 }
@@ -24,8 +21,6 @@ exports.login = function(req, res) {
             User.findOneAndUpdate(filter, update,{
                 new: true
             }).then(doc => console.log(doc.token))
-            //TODO DA TOGLIERE/CAMBIARE
-            refreshTokens.push(refreshToken)
 
             // res.status(200).json(user);
             res.status(200).json({"accessToken" :accessToken, "refreshToken": refreshToken});
@@ -75,8 +70,6 @@ exports.authenticate = function authenticateToken(req,res,next){
 exports.token = function (req, res){
     const refreshToken = req.body.token
     if (refreshToken == null) return res.sendStatus(401)
-    //TODO TOGLIERE QUESTO E IMPLEMENTARE SOTTO
-    //if (!refreshToken.includes(refreshToken)) return res.sendStatus(403)
     User.findOne({ "token": refreshToken}, function (err, doc) {
         if (err) { return res.sendStatus(500) }
         if (doc == null) { return res.sendStatus(403) }
@@ -86,15 +79,6 @@ exports.token = function (req, res){
             return res.json({"accessToken": accessToken});
         })
     });
-    //aggiungere un token nel db, magari in una collection a parte
-    //se il token non e'nella collection return res.sendStatus(403)
-    //altrimenti
-   /* jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user)=>{
-        if (err) return res.status(403)
-        const accessToken = generateAccessToken({"name": user.name})
-        return res.json({"accessToken": accessToken});
-    })*/
-
 }
 
 exports.logout = function(req,res){
