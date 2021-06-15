@@ -35,7 +35,7 @@ exports.login = function(req, res) {
             }).then(doc =>{
                 //console.log(doc.token)
                 if (!doc) res.status(500).json({"accessToken" :accessToken, "refreshToken": refreshToken});
-                res.status(200).json({"accessToken" :accessToken, "refreshToken": refreshToken});
+                res.status(200).json({"accessToken" :accessToken, "refreshToken": refreshToken, "user": user});
             })
         }
 
@@ -107,12 +107,12 @@ exports.logout = function(req,res){
         new: true
     }).then(doc => {
      if (!doc) { res.status(200).json({"description": "no token found, already logged out or some error passing token occurred"}) }
-     res.status(204)
+     res.sendStatus(204)
     })
 }
 
 exports.uploadPhoto = function (req, res){
-    console.log('uploadPhoto')
+    //console.log('uploadPhoto')
     try {
         const filter = { "_id": req.user._id};
         const update = { "picture": req.file.destination };

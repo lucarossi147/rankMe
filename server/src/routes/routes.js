@@ -10,7 +10,8 @@ module.exports = function(app) {
             cb(null, '/home/luca/rankMe/server/src/images');
         },
         filename: function (req, file, cb) {
-            cb(null, file.originalname);
+            const date = Date.now().toString()
+            cb(null, date+file.originalname);
         }
     })
     const upload = multer({storage: storage});
