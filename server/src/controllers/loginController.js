@@ -1,12 +1,25 @@
 User = require("../models/user");
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
+//
+// const multer = require('multer');
+//
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, '../images');
+//     },
+//     filename: function (req, file, cb) {
+//         ccb(null, file.originalname);
+//     }
+// })
+// const upload = multer({storage: storage});
 
 exports.show_login_page = function (req, res) {
     res.sendFile(appRoot  + '/www/login.html');
 }
 
 exports.login = function(req, res) {
+    console.log('ciao')
     User.getAuthenticated(req.body.username,  req.body.password, function(err, user, reason) {
         if (err) throw err;
 
@@ -58,6 +71,7 @@ exports.authenticate = function authenticateToken(req,res,next){
     const token = authHeader && authHeader.split(' ')[1] //takes the token if exists
     if (token == null|| typeof token === undefined) {return res.status(401)}
 
+    //TODO potrei mandare semplicemente l'id dell'utente e poi deserializzarlo qui
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
         if (err) return res.sendStatus(403) // token expired
         // console.log(user.user)
@@ -90,6 +104,21 @@ exports.logout = function(req,res){
      if (!doc) { res.status(200).json({"description": "no token found, already logged out or some error passing token occurred"}) }
      res.status(204)
     })
+}
+
+exports.uploadPhoto = function (req, res){
+    try {
+        const filter = { "_id": req.user._id};
+        const update = { "picture": req.file.destination };
+        User.findOneAndUpdate(filter, update,{
+            new: true
+        }).then(doc => {
+            if (!doc) { res.status(500).json({"description": "an error occurred"}) }
+            res.status(200)
+        })
+    }catch(err) {
+        res.send(400);
+    }
 }
 
 exports.prova = function proviaml(req,res){

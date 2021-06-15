@@ -1,7 +1,19 @@
-const passport = require("passport");
 module.exports = function(app) {
     const loginController = require('../controllers/loginController');
     const signupController = require('../controllers/signupController');
+
+
+    const multer = require('multer');
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, '/home/luca/rankMe/server/src/images');
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    })
+    const upload = multer({storage: storage});
 
     app.route('/login')
         .get(loginController.show_login_page)
@@ -18,8 +30,13 @@ module.exports = function(app) {
     app.route('/logout')
         .delete(loginController.logout)
 
+    //add check for authenticated
+    app.route('/uploadPhoto')
+        .post(loginController.authenticate, upload.single('profile'), loginController.uploadPhoto)
+
     app.route('/non')
         .get(loginController.stampa)
+
 
     app.route('/prova')
         .get(loginController.authenticate, loginController.prova)
