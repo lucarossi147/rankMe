@@ -74,7 +74,7 @@ exports.authenticate = function authenticateToken(req,res,next){
     //TODO potrei mandare semplicemente l'id dell'utente e poi deserializzarlo qui
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
         if (err) return res.sendStatus(403) // token expired
-        console.log(user)
+        //console.log(user)
 
         //qui cerco l'utente e lo deserializzo poi lo passo sulla req
         const completeUser = User.findById(user.userId, function (err, user){
