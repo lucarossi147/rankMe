@@ -19,24 +19,24 @@ exports.show_login_page = function (req, res) {
 }
 
 exports.login = function(req, res) {
-    console.log('ciao')
     User.getAuthenticated(req.body.username,  req.body.password, function(err, user, reason) {
         if (err) throw err;
 
         // login was successful if we have a user
         if (user) {
             // handle login success
-            const accessToken = generateAccessToken(user)
-            const refreshToken = jwt.sign(JSON.stringify(user), process.env.REFRESH_TOKEN_SECRET)
+            const accessToken = generateAccessToken(user._id)
+            const refreshToken = jwt.sign(JSON.stringify(user._id), process.env.REFRESH_TOKEN_SECRET)
 
             const filter = { "_id": user._id };
             const update = { "token": refreshToken };
             User.findOneAndUpdate(filter, update,{
                 new: true
-            }).then(doc => console.log(doc.token))
-
-            // res.status(200).json(user);
-            res.status(200).json({"accessToken" :accessToken, "refreshToken": refreshToken});
+            }).then(doc =>{
+                //console.log(doc.token)
+                if (!doc) res.status(500).json({"accessToken" :accessToken, "refreshToken": refreshToken});
+                res.status(200).json({"accessToken" :accessToken, "refreshToken": refreshToken});
+            })
         }
 
         // otherwise we can determine why we failed
@@ -60,8 +60,8 @@ exports.login = function(req, res) {
 };
 
 
-function generateAccessToken(user){
-    return jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET,{
+function generateAccessToken(userId){
+    return jwt.sign({userId}, process.env.ACCESS_TOKEN_SECRET,{
         expiresIn: '15m' // expires in 15 minutes
     })
 }
@@ -74,10 +74,15 @@ exports.authenticate = function authenticateToken(req,res,next){
     //TODO potrei mandare semplicemente l'id dell'utente e poi deserializzarlo qui
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
         if (err) return res.sendStatus(403) // token expired
-        // console.log(user.user)
-        req.user = user.user
-        res.sendStatus(200)
-        next()
+        console.log(user)
+
+        //qui cerco l'utente e lo deserializzo poi lo passo sulla req
+        const completeUser = User.findById(user.userId, function (err, user){
+            if (err) return res.sendStatus(500)
+            //console.log(user)
+            req.user = user
+            next()
+        })
     })
 }
 
@@ -107,6 +112,7 @@ exports.logout = function(req,res){
 }
 
 exports.uploadPhoto = function (req, res){
+    console.log('uploadPhoto')
     try {
         const filter = { "_id": req.user._id};
         const update = { "picture": req.file.destination };
@@ -114,7 +120,7 @@ exports.uploadPhoto = function (req, res){
             new: true
         }).then(doc => {
             if (!doc) { res.status(500).json({"description": "an error occurred"}) }
-            res.status(200)
+            res.sendStatus(200)
         })
     }catch(err) {
         res.send(400);
