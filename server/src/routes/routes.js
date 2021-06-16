@@ -35,6 +35,9 @@ module.exports = function(app) {
     app.route('/uploadPhoto')
         .post(loginController.authenticate, upload.single('profile'), loginController.uploadPhoto)
 
+    app.rout('/userImage')
+        .get(loginController.authenticate, loginController.userImage)
+
     app.route('/non')
         .get(loginController.stampa)
 
