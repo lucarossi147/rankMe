@@ -77,7 +77,7 @@ exports.authenticate = function authenticateToken(req,res,next){
         //console.log(user)
 
         //qui cerco l'utente e lo deserializzo poi lo passo sulla req
-        const completeUser = User.findById(user.userId, function (err, user){
+        User.findById(user.userId, function (err, user){
             if (err) return res.sendStatus(500)
             //console.log(user)
             req.user = user
@@ -115,12 +115,13 @@ exports.uploadPhoto = function (req, res){
     //console.log('uploadPhoto')
     try {
         const filter = { "_id": req.user._id};
-        const update = { "picture": req.file.destination };
+        const update = { "picture": req.file.path };
         User.findOneAndUpdate(filter, update,{
             new: true
         }).then(doc => {
             if (!doc) { res.status(500).json({"description": "an error occurred"}) }
-            res.sendStatus(200)
+            //res.sendStatus(200)
+            res.send(req.file)
         })
     }catch(err) {
         res.send(400);
@@ -136,10 +137,11 @@ exports.stampa = function fok(req,res){
     res.status(200).json({"description": "ok"});
 }
 
-exports.userImage = function (req, res){
-    User.findById(req.userId, function (err, user){
+exports.userImage = function (req, res) {
+    const userId = req.body.userId
+    User.findById(userId, function (err, user) {
         if (err) return res.sendStatus(500)
-        //console.log(user)
+        if (!user) return res.sendStatus(500)
         res.set({'Content-Type': 'image/jpeg'});
         res.sendFile(user.picture)
     })
