@@ -20,7 +20,7 @@ exports.show_login_page = function (req, res) {
 
 exports.login = function(req, res) {
     User.getAuthenticated(req.body.username,  req.body.password, function(err, user, reason) {
-        if (err) throw err;
+        if (err) { throw err; }
 
         // login was successful if we have a user
         if (user) {
@@ -107,7 +107,7 @@ exports.logout = function(req,res){
         new: true
     }).then(doc => {
      if (!doc) { res.status(200).json({"description": "no token found, already logged out or some error passing token occurred"}) }
-     res.sendStatus(204)
+     res.status(204)
     })
 }
 

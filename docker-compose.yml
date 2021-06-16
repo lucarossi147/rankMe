@@ -21,6 +21,8 @@ services:
       - 27017-27019:27017-27019
     networks:
       - interna
+    volumes:
+      - ./mydata:/data
   client:
     build:
       context: ./client

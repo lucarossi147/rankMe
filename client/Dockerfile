@@ -1,5 +1,5 @@
 #Tell docker to use this image, node, as base image
-FROM node:16
+FROM node:alpine
 
 # Set a envirnoment variable to use later
 ENV WORKINGDIR=/app
