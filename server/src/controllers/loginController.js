@@ -108,8 +108,8 @@ exports.uploadPhoto = function (req, res){
             new: true
         }).then(doc => {
             if (!doc) { res.status(500).json({"description": "an error occurred"}) }
-            //res.sendStatus(200)
-            res.send(req.file)
+            res.sendStatus(200)
+            // res.send(req.file)
         })
     }catch(err) {
         res.send(400);
