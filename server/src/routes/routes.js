@@ -1,7 +1,7 @@
 module.exports = function(app) {
     const loginController = require('../controllers/loginController');
     const signupController = require('../controllers/signupController');
-
+    const utilityController = require('../controllers/utilityController')
 
     const multer = require('multer');
 
@@ -45,4 +45,7 @@ module.exports = function(app) {
 
     app.route('/prova')
         .get(loginController.authenticate, loginController.prova)
+
+    app.route('/addSocial')
+        .post(loginController.authenticate, utilityController.setSocialMediaLink)
 };

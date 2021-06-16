@@ -50,7 +50,7 @@ exports.login = function(req, res) {
 
 function generateAccessToken(userId){
     return jwt.sign({userId}, process.env.ACCESS_TOKEN_SECRET,{
-        expiresIn: '15m' // expires in 15 minutes
+        expiresIn: '365d' // expires in 15 minutes
     })
 }
 
