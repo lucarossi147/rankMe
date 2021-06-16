@@ -8,9 +8,10 @@ exports.signup = function(req, res) {
     const fs = require('fs');
     console.log(req.body);
     let newUser = new User(req.body);
-    console.log(newUser);
-
-    //TODO decodeAndSaveImage(newUser.picture, createPath(newUser.username));
+    //could have done User.count but there is a deprecationWarning
+    User.collection.countDocuments({}, function( err, count){
+        newUser.rankPosition = count + 1
+    })
 
     newUser.save(function(err, user) {
         if (err){

@@ -5,9 +5,10 @@ module.exports = function(app) {
 
     const multer = require('multer');
 
+    //forse bisogna aggiungere una cartella static public
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, '/home/luca/rankMe/server/src/images');
+            cb(null, appRoot+'/images');
         },
         filename: function (req, file, cb) {
             const date = Date.now().toString()
