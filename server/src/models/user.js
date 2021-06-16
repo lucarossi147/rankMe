@@ -29,7 +29,8 @@ let UserSchema = new Schema({
         require: true
     },
     picture:{
-        type: String
+        type: String,
+        default: appRoot+'/src/images/default-user-image.jpg'
     },
     address:{
         type: String
@@ -65,11 +66,14 @@ let UserSchema = new Schema({
         type: String,
         default: null
     },
-
     instagram:{
         type: String,
         default: null
+    },
+    bio:{
+        type: String
     }
+
 
 });
 
