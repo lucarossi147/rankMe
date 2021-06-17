@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd public && reeact-scripts run",
-    "build": "react-scripts build",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
