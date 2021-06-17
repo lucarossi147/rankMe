@@ -53,6 +53,11 @@ module.exports = function(app) {
     app.route('/profile/:userId')
         .get(loginController.authenticate, utilityController.getProfile)
 
+
+    //AUTHENTICATE,
     app.route('/findMatch')
-        .get(matchController.getMatch)
+        .get(loginController.authenticate, matchController.getMatch)
+
+    app.route('/winner')
+        .post(loginController.authenticate, matchController.winner)
 };
