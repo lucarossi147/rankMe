@@ -38,7 +38,9 @@ app.use(express.json());
 const routes = require('./src/routes/routes');
 routes(app);
 
-app.use(express.static("public"))
+//app.use(express.static(path.join(__dirname, "..", "build")))
+app.use(express.static("client/build"))
+
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
