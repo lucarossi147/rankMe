@@ -112,6 +112,7 @@ exports.uploadPhoto = function (req, res){
             res.send(req.file)
         })
     }catch(err) {
+        console.log(err);
         res.send(400);
     }
 }

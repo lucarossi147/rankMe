@@ -32,5 +32,33 @@ e il server con il DB
 Implementare pagina di rank
 Implementare dashboard, dove l'utente può votare delle foto proposte
 Implementare profilo utente
+Implementare modifica delle info presenti su profilo
+Gestire foto lato client
 
 http: authorization header Bearer accessToken 
+
+Dockerfile client:
+#Tell docker to use this image, node, as base image
+FROM node:alpine
+
+# Set a envirnoment variable to use later
+ENV WORKINGDIR=/app
+ENV PATH /app/node_modules/.bin:$PATH
+
+#Set working directory as default for operations
+WORKDIR ${WORKINGDIR}
+
+#Copy file with dependencies for npm install
+COPY package*.json ./
+
+# Install dependencies
+RUN	npm install --silent
+
+#Bundle app source
+COPY . .
+
+#Indicate port to expose to the extern
+EXPOSE 5000
+
+#Set comand to launch at start
+CMD ["npm", "run", "start"]
