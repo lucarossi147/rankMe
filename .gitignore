@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+
 #Idea
 .idea
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -106,3 +107,5 @@ dist
 .tern-port
 
 server/package-lock.json
+
+server/images
