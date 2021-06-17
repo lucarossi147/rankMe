@@ -28,7 +28,7 @@ exports.login = function(req, res) {
         }
 
         // otherwise we can determine why we failed
-        var reasons = User.failedLogin;
+        let reasons = User.failedLogin;
         switch (reason) {
             case reasons.NOT_FOUND:
                 res.status(401).json({"description": "incorrect username or password"});
@@ -97,13 +97,4 @@ exports.logout = function(req,res){
      if (!doc) { res.status(200).json({"description": "no token found, already logged out or some error passing token occurred"}) }
      res.status(204)
     })
-}
-
-exports.prova = function proviaml(req,res){
-    console.log("hello " + req.user.name)
-    res.status(200);
-}
-
-exports.stampa = function fok(req,res){
-    res.status(200).json({"description": "ok"});
 }
