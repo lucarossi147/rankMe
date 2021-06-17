@@ -48,4 +48,8 @@ module.exports = function(app) {
 
     app.route('/addSocial')
         .post(loginController.authenticate, utilityController.setSocialMediaLink)
+
+    app.route('/profile/:userId')
+        .get(loginController.authenticate, utilityController.getProfile)
+
 };

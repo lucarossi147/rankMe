@@ -21,3 +21,10 @@ exports.setSocialMediaLink = function (req, res){
         res.sendStatus(200)
     })
 }
+
+exports.getProfile = function (req, res) {
+    User.findById(req.params.userId, function (err, user) {
+        if (err) return res.sendStatus(500)
+        res.status(200).send(user)
+    })
+}
