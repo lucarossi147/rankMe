@@ -99,24 +99,6 @@ exports.logout = function(req,res){
     })
 }
 
-exports.uploadPhoto = function (req, res){
-    //console.log('uploadPhoto')
-    try {
-        const filter = { "_id": req.user._id};
-        const update = { "picture": req.file.path };
-        User.findOneAndUpdate(filter, update,{
-            new: true
-        }).then(doc => {
-            if (!doc) { res.status(500).json({"description": "an error occurred"}) }
-            res.sendStatus(200)
-            // res.send(req.file)
-        })
-    }catch(err) {
-        console.log(err);
-        res.send(400);
-    }
-}
-
 exports.prova = function proviaml(req,res){
     console.log("hello " + req.user.name)
     res.status(200);

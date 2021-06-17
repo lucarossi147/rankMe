@@ -30,13 +30,29 @@ exports.getProfile = function (req, res) {
 }
 
 
+exports.uploadPhoto = function (req, res){
+    //console.log('uploadPhoto')
+    try {
+        const filter = { "_id": req.user._id};
+        const update = { "picture": req.file.filename };
+        User.findOneAndUpdate(filter, update,{
+            new: true
+        }).then(doc => {
+            if (!doc) { res.status(500).json({"description": "an error occurred"}) }
+            res.sendStatus(200)
+            //res.send(req.file)
+        })
+    }catch(err) {
+        console.log(err);
+        res.send(400);
+    }
+}
 
 exports.userImage = function (req, res) {
     const userId = req.params.userId
     User.findById(userId, function (err, user) {
         if (err) return res.sendStatus(500)
         if (!user) return res.sendStatus(500)
-        res.set({'Content-Type': 'image/jpeg'});
-        res.sendFile(user.picture)
+        res.send({userImage: user.picture})
     })
 }

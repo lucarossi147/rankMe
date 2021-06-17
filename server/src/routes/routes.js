@@ -34,16 +34,10 @@ module.exports = function(app) {
 
     //add check for authenticated
     app.route('/uploadPhoto')
-        .post(loginController.authenticate, upload.single('profile'), loginController.uploadPhoto)
+        .post(loginController.authenticate, upload.single('profile'), utilityController.uploadPhoto)
 
     app.route('/userImage/:userId')
         .get(loginController.authenticate, utilityController.userImage)
-
-    app.route('/non')
-        .get(loginController.stampa)
-
-    app.route('/prova')
-        .get(loginController.authenticate, loginController.prova)
 
     app.route('/addSocial')
         .post(loginController.authenticate, utilityController.setSocialMediaLink)

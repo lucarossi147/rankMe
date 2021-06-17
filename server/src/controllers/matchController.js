@@ -1,6 +1,7 @@
 User = require("../models/user");
 Vote = require('../models/vote')
 const VOTES_RANGE = 10
+
 //TODO we could filter for city too, to see the top only in a specific city
 exports.getMatch = function (req, res) {
     let numberOfPeople;
@@ -43,7 +44,6 @@ exports.getMatch = function (req, res) {
 }
 
 //TODO ELIMINARE DALLA FACCIA DELLA TERRA RANKPOSITION
-
 //potremmo usarlo come middleware, mandi il voto e ti ritorna una coppia di utenti
 exports.winner = function (req, res){
     const userId = req.body.userId

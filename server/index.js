@@ -39,7 +39,9 @@ const routes = require('./src/routes/routes');
 routes(app);
 
 //app.use(express.static(path.join(__dirname, "..", "build")))
+app.use('/images',express.static(appRoot + '/images'))
 app.use(express.static("client/build"))
+
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
