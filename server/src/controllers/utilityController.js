@@ -27,7 +27,28 @@ exports.setSocialMediaLink = function (req, res){
 exports.getProfile = function (req, res) {
     User.findById(req.params.userId, function (err, user) {
         if (err) return res.sendStatus(500)
-        res.status(200).send(user)
+        User.find().sort({'numberOfVotes': -1})
+            .then(rankedUsers => {
+                let i = 1;
+                for (let u of rankedUsers){
+                    //if I use _id it doesn't work
+                    if (u.username === user.username) {
+                        const userToReturn = {
+                            name : user.name,
+                            surname : user.surname,
+                            username : user.username,
+                            rankPosition: i,
+                            admin : user.admin,
+                            instagram : user.instagram,
+                            facebook : user.facebook,
+                            birthDate: user.birthDate,
+                            bio: user.bio
+                        }
+                        return res.send(userToReturn)
+                    }
+                    i++
+                }
+            })
     })
 }
 

@@ -59,7 +59,6 @@ exports.authenticate = function authenticateToken(req,res,next){
     const token = authHeader && authHeader.split(' ')[1] //takes the token if exists
     if (token == null|| typeof token === undefined) {return res.status(401)}
 
-    //TODO potrei mandare semplicemente l'id dell'utente e poi deserializzarlo qui
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
         if (err) return res.sendStatus(403) // token expired
         //console.log(user)
@@ -89,12 +88,12 @@ exports.token = function (req, res){
 }
 
 exports.logout = function(req,res){
-    const filter = { "token": req.body.token };
+    const filter = { "token": req.user.token };
     const update = { "token": "" };
     User.findOneAndUpdate(filter, update,{
         new: true
     }).then(doc => {
-     if (!doc) { res.status(200).json({"description": "no token found, already logged out or some error passing token occurred"}) }
+     if (!doc) { res.status(500).json({"description": "no token found"}) }
      res.status(204)
     })
 }

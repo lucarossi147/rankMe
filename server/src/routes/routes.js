@@ -30,7 +30,7 @@ module.exports = function(app) {
         .post(loginController.token)
 
     app.route('/logout')
-        .delete(loginController.logout)
+        .delete(loginController.authenticate, loginController.logout)
 
     //add check for authenticated
     app.route('/uploadPhoto')

@@ -58,10 +58,6 @@ let UserSchema = new Schema({
     token:{
         type:String,
     },
-    rankPosition:{      //calculate position at signup and update it when needed
-        type: Number,
-        default: null
-    },
     facebook:{
         type: String,
         default: null
