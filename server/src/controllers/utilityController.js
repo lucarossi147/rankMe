@@ -34,6 +34,7 @@ exports.getProfile = function (req, res) {
                     //if I use _id it doesn't work
                     if (u.username === user.username) {
                         const userToReturn = {
+                            _id : user._id,
                             name : user.name,
                             surname : user.surname,
                             username : user.username,
