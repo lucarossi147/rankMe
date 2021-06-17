@@ -1,5 +1,6 @@
 User = require("../models/user");
 
+//we could filter for city too, to see the top only in a specific city
 exports.getMatch = function (req, res) {
     let numberOfPeople;
     User.collection.countDocuments({}, function( err, count){
@@ -9,20 +10,21 @@ exports.getMatch = function (req, res) {
     const rand = Math.floor(Math.random() * numberOfPeople);
     User.findOne().skip(rand)
         .then(user1 => {
-            console.log("PRIMO UTENTE")
-            console.log(user1)
-            const numberOfVotes = user1.numberOfVotes
+            //console.log("PRIMO UTENTE")
+            //console.log(user1)
+            const from = user1.numberOfVotes - 10
+            const to = user1.numberOfVotes + 10
             User.findOne({
                 $and:[
                     {
-                        numberOfVotes:{$gte:10, $lte:10}
+                        numberOfVotes:{$gte:from, $lte:to}
                     },
                     {
-                        _id:{$ne:"60c9d7f0773bcf89e6c5b5a4"}
+                        _id:{$ne:user1._id}
                     }
                 ]}).then(user2 => {
-                    console.log("SECONDO UTENTE")
-                    console.log(user2)
+                    //console.log("SECONDO UTENTE")
+                    //console.log(user2)
                     res.send({user1, user2})
             })
         })
