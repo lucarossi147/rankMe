@@ -1,36 +1,43 @@
 User = require("../models/user");
 Vote = require('../models/vote')
-
-//we could filter for city too, to see the top only in a specific city
+const VOTES_RANGE = 10
+//TODO we could filter for city too, to see the top only in a specific city
 exports.getMatch = function (req, res) {
     let numberOfPeople;
     User.collection.countDocuments({}, function( err, count){
         numberOfPeople = count
     })
-    // Returns a random integer from 0 to numberOfPeople:
-    const rand = Math.floor(Math.random() * numberOfPeople);
-    //vale la stessa  cosa che dico sotto
-    //==>quindi si va da 0 a numberOfPeople-1, yup
-    User.findOne().skip(rand)
+    // Returns a random integer from 0 to numberOfPeople-1:
+    const rand = Math.floor(Math.random() * numberOfPeople-1);
+    const myId = req.user._id
+    //get first random profile
+    User.findOne({_id:{$ne:myId}}).skip(rand)
         .then(user1 => {
-            //console.log("PRIMO UTENTE")
-            //console.log(user1)
-            const from = user1.numberOfVotes - 10
-            const to = user1.numberOfVotes + 10
+            // console.log("PRIMO UTENTE")
+            // console.log(user1.username)
+            const from = user1.numberOfVotes - VOTES_RANGE
+            const to = user1.numberOfVotes + VOTES_RANGE
+            //get second profile within a vote_range
             User.findOne({
-                $and:[
-                    {
+                $and:[{
                         numberOfVotes:{$gte:from, $lte:to}
-                    },
-                    {
-                        //TODO dovrei aggiungere $ne: id della persona che fa la richiesta (chi vota non deve vedere il proprio profilo
-                        //==> $ne:req.user._id
-                        _id:{$ne:user1._id}
+                    },{
+                       _id:{$nin: [user1._id,myId]}
+                    }]
+            }).then(user2 => {
+                    if (!user2) {
+                        //if we didn't find anything return a random user
+                        User.findOne({_id:{$nin: [user1._id,myId]}})
+                            .then(backup => {
+                                if(!backup) res.sendStatus(500)
+                                const user2 = backup
+                                return res.send({user1, user2})
+                            })
+                    } else {
+                        // console.log("SECONDO UTENTE")
+                        // console.log(user2.username)
+                        res.send({user1, user2})
                     }
-                ]}).then(user2 => {
-                    //console.log("SECONDO UTENTE")
-                    //console.log(user2)
-                    res.send({user1, user2})
             })
         })
 }

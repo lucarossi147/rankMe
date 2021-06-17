@@ -75,6 +75,7 @@ let UserSchema = new Schema({
     },
     numberOfVotes:{
         type:Number,
+        default:0
     }
 });
 
