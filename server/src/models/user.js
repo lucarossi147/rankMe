@@ -72,9 +72,10 @@ let UserSchema = new Schema({
     },
     bio:{
         type: String
+    },
+    numberOfVotes:{
+        type:Number,
     }
-
-
 });
 
 UserSchema.pre("save", function(next) {

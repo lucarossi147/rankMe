@@ -2,6 +2,7 @@ module.exports = function(app) {
     const loginController = require('../controllers/loginController');
     const signupController = require('../controllers/signupController');
     const utilityController = require('../controllers/utilityController')
+    const matchController = require('../controllers/matchController')
 
     const multer = require('multer');
 
@@ -52,4 +53,6 @@ module.exports = function(app) {
     app.route('/profile/:userId')
         .get(loginController.authenticate, utilityController.getProfile)
 
+    app.route('/findMatch')
+        .get(matchController.getMatch)
 };
