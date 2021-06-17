@@ -35,20 +35,25 @@ class LoginForm extends React.Component {
                 password: this.state.password
         }, )
         .then(function (response) {
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            localStorage.setItem('username', response.data.user.username);
-            localStorage.setItem('name', response.data.user.name);
-            localStorage.setItem('surname', response.data.user.surname);
-            localStorage.setItem('rank', response.data.user.rankPosition);
-            localStorage.setItem('facebook', response.data.user.facebook);
-            localStorage.setItem('instagram', response.data.user.instagram);
-            localStorage.setItem('_id', response.data.user._id);
-        })
-        .catch(function (error) {
+            if(response.status === 200){
+                console.log("OK login")
+                localStorage.setItem('accessToken', response.data.accessToken);
+                localStorage.setItem('refreshToken', response.data.refreshToken);
+                localStorage.setItem('username', response.data.user.username);
+                localStorage.setItem('name', response.data.user.name);
+                localStorage.setItem('surname', response.data.user.surname);
+                localStorage.setItem('rank', response.data.user.rankPosition);
+                localStorage.setItem('facebook', response.data.user.facebook);
+                localStorage.setItem('instagram', response.data.user.instagram);
+                localStorage.setItem('_id', response.data.user._id);
+                localStorage.setItem('picture', response.data.picture);
+                //this.props.history.push("/");
+
+            }
+        }).catch(function (error) {
             console.log('Error', error.message);
         });
-        /*
+
         let localJWT = localStorage.getItem('accessToken')
 
         let config = {
@@ -56,17 +61,17 @@ class LoginForm extends React.Component {
                 'Authorization': 'Bearer ' + localJWT
             }
         }
-        axios.post(this.proxy+"/userImage", {
-            user_id : localStorage.getItem("_id")
-        }, config)
-        .then(function (response) {
-            localStorage.setItem('image', response.data.image);
-        })
-        .catch(function (error) {
-            console.log('Error', error.message);
-        });
-        */
 
+        const user_id = localStorage.getItem('_id');
+        axios.get("http://localhost:3000/userImage/" + user_id, config)
+            .then(res => {
+                if(res.status === 200){
+                    localStorage.setItem('picture', res.data);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
         evt.preventDefault();
     }
@@ -100,24 +105,3 @@ class LoginForm extends React.Component {
 }
 
 export default LoginForm;
-/*
-
-Esempio di richiesta a risorsa protetta
-let localJWT = localStorage.getItem('accessToken')
-
-        let config = {
-            headers: {
-                'Authorization': 'Bearer ' + localJWT
-            }
-        }
-
-        axios.get(
-            proxy + "/prova",
-            config
-        ).then((res) => {
-            console.log(res)
-            console.log("Fatta richiesta su prova!")
-        }).catch(err => {
-            console.log(err)
-        })
- */

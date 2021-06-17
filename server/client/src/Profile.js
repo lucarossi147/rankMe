@@ -59,6 +59,9 @@ function Social(props){
 }
 
 function Image(props){
+    const storageFiles = JSON.parse(localStorage.getItem("profile")) || {}
+    console.log(storageFiles)
+
     if(!props.img){
         return (
             <div id="image">

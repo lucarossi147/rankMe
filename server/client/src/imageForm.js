@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import "./login.css";
 
 class ImageForm extends React.Component {
     constructor(props) {

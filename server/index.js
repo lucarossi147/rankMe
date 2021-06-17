@@ -17,7 +17,7 @@ function pausecomp(millis)
     var curDate = null;
     do { curDate = new Date(); } while(curDate-date < millis);
 }
-pausecomp(10000);
+//pausecomp(10000);
 
 //connessione al db
 mongoose.set('useFindAndModify', false);
