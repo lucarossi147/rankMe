@@ -22,7 +22,6 @@ module.exports = function(app) {
         .get(loginController.show_login_page)
         .post(loginController.login);
 
-
     app.route('/signup')
         .get(signupController.show_signup_page)
         .post(signupController.signup);
@@ -37,12 +36,11 @@ module.exports = function(app) {
     app.route('/uploadPhoto')
         .post(loginController.authenticate, upload.single('profile'), loginController.uploadPhoto)
 
-    app.route('/userImage')
-        .get(loginController.authenticate, loginController.userImage)
+    app.route('/userImage/:userId')
+        .get(loginController.authenticate, utilityController.userImage)
 
     app.route('/non')
         .get(loginController.stampa)
-
 
     app.route('/prova')
         .get(loginController.authenticate, loginController.prova)
@@ -53,8 +51,6 @@ module.exports = function(app) {
     app.route('/profile/:userId')
         .get(loginController.authenticate, utilityController.getProfile)
 
-
-    //AUTHENTICATE,
     app.route('/findMatch')
         .get(loginController.authenticate, matchController.getMatch)
 

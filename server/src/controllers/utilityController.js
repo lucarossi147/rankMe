@@ -28,3 +28,15 @@ exports.getProfile = function (req, res) {
         res.status(200).send(user)
     })
 }
+
+
+
+exports.userImage = function (req, res) {
+    const userId = req.params.userId
+    User.findById(userId, function (err, user) {
+        if (err) return res.sendStatus(500)
+        if (!user) return res.sendStatus(500)
+        res.set({'Content-Type': 'image/jpeg'});
+        res.sendFile(user.picture)
+    })
+}

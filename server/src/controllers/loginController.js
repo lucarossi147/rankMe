@@ -125,13 +125,3 @@ exports.prova = function proviaml(req,res){
 exports.stampa = function fok(req,res){
     res.status(200).json({"description": "ok"});
 }
-
-exports.userImage = function (req, res) {
-    const userId = req.body.userId
-    User.findById(userId, function (err, user) {
-        if (err) return res.sendStatus(500)
-        if (!user) return res.sendStatus(500)
-        res.set({'Content-Type': 'image/jpeg'});
-        res.sendFile(user.picture)
-    })
-}
