@@ -93,7 +93,7 @@ exports.logout = function(req,res){
     User.findOneAndUpdate(filter, update,{
         new: true
     }).then(doc => {
-     if (!doc) { res.status(500).json({"description": "no token found"}) }
-     res.status(204)
+     if (!doc) {return  res.sendStatus(500).json({"description": "no token found"}) }
+     return res.sendStatus(204)
     })
 }
