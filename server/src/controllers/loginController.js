@@ -88,12 +88,12 @@ exports.token = function (req, res){
 }
 
 exports.logout = function(req,res){
-    const filter = { "token": req.user.token };
+    const filter = { "token": req.body.token };
     const update = { "token": "" };
     User.findOneAndUpdate(filter, update,{
         new: true
     }).then(doc => {
-     if (!doc) {res.sendStatus(500).json({"description": "no token found"}) }
+     if (!doc) { res.sendStatus(500).json({"description": "no token found"}) }
      res.sendStatus(204)
     })
 }
