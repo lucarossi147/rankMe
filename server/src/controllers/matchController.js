@@ -43,7 +43,6 @@ exports.getMatch = function (req, res) {
         })
 }
 
-//TODO ELIMINARE DALLA FACCIA DELLA TERRA RANKPOSITION
 //potremmo usarlo come middleware, mandi il voto e ti ritorna una coppia di utenti
 exports.winner = function (req, res){
     const userId = req.body.userId
