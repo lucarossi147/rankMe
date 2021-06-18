@@ -29,6 +29,7 @@ exports.getProfile = function (req, res) {
         if (err) return res.sendStatus(500)
         User.find().sort({'numberOfVotes': -1})
             .then(rankedUsers => {
+                if (!rankedUsers) return res.sendStatus(404)
                 let i = 1;
                 for (let u of rankedUsers){
                     //if I use _id it doesn't work
@@ -50,6 +51,7 @@ exports.getProfile = function (req, res) {
                     }
                     i++
                 }
+                return res.sendStatus(404)
             })
     })
 }
