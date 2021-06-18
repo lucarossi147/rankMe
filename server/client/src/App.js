@@ -1,5 +1,4 @@
-import React from "react"
-
+import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -10,7 +9,8 @@ import {
 import Profile from "./Profile";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import ImageForm from "./imageForm";
+import Logout from "./Logout";
+import Match from "./Match";
 
 export default function App() {
 
@@ -38,13 +38,16 @@ export default function App() {
                     <About />
                 </Route>
                 <Route path="/profile">
-                    <Profile />
+                    <Profile _id={localStorage.getItem('_id') || null}/>
                 </Route>
                 <Route path="/login">
                     <LoginForm />
                 </Route>
                 <Route path="/signup">
                     <SignupForm />
+                </Route>
+                <Route path="/logout">
+                    <Logout/>
                 </Route>
                 <Route path="/">
                     <Home />
@@ -58,7 +61,7 @@ function Home() {
     return (
         <div>
             <h2>Home</h2>
-            <ImageForm/>
+            <Match/>
         </div>
     );
 }
@@ -72,7 +75,6 @@ function About() {
 }
 
 function Logged(){
-
     if(!localStorage.getItem("accessToken")){
         return (
             <div>
@@ -80,11 +82,26 @@ function Logged(){
                     <Link to="/login">Login</Link>
                 </li>
                 <li>
-                    <Link to="signup">Signup</Link>
+                    <Link to="/signup">Signup</Link>
                 </li>
             </div>
         );
     } else {
-        return null;
+        return (
+            <div>
+                <li>
+                    <Link to="/logout">Logout</Link>
+                </li>
+            </div>
+        );
     }
 }
+
+function isAuth(props){
+    return localStorage.getItem(props.token) != null;
+}
+/*
+Finchè ho l'access token sono autenticato, scade ogni 15 minuti
+Finchè ho il refresh token possono chiedere l'access token, viene cancellato al logout
+Se non ho nessuno dei due per riceverli devo fare login
+ */

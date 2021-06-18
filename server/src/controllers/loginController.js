@@ -60,8 +60,12 @@ exports.authenticate = function authenticateToken(req,res,next){
     if (token == null|| typeof token === undefined) {return res.status(401)}
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
-        if (err) return res.sendStatus(403) // token expired
-        //console.log(user)
+        if (err) {
+            console.log("TOKEN: " + token)
+            console.log(err)
+            return res.sendStatus(403)
+        } // token expired
+
 
         //qui cerco l'utente e lo deserializzo poi lo passo sulla req
         User.findById(user.userId, function (err, user){

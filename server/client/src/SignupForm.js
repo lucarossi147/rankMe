@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import "./login.css";
 
 class SignupForm extends React.Component {
     constructor(props) {
@@ -21,7 +20,6 @@ class SignupForm extends React.Component {
     }
 
     handleChange = (evt) => {
-        //Non worka con le checkbox https://blog.greenroots.info/how-to-create-react-form-with-a-single-change-event-handler-ckizqh0yq00x7zks16wd1cxu1
         const name = evt.target.name;
         const value = evt.target.value;
         this.setState({
@@ -30,18 +28,8 @@ class SignupForm extends React.Component {
         })
     }
 
-    handleSubmit(evt){
-        alert(this.state.email + "has requested signup");
+    handleSubmit = evt => {
         const proxy = "http://localhost:3000"
-        /*
-            let email = this.state.email
-            let password = this.state.password
-            let name = this.state.name
-            let username = this.state.username
-            let birthDate = this.state.birthDate
-            let picture = this.state.picture
-            TODO Validazione input
-        */
         axios.post(proxy + '/signup', {
             name: this.state.name,
             surname: this.state.surname,
@@ -52,7 +40,12 @@ class SignupForm extends React.Component {
             admin: false
         })
             .then(function (response) {
-                console.log(response);
+                if(response.status === 409){
+                    alert("Email or username already chosen")
+                } else {
+                    //console.log(response);
+                    //TODO torna alla home, eventualmente loggando
+                }
             })
             .catch(function (error) {
                 console.log(error);

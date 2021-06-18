@@ -1,32 +1,72 @@
 import {Component} from "react";
+import axios from "axios";
 
 class Profile extends Component {
-    render() {
-        return <ProfilePrint/>;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            setted: false,
+            _id: '',
+            name: '',
+            surname: '',
+            username: '',
+            rankPosition: '',
+            admin: '',
+            instagram: '',
+            facebook:'',
+            birthDate: ''
+        }
     }
 
-    /*
-    Se il profilo è dell'utente corrente, occorre poter modificare i link/imamgine presenti
-     */
-}
+    componentDidMount() {
+        this.fetchProfile(this.props._id)
+    }
 
-function ProfilePrint(props){
-    /*
-        TODO: Qui si dovrebbe controllare se il token corrisponde a quello
-        vero dell'utente
-     */
-    const isAuth = localStorage.getItem('accessToken')
-    if(isAuth){
-        const newUser = {
-            name : localStorage.getItem('name'),
-            image : localStorage.getItem('image'),
-            rank : localStorage.getItem('rank'),
-            facebook : localStorage.getItem('facebook'),
-            instagram : localStorage.getItem('instagram')
+    fetchProfile(id){
+        if(!id){
+            console.log("Error id null in fetchprofile")
+            return;
         }
-        return <ProfileAuth user={newUser} isAuth={true}/>;
-    } else {
-        return <ProfileNotAuth/>;
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        }
+
+        axios
+            .get("http://localhost:3000/profile/" + id,config)
+            .then(res => {
+                if(res.status === 200){
+                    //Profilo trovato, salvo informazioni
+                    this.setState({
+                        setted: true,
+                        _id: res.data._id,
+                        name: res.data.name,
+                        surname: res.data.surname,
+                        username: res.data.username,
+                        rankPosition: res.data.rankPosition,
+                        admin: res.data.admin,
+                        instagram: res.data.instagram,
+                        facebook: res.data.facebook,
+                        birthDate: res.data.birthDate,
+                        bio: res.data.bio
+                    })
+                    console.log(this.state)
+                } else if(res.status === 404) {
+                    console.log("Fetch profile response 404")
+                }
+            }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    render() {
+        if(localStorage.getItem('accessToken')){
+            return <ProfileAuth user={this.state.user}/>;
+        } else {
+            return <ProfileNotAuth/>;
+        }
     }
 }
 
@@ -45,46 +85,48 @@ function Rank(props) {
 }
 
 function Social(props){
-    console.log("link =" + props.link)
-    if(props.link){
+    if(props.link !== null){
         return (
             <div id={props.link}>
                 <a href={props.link} rel="noreferrer" target="_blank">{props.link}</a>
             </div>
         );
-
     } else {
         return null;
     }
 }
 
-function Image(props){
-    const storageFiles = JSON.parse(localStorage.getItem("profile")) || {}
-    console.log(storageFiles)
-
-    if(!props.img){
-        return (
-            <div id="image">
-                <img src={props.img} alt={"profile"}/>
-            </div>
-        );
-    } else {
-        return null;
-    }
+function Image(){
+    return (
+        <div id="image">
+            <img src="" alt={"profile"}/>
+        </div>
+    );
 }
 
-function ProfileAuth(props){
-    const user = props.user;
+function Bio(props){
+    return (
+        <div>
+            <textarea readOnly value={props.bio || ""}/>
+        </div>
+    );
+}
+
+function ProfileAuth(user){
+    /*
+    TODO risolvere questo scempio
+     */
+    let thisUser = user.user
     return (
     <div>
-        <h1> Welcome {user.name}</h1>
-        <Image img={user.image}/>
-        <Rank rank={user.rank}/>
-        <Social link={user.facebook}/>
-        <Social link={user.instagram}/>
+        <h1> Welcome {thisUser.username}</h1>
+        <Image id={thisUser._id}/>
+        <Rank rank={thisUser.rankPosition}/>
+        <Social link={thisUser.facebook}/>
+        <Social link={thisUser.instagram}/>
+        <Bio bio={thisUser.bio}/>
     </div>
     );
-    //TODO add bio
 }
 
 function ProfileNotAuth(){
@@ -97,3 +139,5 @@ function ProfileNotAuth(){
 }
 
 export default Profile;
+
+
