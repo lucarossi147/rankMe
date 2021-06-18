@@ -60,14 +60,15 @@ let UserSchema = new Schema({
     },
     facebook:{
         type: String,
-        default: null
+        default: "www.facebook.com"
     },
     instagram:{
         type: String,
-        default: null
+        default: "www.instagram.com"
     },
     bio:{
-        type: String
+        type: String,
+        default: ""
     },
     numberOfVotes:{
         type:Number,

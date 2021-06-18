@@ -1,11 +1,9 @@
 import React from "react";
-import  "./login.css";
 import axios from "axios";
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        this.proxy = this.props.proxy
         this.state = {
             username: '',
             password: ''
@@ -24,6 +22,7 @@ class LoginForm extends React.Component {
     }
 
     handleSubmit(evt) {
+        evt.preventDefault();
         /*
             let email = this.state.email
             let password = this.state.password
@@ -36,7 +35,6 @@ class LoginForm extends React.Component {
         }, )
         .then(function (response) {
             if(response.status === 200){
-                console.log("OK login")
                 localStorage.setItem('accessToken', response.data.accessToken);
                 localStorage.setItem('refreshToken', response.data.refreshToken);
                 localStorage.setItem('username', response.data.user.username);
@@ -46,34 +44,13 @@ class LoginForm extends React.Component {
                 localStorage.setItem('facebook', response.data.user.facebook);
                 localStorage.setItem('instagram', response.data.user.instagram);
                 localStorage.setItem('_id', response.data.user._id);
-                localStorage.setItem('picture', response.data.picture);
-                //this.props.history.push("/");
-
+                localStorage.setItem('bio', response.data.user.bio);
             }
         }).catch(function (error) {
             console.log('Error', error.message);
         });
 
-        let localJWT = localStorage.getItem('accessToken')
-
-        let config = {
-            headers: {
-                'Authorization': 'Bearer ' + localJWT
-            }
-        }
-
-        const user_id = localStorage.getItem('_id');
-        axios.get("http://localhost:3000/userImage/" + user_id, config)
-            .then(res => {
-                if(res.status === 200){
-                    localStorage.setItem('picture', res.data);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
-        evt.preventDefault();
+        //fetchImage();
     }
 
     render() {
@@ -86,7 +63,7 @@ class LoginForm extends React.Component {
                        name="username"
                        value={this.state.username}
                        onChange={this.handleChange}
-                       placeholder="email@mail.com"
+                       placeholder="username"
                 />
                 </label>
                 <label>
@@ -103,5 +80,7 @@ class LoginForm extends React.Component {
         );
     }
 }
+
+
 
 export default LoginForm;
