@@ -43,7 +43,8 @@ exports.getProfile = function (req, res) {
                             instagram : user.instagram,
                             facebook : user.facebook,
                             birthDate: user.birthDate,
-                            bio: user.bio
+                            bio: user.bio,
+                            picture: user.picture
                         }
                         return res.send(userToReturn)
                     }
