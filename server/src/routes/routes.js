@@ -32,7 +32,6 @@ module.exports = function(app) {
     app.route('/logout')
         .delete(loginController.logout)
 
-    //add check for authenticated
     app.route('/uploadPhoto')
         .post(loginController.authenticate, upload.single('profile'), utilityController.uploadPhoto)
 
