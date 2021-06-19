@@ -4,6 +4,8 @@ module.exports = function(app) {
     const utilityController = require('../controllers/utilityController')
     const matchController = require('../controllers/matchController')
 
+    const geoCoder = require('../controllers/nodeGeocoderModule')
+
     const multer = require('multer');
 
     //forse bisogna aggiungere una cartella static public
@@ -49,4 +51,10 @@ module.exports = function(app) {
 
     app.route('/winner')
         .post(loginController.authenticate, matchController.winner)
+
+    app.route('/geo')
+        .get(geoCoder.testGeoCode)
+
+    app.route('/address')
+        .post(loginController.authenticate, geoCoder.createAddress)
 };

@@ -71,6 +71,7 @@ exports.authenticate = function authenticateToken(req,res,next){
         User.findById(user.userId, function (err, user){
             if (err) return res.sendStatus(500)
             //console.log(user)
+            if (!user) return res.sendStatus(404)
             req.user = user
             next()
         })

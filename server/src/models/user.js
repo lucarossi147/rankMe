@@ -32,8 +32,17 @@ let UserSchema = new Schema({
         type: String,
         default: appRoot+'/images/default-user-image.jpg'
     },
-    address:{
-        type: String
+    country:{
+        type:String,
+        default: ""
+    },
+    state:{
+        type:String,
+        default: ""
+    },
+    city:{
+        type:String,
+        default: ""
     },
     birthDate: {
         type: Date,
