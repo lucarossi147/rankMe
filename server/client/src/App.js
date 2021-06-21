@@ -22,21 +22,12 @@ export default function App() {
                         <li>
                             <Link to="/">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link to="/profile">Profile</Link>
-                        </li>
                         <Logged/>
                     </ul>
                 </nav>
             </div>
 
             <Switch>
-                <Route path="/about">
-                    <About />
-                </Route>
                 <Route path="/profile">
                     <Profile _id={localStorage.getItem('_id') || null}/>
                 </Route>
@@ -79,14 +70,6 @@ function Home() {
 
 }
 
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
-        </div>
-    );
-}
-
 function Logged(){
     if(!localStorage.getItem("accessToken")){
         return (
@@ -103,15 +86,14 @@ function Logged(){
         return (
             <div>
                 <li>
+                    <Link to="/profile">Profile</Link>
+                </li>
+                <li>
                     <Link to="/logout">Logout</Link>
                 </li>
             </div>
         );
     }
-}
-
-function isAuth(props){
-    return localStorage.getItem(props.token) != null;
 }
 /*
 Finchè ho l'access token sono autenticato, scade ogni 15 minuti

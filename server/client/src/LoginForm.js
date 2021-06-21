@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import useHistory from "react-router-dom"
+import {Link} from "react-router-dom"
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -25,8 +25,6 @@ class LoginForm extends React.Component {
     handleSubmit(evt) {
         evt.preventDefault();
 
-        let history = useHistory()
-
         axios.post("http://localhost:3000/login",
             {
                 username: this.state.username,
@@ -48,11 +46,12 @@ class LoginForm extends React.Component {
         }).catch(function (error) {
             console.log('Error', error.message);
         });
-
-        history.push("/")
     }
 
     render() {
+        if(localStorage.getItem('accessToken')){
+            return <Link to='/' > Back to home </Link>
+        }
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
@@ -79,7 +78,5 @@ class LoginForm extends React.Component {
         );
     }
 }
-
-
 
 export default LoginForm;
