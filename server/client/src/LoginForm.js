@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import useHistory from "react-router-dom"
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -23,11 +24,9 @@ class LoginForm extends React.Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
-        /*
-            let email = this.state.email
-            let password = this.state.password
-            TODO Validazione input
-        */
+
+        let history = useHistory()
+
         axios.post("http://localhost:3000/login",
             {
                 username: this.state.username,
@@ -50,7 +49,7 @@ class LoginForm extends React.Component {
             console.log('Error', error.message);
         });
 
-        //fetchImage();
+        history.push("/")
     }
 
     render() {

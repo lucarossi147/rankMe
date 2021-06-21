@@ -9,20 +9,20 @@ class Logout extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
         let localJWT = localStorage.getItem('accessToken') || null;
         if(localJWT === null){
             console.log("JWT is null.. Aborting request")
             return;
         }
 
-        let config = {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-            }
-        }
-
         axios
-            .delete("http://localhost:3000/logout", config)
+            .delete("http://localhost:3000/logout", {
+                headers: {},
+                data: {
+                    token: localJWT
+                }
+            })
             .then( res => {
                 if(res.status === 200){
                     alert("user is logged out")

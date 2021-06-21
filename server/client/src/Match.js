@@ -1,57 +1,73 @@
 import {Component} from "react";
-import axios from "axios";
-
-function User(props) {
-    return (
-        <div>
-            <img src={props.img} alt={"img not found"}/>
-            <h3>{props.name} {props.surname}</h3>
-        </div>
-    );
-}
 
 class Match extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            user1 : null,
-            user2 : null
+            error: null,
+            isLoaded: false,
+            user1 : {},
+            user2 : {}
         }
-        fetchProfile()
+    }
+
+    componentDidMount() {
+        this.fetchProfile()
+    }
+
+    fetchProfile(){
+        let localJWT = localStorage.getItem('accessToken')
+
+        fetch("http://localhost:3000/findMatch", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localJWT
+            }
+        }).then(
+            res => res.json()
+        )
+        .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        user1 : result.user1,
+                        user2 : result.user2
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                }
+            )
     }
 
     render() {
-        return (
-            <div>
-                <h1>Choose the best photo: </h1>
-                <h2>User 1:</h2>
-                <User user={this.state.user1}/>
-                <h2>User 2:</h2>
-                <User user={this.state.user2}/>
-            </div>
-        );
-    }
-}
+        const {error, isLoaded, user1, user2} = this.state
+        console.log("In render: " + this.state)
+        console.log("err" + error)
+        console.log("user1 " + user1 + " " + user1.name)
 
-function fetchProfile(){
-    let localJWT = localStorage.getItem('accessToken')
-
-    let config = {
-        headers: {
-            'Authorization': 'Bearer ' + localJWT
+        if(error){
+            return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>
+        } else {
+            return (
+                <div>
+                    <h1>Choose the best photo: </h1>
+                    <h2>User 1: </h2>
+                    <img src={user1.img} alt={"img not found"}/>
+                    <h3>{user1.name} {user1.surname}</h3>
+                    <h2>User 2:</h2>
+                    <img src={user2.img} alt={"img not found"}/>
+                    <h3>{user2.name} {user2.surname}</h3>
+                </div>
+            );
         }
     }
-
-    axios.get("http://localhost:3000/findmatch", config)
-        .then(function (res) {
-            this.setState({
-                user1 : res.data.user1,
-                user2 : res.data.user2,
-            })
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
 }
 
 export default Match;

@@ -58,12 +58,25 @@ export default function App() {
 }
 
 function Home() {
-    return (
-        <div>
-            <h2>Home</h2>
-            <Match/>
-        </div>
-    );
+    if(localStorage.getItem('accessToken')){
+        return (
+            <div>
+                <h2>Home</h2>
+                <Match/>
+            </div>
+        );
+    } else {
+        /*
+        TODO mettere un link a signup e login
+         */
+        return (
+            <div>
+                <h2>Home</h2>
+                <h3>Please Login or Signup</h3>
+            </div>
+        );
+    }
+
 }
 
 function About() {

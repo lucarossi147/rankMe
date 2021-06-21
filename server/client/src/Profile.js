@@ -1,21 +1,14 @@
 import {Component} from "react";
-import axios from "axios";
 
 class Profile extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            setted: false,
-            _id: '',
-            name: '',
-            surname: '',
-            username: '',
-            rankPosition: '',
-            admin: '',
-            instagram: '',
-            facebook:'',
-            birthDate: ''
+            isLoaded: false,
+            error: null,
+            user : {}
         }
     }
 
@@ -28,44 +21,49 @@ class Profile extends Component {
             console.log("Error id null in fetchprofile")
             return;
         }
-        let config = {
+
+        fetch("http://localhost:3000/profile/" + id, {
+            method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             }
-        }
-
-        axios
-            .get("http://localhost:3000/profile/" + id,config)
-            .then(res => {
-                if(res.status === 200){
-                    //Profilo trovato, salvo informazioni
-                    this.setState({
-                        setted: true,
-                        _id: res.data._id,
-                        name: res.data.name,
-                        surname: res.data.surname,
-                        username: res.data.username,
-                        rankPosition: res.data.rankPosition,
-                        admin: res.data.admin,
-                        instagram: res.data.instagram,
-                        facebook: res.data.facebook,
-                        birthDate: res.data.birthDate,
-                        bio: res.data.bio
-                    })
-                    console.log(this.state)
-                } else if(res.status === 404) {
-                    console.log("Fetch profile response 404")
-                }
-            }).catch(err => {
-            console.log(err)
-        })
+        }).then(res => res.json())
+            .then((res) => {
+                this.setState({
+                    isLoaded : true,
+                    user : {
+                        _id: res._id,
+                        name: res.name,
+                        surname: res.surname,
+                        username: res.username,
+                        rankPosition: res.rankPosition,
+                        admin: res.admin,
+                        instagram: res.instagram,
+                        facebook: res.facebook,
+                        birthDate: res.birthDate,
+                        bio: res.bio
+                    }
+                })
+        }, (error) => {
+                this.setState({
+                    isLoaded: false,
+                    error
+                })
+            })
     }
 
     render() {
-        if(localStorage.getItem('accessToken')){
-            return <ProfileAuth user={this.state.user}/>;
+        const {error, isLoaded, user} = this.state
+        if(error){
+            return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>
         } else {
-            return <ProfileNotAuth/>;
+            if(localStorage.getItem('accessToken')){
+                return <ProfileAuth user={user}/>;
+            } else {
+                return <ProfileNotAuth/>;
+            }
         }
     }
 }
