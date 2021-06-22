@@ -31,18 +31,10 @@ export default function App() {
                 <Route path="/profile">
                     <Profile _id={localStorage.getItem('_id') || null}/>
                 </Route>
-                <Route path="/login">
-                    <LoginForm />
-                </Route>
-                <Route path="/signup">
-                    <SignupForm />
-                </Route>
-                <Route path="/logout">
-                    <Logout/>
-                </Route>
-                <Route path="/">
-                    <Home />
-                </Route>
+                <Route path="/login"  component={LoginForm}/>
+                <Route path="/signup" component={SignupForm}/>
+                <Route path="/logout" component={Logout}/>
+                <Route path="/"       component={Home}/>
             </Switch>
         </Router>
     );
@@ -63,7 +55,8 @@ function Home() {
         return (
             <div>
                 <h2>Home</h2>
-                <h3>Please Login or Signup</h3>
+                <h3>Welcome to the più bel sito del web</h3>
+                <h3>Please <Link to="/login">Login</Link> or <Link to="/signup">Signup</Link></h3>
             </div>
         );
     }

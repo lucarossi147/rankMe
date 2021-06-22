@@ -1,4 +1,5 @@
 import {Component} from "react";
+import FormSocial from "./FormSocial"
 
 class Profile extends Component {
 
@@ -21,7 +22,10 @@ class Profile extends Component {
             console.log("Error id null in fetchprofile")
             return;
         }
-
+        if(!localStorage.getItem('accessToken')){
+            console.log('Error, user not logged in')
+            return;
+        }
         fetch("http://localhost:3000/profile/" + id, {
             method: 'GET',
             headers: {
@@ -82,18 +86,6 @@ function Rank(props) {
     }
 }
 
-function Social(props){
-    if(props.link !== null){
-        return (
-            <div id={props.link}>
-                <a href={props.link} rel="noreferrer" target="_blank">{props.link}</a>
-            </div>
-        );
-    } else {
-        return null;
-    }
-}
-
 function Image(){
     return (
         <div id="image">
@@ -120,8 +112,7 @@ function ProfileAuth(user){
         <h1> Welcome {thisUser.username}</h1>
         <Image id={thisUser._id}/>
         <Rank rank={thisUser.rankPosition}/>
-        <Social link={thisUser.facebook}/>
-        <Social link={thisUser.instagram}/>
+        <FormSocial id={thisUser._id}/>
         <Bio bio={thisUser.bio}/>
     </div>
     );

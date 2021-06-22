@@ -1,18 +1,24 @@
 import React from "react";
-import axios from "axios";
+import {Redirect} from "react-router-dom";
+import authService from "./authService";
 
+/*
+TODO checkare che password e password2 siano uguali
+ */
 class SignupForm extends React.Component {
     constructor(props) {
        super(props);
 
        this.state = {
-            name: '',
-            surname: '',
-            username: '',
-            email: '',
-            password: '',
-            picture: '',
-            birthDate: ''
+           user:{
+               name: '',
+               surname: '',
+               username: '',
+               email: '',
+               password: '',
+               picture: '',
+               birthDate: ''
+           }
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -29,32 +35,16 @@ class SignupForm extends React.Component {
     }
 
     handleSubmit = evt => {
-        const proxy = "http://localhost:3000"
-        axios.post(proxy + '/signup', {
-            name: this.state.name,
-            surname: this.state.surname,
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password,
-            birthDate: this.state.birthDate,
-            admin: false
-        })
-            .then(function (response) {
-                if(response.status === 409){
-                    alert("Email or username already chosen")
-                } else {
-                    //console.log(response);
-                    //TODO torna alla home, eventualmente loggando
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
         evt.preventDefault();
+        authService.register(this.state.user)
+        this.setState({redirect: true})
     }
 
     render() {
+        if(this.state.redirect === true){
+            this.setState({redirect : false})
+            return <Redirect to={'/'}/>
+        }
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>

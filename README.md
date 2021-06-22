@@ -34,6 +34,8 @@ Implementare dashboard, dove l'utente può votare delle foto proposte
 Implementare profilo utente
 Implementare modifica delle info presenti su profilo
 Gestire foto lato client
+Modificare profilo utente, tasto mi reinderizza a pagina per le modifiche
+Finchè ho il refresh token sono autorizzato
 
 http: authorization header Bearer accessToken 
 

@@ -1,13 +1,14 @@
 import React from "react";
-import axios from "axios";
-import {Link} from "react-router-dom"
+import {Redirect} from "react-router-dom"
+import authService from "./authService"
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            redirect: false,
             username: '',
-            password: ''
+            password: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -24,33 +25,14 @@ class LoginForm extends React.Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
-
-        axios.post("http://localhost:3000/login",
-            {
-                username: this.state.username,
-                password: this.state.password
-        }, )
-        .then(function (response) {
-            if(response.status === 200){
-                localStorage.setItem('accessToken', response.data.accessToken);
-                localStorage.setItem('refreshToken', response.data.refreshToken);
-                localStorage.setItem('username', response.data.user.username);
-                localStorage.setItem('name', response.data.user.name);
-                localStorage.setItem('surname', response.data.user.surname);
-                localStorage.setItem('rank', response.data.user.rankPosition);
-                localStorage.setItem('facebook', response.data.user.facebook);
-                localStorage.setItem('instagram', response.data.user.instagram);
-                localStorage.setItem('_id', response.data.user._id);
-                localStorage.setItem('bio', response.data.user.bio);
-            }
-        }).catch(function (error) {
-            console.log('Error', error.message);
-        });
+        authService.login(this.state.username, this.state.password)
+        this.setState({redirect : true})
     }
 
     render() {
-        if(localStorage.getItem('accessToken')){
-            return <Link to='/' > Back to home </Link>
+        if(this.state.redirect === true){
+            this.setState({redirect : false})
+            return <Redirect to={'/'}/>
         }
         return (
             <form onSubmit={this.handleSubmit}>

@@ -46,10 +46,9 @@ class Match extends Component {
 
     render() {
         const {error, isLoaded, user1, user2} = this.state
-        console.log("In render: " + this.state)
-        console.log("err" + error)
-        console.log("user1 " + user1 + " " + user1.name)
-
+        /*
+        TODO creare componente profiloMatch così da mostrare tutte le info in modo più coerente e separando il codice
+         */
         if(error){
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
