@@ -22,18 +22,24 @@ class UserVote extends Component {
     handleSubmit(evt) {
         evt.preventDefault();
 
-        axios.post(CONFIG.SERVER_URL + "addSocial",
+        let config = {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        }
+
+        axios.post(CONFIG.SERVER_URL + "/addSocial",
             {
                 userId: this.props.user._id
-            }, authService.authHeader)
-            .then(function (response) {
+            }, config)
+            .then( (response) => {
                 if(response.status === 200){
                     console.log("Correctly voted")
                 } else {
                     console.log("Not correctly voted")
                 }
             }).catch(function (error) {
-            console.log('Error', error.message);
+                console.log('Error', error.message);
         });
     }
 

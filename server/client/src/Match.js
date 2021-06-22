@@ -1,6 +1,8 @@
 import {Component} from "react";
 import UserVote from "./UserVote";
-import authHeader from "./authService";
+import authService from "./authService";
+import axios from "axios";
+const CONFIG = require("./config.json");
 
 class Match extends Component {
     constructor(props) {
@@ -19,21 +21,24 @@ class Match extends Component {
     }
 
     fetchProfile(){
-        fetch("http://localhost:3000/findMatch", {
-            method: 'GET',
-            authHeader
-        }).then(
-            res => res.json()
-        )
-        .then(
+        console.log("Started fetchProfile")
+        let config = {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        }
+        axios.get(CONFIG.SERVER_URL + "/findMatch", config)
+            .then(
                 (result) => {
+                    console.log("On then result")
                     this.setState({
                         isLoaded: true,
-                        user1 : result.user1,
-                        user2 : result.user2
+                        user1 : result.data.user1,
+                        user2 : result.data.user2
                     })
                 },
                 (error) => {
+                    console.log("On then error")
                     this.setState({
                         isLoaded: true,
                         error
