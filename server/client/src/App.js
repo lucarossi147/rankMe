@@ -49,9 +49,6 @@ function Home() {
             </div>
         );
     } else {
-        /*
-        TODO mettere un link a signup e login
-         */
         return (
             <div>
                 <h2>Home</h2>

@@ -1,6 +1,7 @@
 import React from "react";
 import {Redirect} from "react-router-dom"
 import authService from "./authService"
+import MyToast from './MyToast'
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -31,8 +32,12 @@ class LoginForm extends React.Component {
 
     render() {
         if(this.state.redirect === true){
-            this.setState({redirect : false})
-            return <Redirect to={'/'}/>
+            return (
+                <div>
+                    <MyToast message={'Login ok'}/>
+                    <Redirect to={'/'}/>
+                </div>
+            )
         }
         return (
             <form onSubmit={this.handleSubmit}>

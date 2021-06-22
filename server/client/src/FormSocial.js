@@ -1,6 +1,6 @@
 import {Component} from "react";
 import axios from "axios";
-var CONFIG = require("./config.json")
+const CONFIG = require("./config.json");
 
 class FormSocial extends Component{
     constructor(props) {

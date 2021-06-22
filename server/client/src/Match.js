@@ -1,4 +1,6 @@
 import {Component} from "react";
+import UserVote from "./UserVote";
+import authHeader from "./authService";
 
 class Match extends Component {
     constructor(props) {
@@ -17,13 +19,9 @@ class Match extends Component {
     }
 
     fetchProfile(){
-        let localJWT = localStorage.getItem('accessToken')
-
         fetch("http://localhost:3000/findMatch", {
             method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localJWT
-            }
+            authHeader
         }).then(
             res => res.json()
         )
@@ -46,9 +44,6 @@ class Match extends Component {
 
     render() {
         const {error, isLoaded, user1, user2} = this.state
-        /*
-        TODO creare componente profiloMatch così da mostrare tutte le info in modo più coerente e separando il codice
-         */
         if(error){
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -57,12 +52,8 @@ class Match extends Component {
             return (
                 <div>
                     <h1>Choose the best photo: </h1>
-                    <h2>User 1: </h2>
-                    <img src={user1.img} alt={"img not found"}/>
-                    <h3>{user1.name} {user1.surname}</h3>
-                    <h2>User 2:</h2>
-                    <img src={user2.img} alt={"img not found"}/>
-                    <h3>{user2.name} {user2.surname}</h3>
+                    <UserVote user={user1}/>
+                    <UserVote user={user2}/>
                 </div>
             );
         }

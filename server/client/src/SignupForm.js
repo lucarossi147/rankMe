@@ -10,6 +10,7 @@ class SignupForm extends React.Component {
        super(props);
 
        this.state = {
+           redirect: false,
            user:{
                name: '',
                surname: '',
@@ -17,7 +18,8 @@ class SignupForm extends React.Component {
                email: '',
                password: '',
                picture: '',
-               birthDate: ''
+               birthDate: '',
+               password2: ''
            }
         };
 
@@ -42,7 +44,6 @@ class SignupForm extends React.Component {
 
     render() {
         if(this.state.redirect === true){
-            this.setState({redirect : false})
             return <Redirect to={'/'}/>
         }
         return (

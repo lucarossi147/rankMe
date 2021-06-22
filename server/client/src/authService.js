@@ -51,6 +51,18 @@ const login = (username, password) => {
 }
 
 const logout = () => {
+    const token = localStorage.getItem('refreshToken')
+
+    axios.delete(CONFIG.SERVER_URL+"/logout", {
+        headers: {}, data: {token: token}
+    }).then(res =>{
+        if(res.status === 200){
+            console.log("User correctly logged out")
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+
     localStorage.clear()
 }
 

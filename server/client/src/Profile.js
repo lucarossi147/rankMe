@@ -35,18 +35,7 @@ class Profile extends Component {
             .then((res) => {
                 this.setState({
                     isLoaded : true,
-                    user : {
-                        _id: res._id,
-                        name: res.name,
-                        surname: res.surname,
-                        username: res.username,
-                        rankPosition: res.rankPosition,
-                        admin: res.admin,
-                        instagram: res.instagram,
-                        facebook: res.facebook,
-                        birthDate: res.birthDate,
-                        bio: res.bio
-                    }
+                    user: res.data
                 })
         }, (error) => {
                 this.setState({
