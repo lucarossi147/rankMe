@@ -59,9 +59,6 @@ exports.authenticate = function authenticateToken(req,res,next){
     const token = authHeader && authHeader.split(' ')[1] //takes the token if exists
     if (token == null|| typeof token === undefined) {return res.status(401)}
 
-    /*
-    TODO controlla per token: NULL
-     */
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
         if (err) {
             console.log("TOKEN: " + token)
@@ -101,7 +98,7 @@ exports.logout = function(req,res){
     User.findOneAndUpdate(filter, update,{
         new: true
     }).then(doc => {
-     if (!doc) { res.sendStatus(500).json({"description": "no token found"}) }
+     if (!doc) { return res.sendStatus(404).json({"description": "no token found"}) }
      res.sendStatus(204)
     })
 }
