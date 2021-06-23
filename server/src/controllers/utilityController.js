@@ -45,7 +45,10 @@ exports.getProfile = function (req, res) {
                             facebook : user.facebook,
                             birthDate: user.birthDate,
                             bio: user.bio,
-                            picture: user.picture
+                            picture: user.picture,
+                            city: user.city,
+                            state: user.state,
+                            country: user.country
                         }
                         return res.send(userToReturn)
                     }
@@ -97,4 +100,88 @@ exports.userImage = function (req, res) {
         if (!user) return res.sendStatus(500)
         res.send({userImage: user.picture})
     })
+}
+
+exports.rank = function(req, res){
+    const myId = req.user._id
+    const city = req.query.city
+    const state = req.query.state
+    const country = req.query.country
+    const age = req.query.age
+    let numberOfPeopleToRank
+    if(req.query.n){
+        numberOfPeopleToRank = req.query.n
+    } else {
+        numberOfPeopleToRank = 10
+    }
+
+    let filter = {}
+    if(city) {
+        // console.log(city)
+        filter["city"] = city
+    } else if (state) {
+        // console.log(state)
+        filter["state"] = state
+    } else if (country) {
+        // console.log(country)
+        filter["country"] = country
+    }
+    User.findById(myId, function (err, user) {
+        if (err) return err
+        let users = []
+        let userFound = false
+        User.find(filter).sort({'numberOfVotes': -1})
+            .then(rankedUsers => {
+                // console.log(rankedUsers)
+                if (!rankedUsers) {
+                    console.log("utenti non trovati")
+                    return res.send(users)
+                }
+                let i = 1;
+                //filter age
+                if (age && typeof age !== undefined) {
+                    //does not work with ===
+                    rankedUsers = rankedUsers.filter(user => getAge(user.birthDate) == age)
+                }
+                for (let u of rankedUsers){
+                    if(i <= numberOfPeopleToRank  || !userFound){
+                        //if I use _id it doesn't work
+                        // console.log(u.username)
+                        if (u.username === user.username) {
+                            userFound = true
+                        }
+                        users.push(createUser(u._id, i, u.username, u.picture))
+                    } else if (!userFound) {
+                        console.log("else if")
+                        if (u.username === user.username) {
+                            userFound = true
+                            return res.send(users)
+                        }
+                        users.push(createUser(u._id, i, u.username, u.picture))
+                    }
+                    i++
+                }
+                return res.send(users)
+            })
+    })
+}
+
+function createUser(id, rankPosition, username, picture){
+    return {
+        _id: id,
+        rankPosition: rankPosition,
+        username: username,
+        picture: picture
+    }
+}
+
+function getAge(dateString) {
+    const today = new Date();
+    const birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }

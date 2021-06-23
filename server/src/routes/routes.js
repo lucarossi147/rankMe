@@ -57,4 +57,7 @@ module.exports = function(app) {
 
     app.route('/address')
         .post(loginController.authenticate, geoCoder.createAddress)
+
+    app.route('/rank')
+        .get(loginController.authenticate, utilityController.rank)
 };
