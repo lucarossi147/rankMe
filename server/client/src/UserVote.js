@@ -1,6 +1,5 @@
 import {Component} from "react";
 import axios from "axios";
-import authService from "./authService";
 const CONFIG = require("./config.json");
 
 class UserVote extends Component {
@@ -35,6 +34,7 @@ class UserVote extends Component {
             .then( (response) => {
                 if(response.status === 200){
                     console.log("Correctly voted")
+                    //TODO toast
                 } else {
                     console.log("Not correctly voted")
                 }

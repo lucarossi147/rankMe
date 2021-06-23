@@ -1,6 +1,10 @@
 import axios from "axios"
 const CONFIG = require("./config.json");
 
+const isLogged = () => {
+    return !!localStorage.getItem('accessToken');
+}
+
 const authHeader = () => {
     const user = localStorage.getItem('user')
     if(user && user.accessToken){
@@ -43,7 +47,11 @@ const login = (username, password) => {
             if(response.status === 200){
                 localStorage.setItem('accessToken', response.data.accessToken);
                 localStorage.setItem('refreshToken', response.data.refreshToken);
-                localStorage.setItem('user', response.data.user)
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+                /*
+                const newUser = JSON.parse(localStorage.getItem('user'));
+                console.log(newUser)
+                 */
             }
         }).catch(function (error) {
             console.log('Error', error.message);
@@ -67,6 +75,7 @@ const logout = () => {
 }
 
 export default {
+    isLogged,
     authHeader,
     logout,
     login,

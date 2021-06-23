@@ -13,12 +13,6 @@ class Logout extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        let localJWT = localStorage.getItem('refreshToken') || null;
-        if(localJWT === null){
-            console.log("JWT is null.. Aborting request")
-            return;
-        }
         authService.logout()
         this.setState({redirect : true})
     }

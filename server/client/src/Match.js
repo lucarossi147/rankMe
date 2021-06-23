@@ -21,7 +21,6 @@ class Match extends Component {
     }
 
     fetchProfile(){
-        console.log("Started fetchProfile")
         let config = {
             headers : {
                 Authorization : 'Bearer ' + localStorage.getItem('accessToken')
@@ -30,7 +29,6 @@ class Match extends Component {
         axios.get(CONFIG.SERVER_URL + "/findMatch", config)
             .then(
                 (result) => {
-                    console.log("On then result")
                     this.setState({
                         isLoaded: true,
                         user1 : result.data.user1,
@@ -38,7 +36,6 @@ class Match extends Component {
                     })
                 },
                 (error) => {
-                    console.log("On then error")
                     this.setState({
                         isLoaded: true,
                         error
@@ -49,6 +46,7 @@ class Match extends Component {
 
     render() {
         const {error, isLoaded, user1, user2} = this.state
+
         if(error){
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
