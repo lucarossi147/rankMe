@@ -1,5 +1,6 @@
 import {Component} from "react";
 import FormSocial from "./FormSocial"
+const CONFIG = require("./config.json");
 
 class Profile extends Component {
 
@@ -14,28 +15,26 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.fetchProfile(this.props._id)
+        this.fetchProfile(this.props.user)
     }
 
-    fetchProfile(id){
-        if(!id){
+    fetchProfile(user){
+        console.log(user)
+        if(!user._id){
             console.log("Error id null in fetchprofile")
             return;
         }
-        if(!localStorage.getItem('accessToken')){
-            console.log('Error, user not logged in')
-            return;
-        }
-        fetch("http://localhost:3000/profile/" + id, {
+        fetch(CONFIG.SERVER_URL + "/profile/" + user._id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             }
         }).then(res => res.json())
             .then((res) => {
+                console.log(res)
                 this.setState({
                     isLoaded : true,
-                    user: res.data
+                    user: res
                 })
         }, (error) => {
                 this.setState({
@@ -47,6 +46,7 @@ class Profile extends Component {
 
     render() {
         const {error, isLoaded, user} = this.state
+        console.log(this.state)
         if(error){
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -95,6 +95,7 @@ function ProfileAuth(user){
     /*
     TODO risolvere questo scempio
      */
+    console.log(user)
     let thisUser = user.user
     return (
     <div>

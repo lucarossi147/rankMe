@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,44 +11,47 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import Match from "./Match";
+import authService from "./authService";
 
-export default function App() {
+class App extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            logged : false
+        }
+    }
+
+    render(){
     return (
         <Router>
-            <div>
                 <nav>
                     <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
+                        <li> <Link to="/">Home</Link> </li>
                         <Logged/>
                     </ul>
                 </nav>
-            </div>
-
             <Switch>
-                <Route path="/profile">
-                    <Profile _id={localStorage.getItem('_id') || null}/>
-                </Route>
+                <Route path="/profile" component={() => <Profile user={JSON.parse(localStorage.getItem('user')) || null} />}/>
                 <Route path="/login"  component={LoginForm}/>
                 <Route path="/signup" component={SignupForm}/>
                 <Route path="/logout" component={Logout}/>
                 <Route path="/"       component={Home}/>
             </Switch>
         </Router>
-    );
+    )}
 }
 
-function Home() {
-    if(localStorage.getItem('accessToken')){
-        return (
-            <div>
-                <h2>Home</h2>
-                <Match/>
-            </div>
-        );
+export default App
+
+function Home(){
+    if(authService.isLogged()){
+        return <HomeAuth/>
     } else {
+        return <HomeNotAuth/>
+    }
+}
+function HomeNotAuth() {
         return (
             <div>
                 <h2>Home</h2>
@@ -56,8 +59,15 @@ function Home() {
                 <h3>Please <Link to="/login">Login</Link> or <Link to="/signup">Signup</Link></h3>
             </div>
         );
-    }
+}
 
+function HomeAuth(){
+    return (
+        <div>
+            <h2>Home</h2>
+            <Match/>
+        </div>
+    )
 }
 
 function Logged(){
@@ -85,6 +95,7 @@ function Logged(){
         );
     }
 }
+
 /*
 Finchè ho l'access token sono autenticato, scade ogni 15 minuti
 Finchè ho il refresh token possono chiedere l'access token, viene cancellato al logout

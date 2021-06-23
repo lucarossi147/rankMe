@@ -24,6 +24,11 @@ class FormSocial extends Component{
 
     handleSubmit(evt) {
         evt.preventDefault();
+        if(!this.state.instagram || !this.state.facebook){
+            console.log("One or more social fields empty")
+            //TODO toast
+            return;
+        }
         let localJWT = localStorage.getItem('accessToken')
 
         let headConfig = {
@@ -39,9 +44,9 @@ class FormSocial extends Component{
             }, headConfig)
             .then(function (response) {
                 if(response.status === 200){
-                    //console.log("Correctly update social links")
+                    console.log("Correctly update social links")
                 } else {
-                    //console.log("No update of social links")
+                    console.log("No update of social links")
                 }
             }).catch(function (error) {
             console.log('Error', error.message);
