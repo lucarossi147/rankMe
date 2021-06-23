@@ -82,6 +82,10 @@ let UserSchema = new Schema({
     numberOfVotes:{
         type:Number,
         default:0
+    },
+    gender:{
+        type: String,
+        default: "not specified"
     }
 });
 

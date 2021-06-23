@@ -60,4 +60,7 @@ module.exports = function(app) {
 
     app.route('/rank')
         .get(loginController.authenticate, utilityController.rank)
+
+    app.route('/gender')
+        .get(loginController.authenticate, utilityController.gender)
 };

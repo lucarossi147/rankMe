@@ -166,6 +166,11 @@ exports.rank = function(req, res){
     })
 }
 
+exports.gender = function (req, res) {
+    const userVotes = req.user.votes
+    res.send("no fra")
+}
+
 function createUser(id, rankPosition, username, picture){
     return {
         _id: id,
