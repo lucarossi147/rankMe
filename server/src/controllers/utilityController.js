@@ -1,4 +1,6 @@
 User = require("../models/user");
+Vote = require("../models/vote");
+
 const fs = require('fs')
 const sharp = require('sharp');
 
@@ -33,6 +35,7 @@ exports.getProfile = function (req, res) {
                 let i = 1;
                 for (let u of rankedUsers){
                     //if I use _id it doesn't work
+                    //console.log(JSON.stringify(u._id) === JSON.stringify(user._id))
                     if (u.username === user.username) {
                         const userToReturn = {
                             _id : user._id,
@@ -168,7 +171,36 @@ exports.rank = function(req, res){
 
 exports.gender = function (req, res) {
     const userVotes = req.user.votes
-    res.send("no fra")
+    let maleVotes = 0
+    let femaleVotes = 0
+
+    Vote.aggregate([
+        {
+            $match : { _id : { $in: userVotes }}
+        },{
+            $project: {_id: 0, user:1}
+        },{
+            $lookup : {
+                from:'users',
+                localField: 'user',
+                foreignField: '_id',
+                as: 'completeUser'
+            }
+        },{
+           $project: { completeUser: 1}
+        }
+        ]).then(votesProjections=>{
+        for( let user of votesProjections){
+            const completeUser = user.completeUser[0]
+            if (completeUser.gender === "female" ){
+                femaleVotes++
+            } else if( completeUser.gender === "male"){
+                maleVotes++
+            }
+        }
+        let percentages = calculatePercentage(maleVotes, femaleVotes)
+        res.send({males: percentages.first, females: percentages.second})
+        })
 }
 
 function createUser(id, rankPosition, username, picture){
@@ -189,4 +221,9 @@ function getAge(dateString) {
         age--;
     }
     return age;
+}
+
+function calculatePercentage(x, y){
+    const sum = x+y
+    return {first:x/sum*100, second: y/sum*100 }
 }
