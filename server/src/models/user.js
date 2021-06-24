@@ -30,7 +30,7 @@ let UserSchema = new Schema({
     },
     picture:{
         type: String,
-        default: appRoot+'/images/default-user-image.jpg'
+        default: 'default-user-image.jpg'
     },
     country:{
         type:String,
