@@ -1,34 +1,31 @@
-import React, {Component} from "react";
+import {useState} from "react";
 import {Redirect} from "react-router-dom";
 import authService from "./authService";
+import {useDispatch} from "react-redux";
+import {logoutAction} from "./actions/login";
 
-class Logout extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            redirect : false
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+function Logout(){
 
-    handleSubmit(event) {
+    const [redirect, setRedirect] = useState(false)
+    const dispatch = useDispatch()
+
+    const handleSubmit = (event) => {
         event.preventDefault();
         authService.logout()
-        this.setState({redirect : true})
+        setRedirect(true)
+        dispatch(logoutAction())
     }
 
-    render() {
-        if(this.state.redirect === true){
-            return <Redirect to={'/'}/>
-        }
-
-        return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="submit" value="Logout" />
-                </form>
-            </div>
-        );
+    if(redirect === true){
+        return <Redirect to={'/'}/>
     }
+
+    return(
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="submit" value="Logout" />
+            </form>
+        </div>
+    );
 }
 export default Logout;

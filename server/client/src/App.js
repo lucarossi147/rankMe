@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -12,22 +12,19 @@ import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import Match from "./Match";
 import authService from "./authService";
+import {useSelector} from 'react-redux'
 
-class App extends Component {
+function App(){
+    const isLogged = useSelector(state => state.isLogged)
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            logged : false
-        }
-    }
-
-    render(){
     return (
         <Router>
-                <nav>
+            <h1>Am i logged? -> {isLogged ? 'true' : 'false'} </h1>
+            <nav>
                     <ul>
-                        <li> <Link to="/">Home</Link> </li>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
                         <Logged/>
                     </ul>
                 </nav>
@@ -39,7 +36,7 @@ class App extends Component {
                 <Route path="/"       component={Home}/>
             </Switch>
         </Router>
-    )}
+        )
 }
 
 export default App

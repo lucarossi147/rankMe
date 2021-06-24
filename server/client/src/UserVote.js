@@ -1,24 +1,9 @@
-import {Component} from "react";
 import axios from "axios";
 const CONFIG = require("./config.json");
 
-class UserVote extends Component {
-    constructor(props) {
-        super(props);
+function UserVote(props) {
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(evt) {
-        const value = evt.target.value;
-        this.setState({
-            ...this.state,
-            [evt.target.name]: value
-        });
-    }
-
-    handleSubmit(evt) {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
 
         let config = {
@@ -29,7 +14,7 @@ class UserVote extends Component {
 
         axios.post(CONFIG.SERVER_URL + "/addSocial",
             {
-                userId: this.props.user._id
+                userId: props.user._id
             }, config)
             .then( (response) => {
                 if(response.status === 200){
@@ -43,17 +28,19 @@ class UserVote extends Component {
         });
     }
 
-    render(){
-        let user = this.props.user
-        return(
+    let user = props.user
+    /*
+    TODO https://stackoverflow.com/questions/51569026/reactjs-image-doesnt-show-up
+     */
+    console.log("picture : " + user.picture)
+    return (
             <div>
                 <h2>User: </h2>
-                <img src={user.img} alt={"img not found"}/>
+                <img src={user.picture} alt={"img not found"}/>
                 <h3>{user.name} {user.surname}</h3>
-                <button onClick={this.handleSubmit}>Vote</button>
+                <button onClick={handleSubmit}>Vote</button>
             </div>
-        )
-    }
+    )
 }
 
 export default UserVote
