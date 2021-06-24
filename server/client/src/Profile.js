@@ -1,25 +1,19 @@
-import {Component} from "react";
+import {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
 const CONFIG = require("./config.json");
 
-class Profile extends Component {
+function Profile(props) {
 
-    constructor(props) {
-        super(props);
+    const [isLoaded, setLoaded] = useState(false)
+    const [error, setError] = useState('')
+    const [user, setUser] = useState({})
 
-        this.state = {
-            isLoaded: false,
-            error: null,
-            user : {}
-        }
-    }
+    useEffect(() => {
+        fetchProfile(props.user)
+    }, [props.user])
 
-    componentDidMount() {
-        this.fetchProfile(this.props.user)
-    }
+    const fetchProfile =  (user) => {
 
-    fetchProfile(user){
-        console.log(user)
         if(!user._id){
             console.log("Error id null in fetchprofile")
             return;
@@ -31,32 +25,23 @@ class Profile extends Component {
             }
         }).then(res => res.json())
             .then((res) => {
-                console.log(res)
-                this.setState({
-                    isLoaded : true,
-                    user: res
-                })
+                setLoaded(true)
+                setUser(res)
         }, (error) => {
-                this.setState({
-                    isLoaded: false,
-                    error
-                })
+                setLoaded(false)
+                setError(error)
             })
     }
 
-    render() {
-        const {error, isLoaded, user} = this.state
-        console.log(this.state)
-        if(error){
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>
+    if(error){
+        return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+        return <div>Loading...</div>
+    } else {
+        if(localStorage.getItem('accessToken')){
+            return <ProfileAuth user={user}/>;
         } else {
-            if(localStorage.getItem('accessToken')){
-                return <ProfileAuth user={user}/>;
-            } else {
-                return <ProfileNotAuth/>;
-            }
+            return <ProfileNotAuth/>;
         }
     }
 }
@@ -95,7 +80,6 @@ function ProfileAuth(user){
     /*
     TODO risolvere questo scempio
      */
-    console.log(user)
     let thisUser = user.user
     return (
     <div>

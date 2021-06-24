@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,46 +11,47 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import Match from "./Match";
-import authService from "./authService";
+import {useSelector} from 'react-redux'
 
-class App extends Component {
+function App(){
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            logged : false
-        }
-    }
+    const isLogged = useSelector(state => state.isLogged)
+    //const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+    const user = useSelector(state => state.userReducer)
 
-    render(){
     return (
         <Router>
-                <nav>
+            <h1>Am i logged? -> {isLogged ? 'true' : 'false'} </h1>
+            <nav>
                     <ul>
-                        <li> <Link to="/">Home</Link> </li>
-                        <Logged/>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <Logged logged={isLogged}/>
                     </ul>
                 </nav>
             <Switch>
-                <Route path="/profile" component={() => <Profile user={JSON.parse(localStorage.getItem('user')) || null} />}/>
+                <Route path="/profile" component={() => <Profile user={user || null} />}/>
                 <Route path="/login"  component={LoginForm}/>
                 <Route path="/signup" component={SignupForm}/>
                 <Route path="/logout" component={Logout}/>
                 <Route path="/"       component={Home}/>
             </Switch>
         </Router>
-    )}
+        )
 }
 
 export default App
 
 function Home(){
-    if(authService.isLogged()){
+    const isLogged = useSelector(state => state.isLogged)
+    if(isLogged){
         return <HomeAuth/>
     } else {
         return <HomeNotAuth/>
     }
 }
+
 function HomeNotAuth() {
         return (
             <div>
@@ -71,7 +72,8 @@ function HomeAuth(){
 }
 
 function Logged(){
-    if(!localStorage.getItem("accessToken")){
+    const isLogged = useSelector(state => state.isLogged)
+    if(isLogged) {
         return (
             <div>
                 <li>
