@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Redirect} from "react-router-dom";
 import authService from "./authService";
 import {useDispatch} from "react-redux";
-import {logoutAction} from "./actions/login";
+import {logoutAction} from "./actions/allActions";
 
 function Logout(){
 
@@ -11,7 +11,7 @@ function Logout(){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        authService.logout()
+        authService.logout(dispatch)
         setRedirect(true)
         dispatch(logoutAction())
     }

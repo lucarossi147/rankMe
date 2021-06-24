@@ -1,10 +1,12 @@
 import {useState} from "react";
 import axios from "axios";
+import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
 function FormSocial(){
     const [instagram, setIg] = useState('')
     const [facebook, setFb] = useState('') //localStorage.getItem('facebook') || null
+    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
 
     const handleChange = (evt) => {
         const {name,value} = evt.target;
@@ -23,11 +25,9 @@ function FormSocial(){
             return;
         }
 
-        let localJWT = localStorage.getItem('accessToken')
-
-        let headConfig = {
+        let config = {
             headers: {
-                'Authorization': 'Bearer ' + localJWT
+                'Authorization': 'Bearer ' + accessToken
             }
         }
 
@@ -35,7 +35,7 @@ function FormSocial(){
             {
                 instagram: instagram,
                 facebook: facebook
-            }, headConfig)
+            }, config)
             .then(function (response) {
                 if(response.status === 200){
                     console.log("Correctly update social links")

@@ -1,6 +1,7 @@
 import UserVote from "./UserVote";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
 function Match(){
@@ -9,6 +10,7 @@ function Match(){
     const [user2, setUser2] = useState({})
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
+    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
 
     useEffect(() => {
         fetchProfile()
@@ -17,7 +19,7 @@ function Match(){
     const fetchProfile = () => {
         let config = {
             headers : {
-                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
+                Authorization : 'Bearer ' + accessToken
             }
         }
         axios.get(CONFIG.SERVER_URL + "/findMatch", config)

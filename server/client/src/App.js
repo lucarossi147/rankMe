@@ -11,11 +11,13 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import Match from "./Match";
-import authService from "./authService";
 import {useSelector} from 'react-redux'
 
 function App(){
+
     const isLogged = useSelector(state => state.isLogged)
+    //const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+    const user = useSelector(state => state.userReducer)
 
     return (
         <Router>
@@ -25,11 +27,11 @@ function App(){
                         <li>
                             <Link to="/">Home</Link>
                         </li>
-                        <Logged/>
+                        <Logged logged={isLogged}/>
                     </ul>
                 </nav>
             <Switch>
-                <Route path="/profile" component={() => <Profile user={JSON.parse(localStorage.getItem('user')) || null} />}/>
+                <Route path="/profile" component={() => <Profile user={user || null} />}/>
                 <Route path="/login"  component={LoginForm}/>
                 <Route path="/signup" component={SignupForm}/>
                 <Route path="/logout" component={Logout}/>
@@ -42,12 +44,14 @@ function App(){
 export default App
 
 function Home(){
-    if(authService.isLogged()){
+    const isLogged = useSelector(state => state.isLogged)
+    if(isLogged){
         return <HomeAuth/>
     } else {
         return <HomeNotAuth/>
     }
 }
+
 function HomeNotAuth() {
         return (
             <div>
@@ -68,7 +72,8 @@ function HomeAuth(){
 }
 
 function Logged(){
-    if(!localStorage.getItem("accessToken")){
+    const isLogged = useSelector(state => state.isLogged)
+    if(isLogged) {
         return (
             <div>
                 <li>

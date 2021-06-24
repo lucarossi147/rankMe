@@ -1,22 +1,24 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {useSelector} from "react-redux";
+const CONFIG = require("./config.json");
 
 function ImageForm(){
     const [selectedFile, setFile] = useState()
+    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
 
     const onClickHandler = () => {
         const data = new FormData();
         data.append('profile', selectedFile)
-        let localJWT = localStorage.getItem('accessToken')
 
         let config = {
             headers: {
                 "Content-Type": "multipart/form-data",
-                'Authorization': 'Bearer ' + localJWT
+                'Authorization': 'Bearer ' + accessToken
             }
         }
 
-        axios.post("http://localhost:3000/uploadPhoto", data, config)
+        axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
             .then(function (response) {
                 console.log(response);
             })

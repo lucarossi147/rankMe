@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom"
 import authService from "./authService"
-import {loginAction} from "./actions/login";
+import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 
 function LoginForm(){
@@ -22,7 +22,7 @@ function LoginForm(){
 
     const handleSubmit= (evt) => {
         evt.preventDefault();
-        authService.login(username, password)
+        authService.login(username, password, dispatch)
         setRedirect(true)
         dispatch(loginAction())
     }
