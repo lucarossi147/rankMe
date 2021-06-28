@@ -1,7 +1,13 @@
 import axios from "axios";
+import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const CONFIG = require("./config.json");
 
+
 function UserVote(props) {
+    const notify = () => toast("Correctly voted!");
+    const badNotify = () => toast("Problems occured during vote")
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -18,10 +24,9 @@ function UserVote(props) {
             }, config)
             .then( (response) => {
                 if(response.status === 200){
-                    console.log("Correctly voted")
-                    //TODO toast
+                    notify()
                 } else {
-                    console.log("Not correctly voted")
+                    badNotify()
                 }
             }).catch(function (error) {
                 console.log('Error', error.message);
@@ -32,13 +37,14 @@ function UserVote(props) {
     /*
     TODO https://stackoverflow.com/questions/51569026/reactjs-image-doesnt-show-up
      */
-    console.log("picture : " + user.picture)
+    //console.log("picture : " + user.picture)
     return (
             <div>
                 <h2>User: </h2>
                 <img src={user.picture} alt={"img not found"}/>
                 <h3>{user.name} {user.surname}</h3>
                 <button onClick={handleSubmit}>Vote</button>
+                <ToastContainer />
             </div>
     )
 }

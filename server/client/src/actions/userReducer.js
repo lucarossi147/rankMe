@@ -1,10 +1,10 @@
 const userReducer = (state = {}, action) => {
     switch (action.type){
         case 'SET_USER':
-            state.user = action.user
+            state = action.user
             return state
         case 'DELETE_USER':
-            state.user = {}
+            state = {}
             return state
         default :
             return state

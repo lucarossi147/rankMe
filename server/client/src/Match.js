@@ -1,7 +1,6 @@
 import UserVote from "./UserVote";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
 function Match(){
@@ -10,7 +9,8 @@ function Match(){
     const [user2, setUser2] = useState({})
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
-    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+
+    const accessToken = localStorage.getItem('accessToken')
 
     useEffect(() => {
         fetchProfile()
@@ -37,7 +37,7 @@ function Match(){
     }
 
    if(error){
-       return <div>Error: {error.message}</div>;
+       return <div> Error: {error.message}</div>;
    } else if (!isLoaded) {
        return <div>Loading...</div>
    } else {

@@ -1,18 +1,26 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
+import {Authentication} from "./Home"
+import {useSelector} from "react-redux";
+import FormLocality from "./FormLocality";
+import Logout from "./Logout";
 const CONFIG = require("./config.json");
 
-function Profile(props) {
+export const Profile = () => {
+    const user =  useSelector(state => state.userReducer)
+    return user.username  ? <ProfileAuth user={user}/> : <Authentication/>
+}
 
+const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(props.user || {})
 
     useEffect(() => {
-        fetchProfile(props.user)
-    }, [props.user])
+        fetchProfile() //TODO muovere fethcprofile qua dentro https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
+    }, [isLoaded]) //Ricarico il profilo solo se c'è un side effect su isLoaded
 
-    const fetchProfile =  (user) => {
+    const fetchProfile =  () => {
 
         if(!user._id){
             console.log("Error id null in fetchprofile")
@@ -39,9 +47,24 @@ function Profile(props) {
         return <div>Loading...</div>
     } else {
         if(localStorage.getItem('accessToken')){
-            return <ProfileAuth user={user}/>;
+            return (
+                <div>
+                    <h1> Welcome {user.username}</h1>
+                    <img src={user.picture} alt="Profile image not found"/>
+                    <Rank rank={user.rankPosition}/>
+                    <FormSocial user={user}/>
+                    <FormLocality user={user}/>
+                    <textarea readOnly value={props.bio || ""}/>
+                    <Logout/>
+                </div>
+            )
         } else {
-            return <ProfileNotAuth/>;
+            return (
+                <div>
+                    <h1>Welcome unauthorized user!</h1>
+                    <h3>Please login or signup to the site!</h3>
+                </div>
+            )
         }
     }
 }
@@ -58,47 +81,6 @@ function Rank(props) {
             </div>
         );
     }
-}
-
-function Image(){
-    return (
-        <div id="image">
-            <img src="" alt={"profile"}/>
-        </div>
-    );
-}
-
-function Bio(props){
-    return (
-        <div>
-            <textarea readOnly value={props.bio || ""}/>
-        </div>
-    );
-}
-
-function ProfileAuth(user){
-    /*
-    TODO risolvere questo scempio
-     */
-    let thisUser = user.user
-    return (
-    <div>
-        <h1> Welcome {thisUser.username}</h1>
-        <Image id={thisUser._id}/>
-        <Rank rank={thisUser.rankPosition}/>
-        <FormSocial id={thisUser._id}/>
-        <Bio bio={thisUser.bio}/>
-    </div>
-    );
-}
-
-function ProfileNotAuth(){
-    return (
-        <div>
-            <h1>Welcome unauthorized user!</h1>
-            <h3>Please login or signup to the site!</h3>
-        </div>
-    );
 }
 
 export default Profile;

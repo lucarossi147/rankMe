@@ -1,11 +1,9 @@
 import axios from "axios"
-import {deleteTokens, deleteUser, setAccessToken, setRefreshToken, setUser} from "./actions/allActions";
+import {deleteUser, setUser} from "./actions/allActions";
 
 const CONFIG = require("./config.json");
 
 const authHeader = (user, accessToken) => {
-    //const user = useSelector(state => state.userReducer)
-    //const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
 
     if(user && accessToken){
         return { Authorization : 'Bearer ' + user.accessToken}
@@ -44,23 +42,23 @@ const login = (username, password, dispatcher) => {
         }, )
         .then(function (response) {
             if(response.status === 200){
-                dispatcher(setAccessToken(response.data.accessToken))
-                dispatcher(setRefreshToken(response.data.refreshToken))
-                dispatcher (setUser(response.data.user))
-                /*
-                    localStorage.setItem('accessToken', response.data.accessToken);
-                    localStorage.setItem('refreshToken', response.data.refreshToken);
-                    localStorage.setItem('user', JSON.stringify(response.data.user))
-                    const newUser = JSON.parse(localStorage.getItem('user'));
-                    console.log(newUser)
-                 */
+                localStorage.setItem('accessToken', response.data.accessToken)
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+                dispatcher(setUser(response.data.user))
             }
         }).catch(function (error) {
             console.log('Error', error.message);
         });
 }
 
-const logout = (dispatcher, refreshToken) => {
+const logout = (dispatcher) => {
+    const accessToken = localStorage.getItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
+
+    if(!accessToken && !refreshToken){
+        console.log('Already logged out!')
+        return
+    }
 
     axios.delete(CONFIG.SERVER_URL+"/logout", {
         headers: {}, data: {
@@ -73,13 +71,15 @@ const logout = (dispatcher, refreshToken) => {
     }).catch(err => {
         console.log(err)
     })
-    dispatcher(deleteTokens())
+
     dispatcher(deleteUser())
 }
 
-export default {
+const auth = {
     authHeader,
     logout,
     login,
     register
 }
+
+export default auth

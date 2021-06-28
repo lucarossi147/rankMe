@@ -1,12 +1,14 @@
 import {useState} from "react";
 import axios from "axios";
-import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
-function FormSocial(){
-    const [instagram, setIg] = useState('')
-    const [facebook, setFb] = useState('') //localStorage.getItem('facebook') || null
-    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+function FormSocial(props){
+    const user = props.user
+    const [instagram, setIg] = useState(user.instagram || '')
+    const [facebook, setFb] = useState(user.facebook || '')
+
+
+    const accessToken = localStorage.getItem('accessToken')
 
     const handleChange = (evt) => {
         const {name,value} = evt.target;
@@ -31,7 +33,7 @@ function FormSocial(){
             }
         }
 
-        axios.post(CONFIG.SERVER_URL + "addSocial",
+        axios.post(CONFIG.SERVER_URL + "/addSocial",
             {
                 instagram: instagram,
                 facebook: facebook
@@ -43,24 +45,23 @@ function FormSocial(){
                     console.log("No update of social links")
                 }
             }).catch(function (error) {
-                console.log('Error', error.message);
+            console.log('Error', error.message);
         });
     }
 
-
-        return(
-            <div>
-                <label>
-                    Facebook:
-                    <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
-                </label>
-                <label>
-                    Instagram:
-                    <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
-                </label>
-                <button onClick={handleSubmit}>Update</button>
-            </div>
-        )
+    return(
+        <div>
+            <label>
+                Facebook:
+                <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
+            </label>
+            <label>
+                Instagram:
+                <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
+            </label>
+            <button onClick={handleSubmit}>Update</button>
+        </div>
+    )
 }
 
 export default FormSocial;

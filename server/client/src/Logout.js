@@ -12,6 +12,7 @@ function Logout(){
     const handleSubmit = (event) => {
         event.preventDefault();
         authService.logout(dispatch)
+        localStorage.clear()
         setRedirect(true)
         dispatch(logoutAction())
     }

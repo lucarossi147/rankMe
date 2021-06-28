@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
 function ImageForm(){
     const [selectedFile, setFile] = useState()
-    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+    const accessToken = localStorage.getItem('accessToken')
 
     const onClickHandler = () => {
         const data = new FormData();

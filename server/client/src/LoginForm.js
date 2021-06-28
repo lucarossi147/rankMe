@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LoginForm(){
 
@@ -35,28 +36,34 @@ function LoginForm(){
         )
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input required
-                       type="text"
-                       name="username"
-                       value={username}
-                       onChange={handleChange}
-                       placeholder="username"
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    required
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+                <div className="form-group">
+                    <Link to="/signup">Signup</Link>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Username:
+                        <input required
+                               type="text"
+                               name="username"
+                               value={username}
+                               onChange={handleChange}
+                               placeholder="username"
+                               className="form-control"
+                        />
+                    </label>
+                    <label>
+                        Password:
+                        <input
+                            required
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
     );
 }
 

@@ -2,10 +2,7 @@ import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 import authService from "./authService";
 
-/*
-TODO checkare che password e password2 siano uguali
- */
-function SignupForm(props) {
+function SignupForm() {
 
     const [redirect, setRedirect] = useState(false)
     const [signinUser, setUser] = useState({})
@@ -79,6 +76,12 @@ function SignupForm(props) {
                        placeholder={new Date()}
                 />
             </label>
+            <select            value={signinUser.gender}
+                               onChange={handleChange}>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+                <option value="o">Prefer not to say</option>
+            </select>
             <label>
                 Password:
                 <input
@@ -86,14 +89,6 @@ function SignupForm(props) {
                     type="password"
                     name="password"
                     value={signinUser.password}
-                    onChange={handleChange} />
-            </label>
-            <label>
-                Password confirm:
-                <input
-                    required
-                    type="password"
-                    value={signinUser.password2}
                     onChange={handleChange} />
             </label>
             <input type="submit" value="Submit" />
