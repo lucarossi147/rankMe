@@ -35,7 +35,7 @@ const register = (user) => {
     });
 }
 
-const login = (username, password, dispatcher) => {
+const login = (username, password, dispatcher, redirect) => {
     axios.post(CONFIG.SERVER_URL + "/login",
         {
             username: username,
@@ -46,6 +46,9 @@ const login = (username, password, dispatcher) => {
                 localStorage.setItem('accessToken', response.data.accessToken)
                 localStorage.setItem('refreshToken', response.data.refreshToken)
                 dispatcher(setUser(response.data.user))
+                return true
+            } else if(response.status === 401){
+                return false
             }
         }).catch(function (error) {
             console.log('Error', error.message);

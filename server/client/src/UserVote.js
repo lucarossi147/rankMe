@@ -41,7 +41,7 @@ function UserVote(props) {
     TODO https://stackoverflow.com/questions/51569026/reactjs-image-doesnt-show-up
      */
     //console.log("picture : " + user.picture)
-    console.log(user)
+    //console.log(user)
     return (
             <div>
                 <CardGroup>

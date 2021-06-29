@@ -11,14 +11,15 @@ export const Profile = () => {
     const location = useLocation()
     const id = location.state?.redirectToUser
     const user =  useSelector(state => state.userReducer)
-    return user.username  ? <ProfileAuth id={id}/> : <Authentication/>
+    return user.username  ? <ProfileAuth user={user} id={id}/> : <Authentication/>
 }
 
 const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
-    const [user, setUser] = useState(props.user || {})
-    const id = props.id || user._id || null
+    const [user, setUser] = useState(props.user || {}) //Ottengo l'utente corrente se passato
+    console.log(user)
+    const id = props.id || user._id || null //Se viene passato un id, chiedo il profilo di quell'utente, altrimenti dell'utente corrente
 
     useEffect(() => {
         fetchProfile() //TODO muovere fethcprofile qua dentro https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
@@ -27,7 +28,7 @@ const ProfileAuth = (props) => {
     const fetchProfile =  () => {
 
         if(!id){
-            console.log("Error id null in fetchprofile")
+            console.log("Error id null in fetchprofile" + id)
             return;
         }
         fetch(CONFIG.SERVER_URL + "/profile/" + id, {

@@ -7,7 +7,6 @@ function FormSocial(props){
     const [instagram, setIg] = useState(user.instagram || '')
     const [facebook, setFb] = useState(user.facebook || '')
 
-
     const accessToken = localStorage.getItem('accessToken')
 
     const handleChange = (evt) => {
@@ -49,19 +48,37 @@ function FormSocial(props){
         });
     }
 
-    return(
-        <div>
-            <label>
-                Facebook:
-                <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
-            </label>
-            <label>
-                Instagram:
-                <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
-            </label>
-            <button onClick={handleSubmit}>Update</button>
-        </div>
-    )
+    //Qui controllo che il profilo di cui sto visualizzando il profilo sia quello dell'utente collegato
+    console.log(user)
+    console.log(accessToken)
+    if(user.token == accessToken){
+        return(
+            <div>
+                <label>
+                    Facebook:
+                    <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
+                </label>
+                <label>
+                    Instagram:
+                    <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
+                </label>
+                <button onClick={handleSubmit}>Update</button>
+            </div>
+        )
+    } else {
+        return(
+            <div>
+                <label>
+                    Facebook: {facebook}
+                </label>
+                <br/>
+                <label>
+                    Instagram: {instagram}
+                </label>
+            </div>
+        )
+    }
+
 }
 
 export default FormSocial;
