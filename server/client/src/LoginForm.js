@@ -1,8 +1,10 @@
 import React, {useState} from "react";
-import {Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button, Form} from "react-bootstrap";
 
 function LoginForm(){
 
@@ -22,7 +24,7 @@ function LoginForm(){
 
     const handleSubmit= (evt) => {
         evt.preventDefault();
-        authService.login(username, password, dispatch)
+        const redirect = authService.login(username, password, dispatch)
         setRedirect(true)
         dispatch(loginAction())
     }
@@ -35,28 +37,35 @@ function LoginForm(){
         )
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input required
-                       type="text"
-                       name="username"
-                       value={username}
-                       onChange={handleChange}
-                       placeholder="username"
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    required
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+                <>
+                    <Link to="/signup">Signup</Link>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                        <Form.Control required
+                               type="text"
+                               name="username"
+                               value={username}
+                               onChange={handleChange}
+                               placeholder="username"
+                               className="form-control"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control required
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </>
     );
 }
 

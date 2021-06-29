@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 import authService from "./authService";
+import {Button, Col, Form} from "react-bootstrap";
 
-/*
-TODO checkare che password e password2 siano uguali
- */
-function SignupForm(props) {
+function SignupForm() {
 
     const [redirect, setRedirect] = useState(false)
     const [signinUser, setUser] = useState({})
+
 
     const handleChange = (evt) => {
         const {name, value} = evt.target
@@ -28,76 +27,97 @@ function SignupForm(props) {
         return <Redirect to={'/'}/>
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Name:
-                <input required
-                       type="text"
-                       name="name"
-                       value={signinUser.name}
-                       onChange={handleChange}
-                       placeholder="Name"
-                />
-            </label>
-            <label>
-                Surname:
-                <input required
-                       type="text"
-                       name="surname"
-                       value={signinUser.surname}
-                       onChange={handleChange}
-                       placeholder="Surname"
-                />
-            </label>
-            <label>
-                Username:
-                <input required
+        <div>
+        <Form onSubmit={handleSubmit}>
+            <Form.Row>
+                <Form.Group as={Col}>
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control required
+                                  type="text"
+                                  name="name"
+                                  value={signinUser.name}
+                                  onChange={handleChange}
+                                  placeholder="Name"
+                    />
+                </Form.Group>
+                <Form.Group as={Col}>
+                    <Form.Label>Surname:</Form.Label>
+                    <Form.Control required
+                                  type="text"
+                                  name="surname"
+                                  value={signinUser.surname}
+                                  onChange={handleChange}
+                                  placeholder="Surname"
+                    />
+                </Form.Group>
+            </Form.Row>
+        <Form.Row>
+            <Form.Group as={Col}>
+                <Form.Label>
+                    Username:
+                </Form.Label>
+                <Form.Control required
                        type="text"
                        name="username"
                        value={signinUser.username}
                        onChange={handleChange}
                        placeholder="Username"
                 />
-            </label>
-            <label>
-                Email:
-                <input required
-                       type="email"
-                       name="email"
-                       value={signinUser.email}
-                       onChange={handleChange}
-                       placeholder="email@mail.com"
-                />
-            </label>
-            <label>
-                Date of birth:
-                <input required
-                       type="date"
-                       name="birthDate"
-                       value={signinUser.birthDate}
-                       onChange={handleChange}
-                       placeholder={new Date()}
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    required
-                    type="password"
-                    name="password"
-                    value={signinUser.password}
-                    onChange={handleChange} />
-            </label>
-            <label>
-                Password confirm:
-                <input
-                    required
-                    type="password"
-                    value={signinUser.password2}
-                    onChange={handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+            </Form.Group >
+            <Form.Group as={Col}>
+                <Form.Label>
+                    Email:
+                </Form.Label>
+                    <Form.Control required
+                           type="email"
+                           name="email"
+                           value={signinUser.email}
+                           onChange={handleChange}
+                           placeholder="email@mail.com"
+                    />
+            </Form.Group>
+        </Form.Row>
+        <Form.Row>
+            <Form.Group as={Col}>
+                <Form.Label>
+                    Date of birth:
+                </Form.Label>
+                <Form.Control required
+                           type="date"
+                           name="birthDate"
+                           value={signinUser.birthDate}
+                           onChange={handleChange}
+                    />
+            </Form.Group>
+            <Form.Group as={Col}>
+                <Form.Label>
+                    Gender:
+                </Form.Label>
+                <Form.Control as={"select"}
+                              value={signinUser.gender}
+                                onChange={handleChange}>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                    <option value="o">Prefer not to say</option>
+                </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col}>
+                <Form.Label>
+                    Password:
+                </Form.Label>
+                    <Form.Control
+                        required
+                        type="password"
+                        name="password"
+                        value={signinUser.password}
+                        onChange={handleChange} />
+            </Form.Group>
+        </Form.Row>
+        <Button type="submit">
+            Submit
+        </Button>
+        </Form>
+        </div>
     );
 }
 

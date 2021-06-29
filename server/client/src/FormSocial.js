@@ -1,12 +1,13 @@
 import {useState} from "react";
 import axios from "axios";
-import {useSelector} from "react-redux";
 const CONFIG = require("./config.json");
 
-function FormSocial(){
-    const [instagram, setIg] = useState('')
-    const [facebook, setFb] = useState('') //localStorage.getItem('facebook') || null
-    const {accessToken, refreshToken} = useSelector(state => state.tokenReducer)
+function FormSocial(props){
+    const user = props.user
+    const [instagram, setIg] = useState(user.instagram || '')
+    const [facebook, setFb] = useState(user.facebook || '')
+
+    const accessToken = localStorage.getItem('accessToken')
 
     const handleChange = (evt) => {
         const {name,value} = evt.target;
@@ -31,7 +32,7 @@ function FormSocial(){
             }
         }
 
-        axios.post(CONFIG.SERVER_URL + "addSocial",
+        axios.post(CONFIG.SERVER_URL + "/addSocial",
             {
                 instagram: instagram,
                 facebook: facebook
@@ -43,11 +44,14 @@ function FormSocial(){
                     console.log("No update of social links")
                 }
             }).catch(function (error) {
-                console.log('Error', error.message);
+            console.log('Error', error.message);
         });
     }
 
-
+    //Qui controllo che il profilo di cui sto visualizzando il profilo sia quello dell'utente collegato
+    console.log(user)
+    console.log(accessToken)
+    if(user.token == accessToken){
         return(
             <div>
                 <label>
@@ -61,6 +65,20 @@ function FormSocial(){
                 <button onClick={handleSubmit}>Update</button>
             </div>
         )
+    } else {
+        return(
+            <div>
+                <label>
+                    Facebook: {facebook}
+                </label>
+                <br/>
+                <label>
+                    Instagram: {instagram}
+                </label>
+            </div>
+        )
+    }
+
 }
 
 export default FormSocial;

@@ -35,6 +35,10 @@ Gestire foto lato client
 Modificare profilo utente, tasto mi reinderizza a pagina per le modifiche
 Finchè ho il refresh token sono autorizzato
 Implementare localizzazione
+Usare authservice.headers dove possibile
+Refactorare codice in cartelle
+Aggiungere il genere al signup
+
 
 http: authorization header Bearer accessToken 
 
