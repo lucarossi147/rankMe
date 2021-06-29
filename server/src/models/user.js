@@ -89,7 +89,7 @@ let UserSchema = new Schema({
     },
     notifies:{
         type: Object,
-        default: [{"description": "Welcome to RankMe" }]
+        default: ["Welcome to RankMe"]
     }
 });
 
