@@ -14,7 +14,7 @@ exports.getMatch = function (req, res) {
     //get first random profile
     User.findOne({_id:{$ne:myId}}).skip(rand)
         .then(user1 => {
-            // console.log("PRIMO UTENTE")
+            // console.log("FIRST USER")
             // console.log(user1.username)
             const from = user1.numberOfVotes - VOTES_RANGE
             const to = user1.numberOfVotes + VOTES_RANGE
@@ -28,15 +28,19 @@ exports.getMatch = function (req, res) {
             }).then(user2 => {
                     if (!user2) {
                         //if we didn't find anything return a random user
+
+                        //it's not that random, maybe we should add a field numberOfTimesAppearedInMatch to use both to sort and use the person who appeared less, and for the analytics
                         User.findOne({_id:{$nin: [user1._id,myId]}})
                             .then(backup => {
                                 if(!backup) res.sendStatus(500)
                                 const user2 = backup
+                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: {"description": "you appeared in a match"}}}).then(()=>{})
                                 return res.send({user1, user2})
                             })
                     } else {
-                        // console.log("SECONDO UTENTE")
+                        // console.log("SECOND USER")
                         // console.log(user2.username)
+                        User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: {"description": "you appeared in a match"}}},).then(()=>{})
                         res.send({user1, user2})
                     }
             })
@@ -48,9 +52,8 @@ exports.winner = function (req, res){
     const userId = req.body.userId
     Vote.create({ user: req.user._id, date:Date.now() }, function (err, newVote) {
         if (err) return res.sendStatus(500);
-        const filter = { "_id": userId };
-        const update = { $push: { votes: newVote }, $inc:{numberOfVotes:1} };
-        User.findOneAndUpdate(filter, update ).then(user=>{
+        const update = { $push: { votes: newVote, notifies: {"description": "you received one vote, check your profile to see your position"} }, $inc:{numberOfVotes:1} };
+        User.findByIdAndUpdate(userId, update ).then(user=>{
             if (!user) return res.sendStatus(500)
             res.sendStatus(200)
         })

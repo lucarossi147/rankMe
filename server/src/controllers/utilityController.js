@@ -203,6 +203,11 @@ exports.gender = function (req, res) {
         })
 }
 
+exports.notifies = function (req,res) {
+    const notifies = req.user.notifies;
+    User.findByIdAndUpdate(req.user._id, {"notifies" : []}, () => res.send(notifies))
+}
+
 function createUser(id, rankPosition, username, picture){
     return {
         _id: id,

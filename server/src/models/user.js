@@ -86,6 +86,10 @@ let UserSchema = new Schema({
     gender:{
         type: String,
         default: "not specified"
+    },
+    notifies:{
+        type: Object,
+        default: [{"description": "Welcome to RankMe" }]
     }
 });
 

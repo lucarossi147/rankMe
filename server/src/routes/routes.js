@@ -21,11 +21,9 @@ module.exports = function(app) {
     const upload = multer({storage: storage});
 
     app.route('/login')
-        .get(loginController.show_login_page)
         .post(loginController.login);
 
     app.route('/signup')
-        .get(signupController.show_signup_page)
         .post(signupController.signup);
 
     app.route('/token')
@@ -63,4 +61,7 @@ module.exports = function(app) {
 
     app.route('/gender')
         .get(loginController.authenticate, utilityController.gender)
+
+    app.route('/notifies')
+        .get(loginController.authenticate, utilityController.notifies)
 };
