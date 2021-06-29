@@ -39,13 +39,13 @@ exports.getMatch = function (req, res) {
                             .then(backup => {
                                 if(!backup) res.sendStatus(500)
                                 const user2 = backup
-                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: "you appeared in a match"}}).then(()=>{})
+                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: "ppeared"}}).then(()=>{})
                                 return res.send({user1, user2})
                             })
                     } else {
                         // console.log("SECOND USER")
                         // console.log(user2.username)
-                        User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies:"you appeared in a match"}}).then(()=>{})
+                        User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies:"appeared"}}).then(()=>{})
                         res.send({user1, user2})
                     }
                 })
@@ -59,7 +59,7 @@ exports.winner = function (req, res){
     const userId = req.body.userId
     Vote.create({ user: req.user._id, date:Date.now() }, function (err, newVote) {
         if (err) return res.sendStatus(500);
-        const update = { $push: { votes: newVote, notifies: {"description": "you received one vote, check your profile to see your position"} }, $inc:{numberOfVotes:1} };
+        const update = { $push: { votes: newVote, notifies: "voted" }, $inc:{numberOfVotes:1} };
         User.findByIdAndUpdate(userId, update ).then(user=>{
             if (!user) return res.sendStatus(500)
             res.sendStatus(200)

@@ -205,7 +205,19 @@ exports.gender = function (req, res) {
 }
 
 exports.notifies = function (req,res) {
-    const notifies = req.user.notifies;
+    const userNotifies = req.user.notifies;
+    let votes = 0
+    let appeared = 0
+    let notifies = []
+
+    for (let notify of userNotifies) {
+        if (notify == 'appeared') appeared ++
+        else if (notify == 'voted') votes++
+        else notifies.push(notify)
+    }
+
+    if (votes > 0 ) notifies.push("you have been voted "+ votes +" times")
+    if (appeared > 0 ) notifies.push("you have appeared in "+ appeared +" matches")
     User.findByIdAndUpdate(req.user._id, {"notifies" : []}, () => res.send(notifies))
 }
 

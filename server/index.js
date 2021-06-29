@@ -3,8 +3,19 @@ const app = express();
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path');
-
+const https = require('https');
+const fs = require('fs')
 global.appRoot = path.resolve(__dirname);
+
+// const privateKey = fs.readFileSync('./sslcer/key.pem')
+// const certificate = fs.readFileSync('./sslcer/cert.pem')
+
+const credentials = {
+    key: fs.readFileSync('sslcert/key.pem'),
+    cert: fs.readFileSync('sslcert/cert.pem')
+}
+
+httpsServer = https.createServer(credentials,app)
 
 const PORT = 3000;
 const LOCAL_DB = 'mongodb://localhost:27017/rankMe';
@@ -47,6 +58,6 @@ app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
-app.listen(PORT, () => {
+httpsServer.listen(PORT, () => {
     console.log('Node API server started on port '+PORT);
 });
