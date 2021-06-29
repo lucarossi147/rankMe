@@ -20,6 +20,7 @@ const register = (user) => {
         email: user.email,
         password: user.password,
         birthDate: user.birthDate,
+        gender: user.gender,
         admin: false
     }, )
     .then((response) => {

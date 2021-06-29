@@ -1,14 +1,15 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import {toast, ToastContainer} from "react-toastify";
 
 const CONFIG = require("./config.json");
 
 function FormLocality(props){
 
-    //const user = props
+    const errorNotify = (message) => toast.error(message)
+    const successNotify = (message) => toast.success(message)
     const [locality, setLocality] = useState(null)
-
     const accessToken = localStorage.getItem('accessToken')
 
     const handleSubmit = (evt) =>{
@@ -21,13 +22,8 @@ function FormLocality(props){
         }
 
         //TODO inserire toast invece di console.log
-        if(!locality){
-            console.log("Locality not chosen")
-            return
-        }
-        console.log(locality.value)
         if(locality.value.terms.length < 3 ){
-            console.log("You selected a country, please set a specific city")
+            errorNotify("Error submitting the city, please change locality or retry")
             return
         }
         axios.post(CONFIG.SERVER_URL + "/address",
@@ -38,17 +34,18 @@ function FormLocality(props){
             }, config)
             .then(function (response) {
                 if(response.status === 200){
-                    console.log("Correctly update social links")
+                    successNotify("Correctly update location")
                 } else {
-                    console.log("No update of social links")
+                    errorNotify("Error on update of location")
                 }
             }).catch(function (error) {
-            console.log('Error', error.message);
+                errorNotify('Error', error.message);
         });
     }
 
     return(
         <div>
+            <ToastContainer />
             <GooglePlacesAutocomplete selectProps={
                 {
                     locality,

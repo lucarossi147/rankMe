@@ -4,17 +4,21 @@ import {Authentication} from "./Home"
 import {useSelector} from "react-redux";
 import FormLocality from "./FormLocality";
 import Logout from "./Logout";
+import { useLocation } from "react-router-dom"
 const CONFIG = require("./config.json");
 
 export const Profile = () => {
+    const location = useLocation()
+    const id = location.state?.redirectToUser
     const user =  useSelector(state => state.userReducer)
-    return user.username  ? <ProfileAuth user={user}/> : <Authentication/>
+    return user.username  ? <ProfileAuth id={id}/> : <Authentication/>
 }
 
 const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
     const [user, setUser] = useState(props.user || {})
+    const id = props.id || user._id || null
 
     useEffect(() => {
         fetchProfile() //TODO muovere fethcprofile qua dentro https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
@@ -22,11 +26,11 @@ const ProfileAuth = (props) => {
 
     const fetchProfile =  () => {
 
-        if(!user._id){
+        if(!id){
             console.log("Error id null in fetchprofile")
             return;
         }
-        fetch(CONFIG.SERVER_URL + "/profile/" + user._id, {
+        fetch(CONFIG.SERVER_URL + "/profile/" + id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')

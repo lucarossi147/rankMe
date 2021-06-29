@@ -36,6 +36,7 @@ exports.getProfile = function (req, res) {
                 for (let u of rankedUsers){
                     //if I use _id it doesn't work
                     //console.log(JSON.stringify(u._id) === JSON.stringify(user._id))
+                    //TODO gender?
                     if (u.username === user.username) {
                         const userToReturn = {
                             _id : user._id,

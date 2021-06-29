@@ -4,6 +4,7 @@ import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button, Form} from "react-bootstrap";
 
 function LoginForm(){
 
@@ -36,12 +37,12 @@ function LoginForm(){
         )
     }
     return (
-                <div className="form-group">
+                <>
                     <Link to="/signup">Signup</Link>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Username:
-                        <input required
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                        <Form.Control required
                                type="text"
                                name="username"
                                value={username}
@@ -49,21 +50,22 @@ function LoginForm(){
                                placeholder="username"
                                className="form-control"
                         />
-                    </label>
-                    <label>
-                        Password:
-                        <input
-                            required
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control required
                             type="password"
                             name="password"
                             value={password}
                             onChange={handleChange}
                             className="form-control"
                         />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </>
     );
 }
 
