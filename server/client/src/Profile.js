@@ -4,7 +4,7 @@ import {Authentication} from "./Home"
 import {useSelector} from "react-redux";
 import FormLocality from "./FormLocality";
 import Logout from "./Logout";
-import { useLocation } from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 const CONFIG = require("./config.json");
 
 export const Profile = () => {
@@ -60,6 +60,7 @@ const ProfileAuth = (props) => {
                     <FormSocial user={user}/>
                     <FormLocality user={user}/>
                     <textarea readOnly value={props.bio || ""}/>
+                    <Link to={"/"}>Back to Home</Link>
                     <Logout/>
                 </div>
             )

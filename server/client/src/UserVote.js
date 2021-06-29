@@ -44,7 +44,6 @@ function UserVote(props) {
     //console.log(user)
     return (
             <div>
-                <CardGroup>
                     <Card border={"light"} bg={"light"}>
                         <Card.Img variant="top" src={user.picture} width={200} heigth={200}/>
                         <Card.Body>
@@ -57,13 +56,13 @@ function UserVote(props) {
                             <small className="text-muted">{user.country}</small>
                         </Card.Footer>
                     </Card>
-                </CardGroup>
                 <Link
                     to={{
                         pathname: "/profile",
                         state: { redirectToUser: user._id },
-                    }}
-                >Profile</Link>
+                    }}>
+                    Profile
+                </Link>
                 <Button onClick={handleSubmit}>Vote</Button>
                 <ToastContainer />
             </div>
