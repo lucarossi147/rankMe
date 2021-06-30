@@ -36,7 +36,6 @@ exports.getProfile = function (req, res) {
                 for (let u of rankedUsers){
                     //if I use _id it doesn't work
                     //console.log(JSON.stringify(u._id) === JSON.stringify(user._id))
-                    //TODO gender?
                     if (u.username === user.username) {
                         const userToReturn = {
                             _id : user._id,
@@ -52,7 +51,8 @@ exports.getProfile = function (req, res) {
                             picture: user.picture,
                             city: user.city,
                             state: user.state,
-                            country: user.country
+                            country: user.country,
+                            gender: user.gender
                         }
                         return res.send(userToReturn)
                     }
