@@ -10,7 +10,7 @@ import {ToastContainer} from "react-toastify";
 
 function App(){
     return (
-        <>
+        <div id="appDiv">
             <ToastContainer/>
             <Router>
                 <Switch>
@@ -18,10 +18,10 @@ function App(){
                     <Route path="/login"   component={LoginForm}/>
                     <Route path="/signup"  component={SignupForm}/>
                     <Route path="/logout"  component={Logout}/>
-                    <Route path="/"    component={Home}/>
+                    <Route path="/"        component={Home}/>
                 </Switch>
             </Router>
-        </>
+        </div>
 )
 }
 

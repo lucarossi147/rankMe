@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import React from "react";
+import React, {useState} from "react";
 import LoginForm from "./LoginForm";
 import Logout from "./Logout";
 import Match from "./Match";
@@ -15,6 +15,7 @@ export const Home = () => {
 }
 
 const HomeAuth = () => {
+    const [redirect, setRedirect] = useState(false)
 
     function printNotify() {
         let config = {

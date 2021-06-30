@@ -4,7 +4,8 @@ import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Container, Row, Col} from "react-bootstrap";
+import './login.css'
 
 function LoginForm(){
 
@@ -39,35 +40,49 @@ function LoginForm(){
         )
     }
     return (
-                <>
-                    <Link to="/signup">Signup</Link>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Username</Form.Label>
-                        <Form.Control required
-                               type="text"
-                               name="username"
-                               value={username}
-                               onChange={handleChange}
-                               placeholder="username"
-                               className="form-control"
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password:</Form.Label>
-                        <Form.Control required
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
-            </>
+        <Container id="container">
+            <Container id="loginContainer">
+            <Form onSubmit={handleSubmit}>
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control required
+                                          type="text"
+                                          name="username"
+                                          value={username}
+                                          onChange={handleChange}
+                                          placeholder="username"
+                                          className="form-control"
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Password:</Form.Label>
+                            <Form.Control required
+                                          type="password"
+                                          name="password"
+                                          value={password}
+                                          onChange={handleChange}
+                                          className="form-control"
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
+                        <Button id="loginButton" variant="primary" type="submit">
+                            Login
+                        </Button>
+                        <Button id="signupButton" variant="link">
+                            <Link to="/signup">Signup</Link>
+                        </Button>
+                </Row>
+            </Form>
+            </Container>
+        </Container>
     );
 }
 

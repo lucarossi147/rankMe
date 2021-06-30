@@ -19,7 +19,7 @@ function UserVote(props) {
             }
         }
 
-        axios.post(CONFIG.SERVER_URL + "/addSocial",
+        axios.post(CONFIG.SERVER_URL + "/winner",
             {
                 userId: props.user._id
             }, config)
@@ -32,6 +32,8 @@ function UserVote(props) {
             }).catch(function (error) {
                 errorNotify('Error', error.message);
         });
+
+
     }
 
     let user = props.user

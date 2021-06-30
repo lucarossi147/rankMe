@@ -39,6 +39,7 @@ Usare authservice.headers dove possibile
 Refactorare codice in cartelle
 Aggiungere il genere al signup
 Fare chiamata a notifies per vedere le ultime notifiche
+Fare il redirect su login o su home dopo il signup
 
 http: authorization header Bearer accessToken 
 

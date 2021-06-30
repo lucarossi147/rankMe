@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#container {
+    background-color: #26547C;
+    display: flex;
+    align-items: center;
+}
+
+#loginContainer {
+    max-width: 70%;
+    border-radius: 10px;
+    padding: 10%;
+    background-color: #FCFCFC;
+}
+
+.btn-primary {
+    background-color: #26547C !important;
+}
+
+.btn-link > a {
+    color: #26547C !important;
+}
