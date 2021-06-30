@@ -39,7 +39,7 @@ exports.getMatch = function (req, res) {
                             .then(backup => {
                                 if(!backup) res.sendStatus(500)
                                 const user2 = backup
-                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: "ppeared"}}).then(()=>{})
+                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: "appeared"}}).then(()=>{})
                                 return res.send({user1, user2})
                             })
                     } else {
