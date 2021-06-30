@@ -5,7 +5,7 @@ import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Form, Container, Row, Col} from "react-bootstrap";
-import './login.css'
+import './index.css'
 
 function LoginForm(){
 
