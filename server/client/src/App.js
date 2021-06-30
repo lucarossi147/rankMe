@@ -1,28 +1,28 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
 
 import Profile from "./Profile";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import {Home} from "./Home";
+import {ToastContainer} from "react-toastify";
 
 function App(){
     return (
-        <Router>
-            <Switch>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/login"   component={LoginForm}/>
-                <Route path="/signup"  component={SignupForm}/>
-                <Route path="/logout"  component={Logout}/>
-                <Route path="/"    component={Home}/>
-            </Switch>
-        </Router>
-    )
+        <>
+            <ToastContainer/>
+            <Router>
+                <Switch>
+                    <Route path="/profile" component={Profile}/>
+                    <Route path="/login"   component={LoginForm}/>
+                    <Route path="/signup"  component={SignupForm}/>
+                    <Route path="/logout"  component={Logout}/>
+                    <Route path="/"    component={Home}/>
+                </Switch>
+            </Router>
+        </>
+)
 }
 
 export default App

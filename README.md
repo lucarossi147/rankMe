@@ -29,16 +29,16 @@ e il server con il DB
 
 #todo 
 
-Implementare pagina di rank
-Implementare dashboard, dove l'utente può votare delle foto proposte
-Gestire foto lato client
+Implementare pagina di rank -> Da fare nella pagina analytics
+Implementare dashboard, dove l'utente può votare delle foto proposte -> Fatto +-
+Gestire foto lato client -> Impossibile
 Modificare profilo utente, tasto mi reinderizza a pagina per le modifiche
 Finchè ho il refresh token sono autorizzato
 Implementare localizzazione
 Usare authservice.headers dove possibile
 Refactorare codice in cartelle
 Aggiungere il genere al signup
-
+Fare chiamata a notifies per vedere le ultime notifiche
 
 http: authorization header Bearer accessToken 
 

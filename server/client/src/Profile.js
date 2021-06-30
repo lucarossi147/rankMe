@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
-import {Authentication} from "./Home"
+import {Home} from "./Home"
 import {useSelector} from "react-redux";
 import FormLocality from "./FormLocality";
 import Logout from "./Logout";
 import {Link, useLocation} from "react-router-dom"
+import ImageForm from "./ImageForm";
+
 const CONFIG = require("./config.json");
 
 export const Profile = () => {
     const location = useLocation()
     const id = location.state?.redirectToUser
     const user =  useSelector(state => state.userReducer)
-    return user.username  ? <ProfileAuth user={user} id={id}/> : <Authentication/>
+    return user.username  ? <ProfileAuth user={user} id={id}/> : <Home/>
 }
 
 const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
     const [user, setUser] = useState(props.user || {}) //Ottengo l'utente corrente se passato
-    console.log(user)
     const id = props.id || user._id || null //Se viene passato un id, chiedo il profilo di quell'utente, altrimenti dell'utente corrente
 
     useEffect(() => {
@@ -55,12 +56,13 @@ const ProfileAuth = (props) => {
             return (
                 <div>
                     <h1> Welcome {user.username}</h1>
-                    <img src={user.picture} alt="Profile image not found"/>
+                    <img src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found"/>
                     <Rank rank={user.rankPosition}/>
                     <FormSocial user={user}/>
                     <FormLocality user={user}/>
-                    <textarea readOnly value={props.bio || ""}/>
+                    <textarea readOnly value={user.bio || ""}/>
                     <Link to={"/"}>Back to Home</Link>
+                    <ImageForm/>
                     <Logout/>
                 </div>
             )
