@@ -19,13 +19,12 @@ function SignupForm() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        authService.register(signinUser)
-        setRedirect(true)
+        setRedirect(authService.register(signinUser))
+        if(redirect){
+            return <Redirect to={'/'}/>
+        }
     }
 
-    if(redirect === true){
-        return <Redirect to={'/'}/>
-    }
     return (
         <div>
         <Form onSubmit={handleSubmit}>

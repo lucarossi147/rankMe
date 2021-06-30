@@ -2,6 +2,7 @@ import UserVote from "./UserVote";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {CardGroup} from "react-bootstrap";
+
 const CONFIG = require("./config.json");
 
 function Match(){

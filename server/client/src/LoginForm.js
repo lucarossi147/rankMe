@@ -25,8 +25,10 @@ function LoginForm(){
     const handleSubmit= (evt) => {
         evt.preventDefault();
         const redirect = authService.login(username, password, dispatch)
-        setRedirect(true)
-        dispatch(loginAction())
+        if(redirect){
+            setRedirect(true)
+            dispatch(loginAction())
+        }
     }
 
     if(redirect === true){

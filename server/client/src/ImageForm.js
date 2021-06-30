@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {errorNotify, successNotify} from "./notifyAlerts";
+
 const CONFIG = require("./config.json");
 
 function ImageForm(){
@@ -19,10 +21,10 @@ function ImageForm(){
 
         axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
             .then(function (response) {
-                console.log(response);
+                successNotify("Photo correctly uploaded")
             })
             .catch(function (error) {
-                console.log(error);
+                errorNotify("Error uploading photo")
             });
     }
 

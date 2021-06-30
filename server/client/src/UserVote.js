@@ -1,15 +1,14 @@
 import axios from "axios";
 import React from "react";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {Button, Card, CardGroup} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {errorNotify, successNotify} from "./notifyAlerts";
+
 const CONFIG = require("./config.json");
 
 
 function UserVote(props) {
-    const successNotify = (message) => toast.success(message);
-    const errorNotify = (message) => toast.error(message)
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -36,19 +35,20 @@ function UserVote(props) {
     }
 
     let user = props.user
-    /*
-    dentro user.picture c'è il percorso e funziona, ma l'iimagine non viene mostrata
-    TODO https://stackoverflow.com/questions/51569026/reactjs-image-doesnt-show-up
-     */
-    //console.log("picture : " + user.picture)
-    //console.log(user)
+
     return (
             <div>
                     <Card border={"light"} bg={"light"}>
-                        <Card.Img variant="top" src={user.picture} width={200} heigth={200}/>
+                        <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} width={200} heigth={200} onClick={handleSubmit}/>
                         <Card.Body>
                             <Card.Title>
-                                {user.name} {user.surname}
+                                <Link
+                                    to={{
+                                        pathname: "/profile",
+                                        state: { redirectToUser: user._id },
+                                    }}>
+                                    {user.name} {user.surname}
+                                </Link>
                             </Card.Title>
                             <Card.Text> </Card.Text>
                         </Card.Body>
@@ -56,15 +56,7 @@ function UserVote(props) {
                             <small className="text-muted">{user.country}</small>
                         </Card.Footer>
                     </Card>
-                <Link
-                    to={{
-                        pathname: "/profile",
-                        state: { redirectToUser: user._id },
-                    }}>
-                    Profile
-                </Link>
                 <Button onClick={handleSubmit}>Vote</Button>
-                <ToastContainer />
             </div>
     )
 }

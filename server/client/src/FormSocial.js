@@ -1,12 +1,13 @@
 import {useState} from "react";
 import axios from "axios";
+import {errorNotify, successNotify} from "./notifyAlerts";
+
 const CONFIG = require("./config.json");
 
 function FormSocial(props){
     const user = props.user
     const [instagram, setIg] = useState(user.instagram || '')
     const [facebook, setFb] = useState(user.facebook || '')
-
     const accessToken = localStorage.getItem('accessToken')
 
     const handleChange = (evt) => {
@@ -21,8 +22,7 @@ function FormSocial(props){
     const handleSubmit = (evt) => {
         evt.preventDefault();
         if(!instagram || !facebook){
-            console.log("One or more social fields empty")
-            //TODO toast
+            errorNotify("One or more social fields empty")
             return;
         }
 
@@ -39,9 +39,9 @@ function FormSocial(props){
             }, config)
             .then(function (response) {
                 if(response.status === 200){
-                    console.log("Correctly update social links")
+                    successNotify("Correctly update social links")
                 } else {
-                    console.log("No update of social links")
+                    errorNotify("No update of social links")
                 }
             }).catch(function (error) {
             console.log('Error', error.message);
