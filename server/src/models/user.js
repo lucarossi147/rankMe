@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10;
 const MAX_LOGIN_ATTEMPTS = 10;
 const LOCK_TIME = 2 * 60 * 60 * 1000;
+const mailer = require('../controllers/mailUtility')
 
 let UserSchema = new Schema({
     name: {
@@ -127,15 +128,16 @@ UserSchema.virtual('isLocked').get(function() {
 });
 
 UserSchema.methods.incLoginAttempts = function(cb) { // if we have a previous lock that has expired, restart at 1
-if (this.lockUntil && this.lockUntil < Date.now()) {
-    return this.update({ $set: { loginAttempts: 1 }, $unset: { lockUntil: 1 } }, cb);
+    if (this.lockUntil && this.lockUntil < Date.now()) {
+    return this.updateOne({ $set: { loginAttempts: 1 }, $unset: { lockUntil: 1 } }, cb);
 } // otherwise we're incrementing
 var updates = { $inc: { loginAttempts: 1 } };
 // lock the account if we've reached max attempts and it's not locked already
 if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
+    mailer.sendMail(this.email,"You have been locked","Your account could have been compromised, contact the admin to reset your passeord")
     updates.$set = { lockUntil: Date.now() + LOCK_TIME };
 }
-return this.update(updates, cb);
+return this.updateOne(updates, cb);
 };
 
 // expose enum on the model, and provide an internal convenience reference
@@ -158,6 +160,7 @@ UserSchema.statics.getAuthenticated = function(usernameOrEmail, password, cb) {
 
         // check if the account is currently locked
         if (user.isLocked) {
+
             // just increment login attempts if account is already locked
             return user.incLoginAttempts(function(err) {
                 if (err) return cb(err);
@@ -182,7 +185,7 @@ UserSchema.statics.getAuthenticated = function(usernameOrEmail, password, cb) {
                     $set: { loginAttempts: 0 },
                     $unset: { lockUntil: 1 }
                 };
-                return user.update(updates, function(err) {
+                return user.updateOne(updates, function(err) {
                     if (err) {
                         return cb(err);
                     }
