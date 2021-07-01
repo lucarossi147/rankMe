@@ -57,6 +57,8 @@ Toast che il signup e' andato a buon fine
 
 http: authorization header Bearer accessToken 
 
+https://www.youtube.com/watch?v=hM9uKmy-BQQ
+
 Dockerfile client:
 #Tell docker to use this image, node, as base image
 FROM node:alpine
