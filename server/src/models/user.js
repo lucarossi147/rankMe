@@ -149,7 +149,7 @@ UserSchema.statics.getAuthenticated = function(usernameOrEmail, password, cb) {
             { username : usernameOrEmail },
             { email: usernameOrEmail }
         ]
-    }, function(err, user) {
+    }, '_id name surname username email password picture country state city birthDate bio gender facebook instagram', function(err, user) {
         if (err){
             return cb(err);
         }
@@ -160,7 +160,6 @@ UserSchema.statics.getAuthenticated = function(usernameOrEmail, password, cb) {
 
         // check if the account is currently locked
         if (user.isLocked) {
-
             // just increment login attempts if account is already locked
             return user.incLoginAttempts(function(err) {
                 if (err) return cb(err);

@@ -172,25 +172,10 @@ exports.rank = function(req, res){
 
 exports.gender = function (req, res) {
     const userVotes = req.user.votes
-    let maleVotes = 0
-    let femaleVotes = 0
-
-    Vote.aggregate([
-        {
-            $match : { _id : { $in: userVotes }}
-        },{
-            $project: {_id: 0, user:1}
-        },{
-            $lookup : {
-                from:'users',
-                localField: 'user',
-                foreignField: '_id',
-                as: 'completeUser'
-            }
-        },{
-           $project: { completeUser: 1}
-        }
-        ]).then(votesProjections=>{
+    getUsersFromVotes(userVotes)
+        .then(votesProjections=>{
+        let maleVotes = 0
+        let femaleVotes = 0
         for( let user of votesProjections){
             const completeUser = user.completeUser[0]
             if (completeUser.gender === "female" ){
@@ -202,6 +187,20 @@ exports.gender = function (req, res) {
         let percentages = calculatePercentage(maleVotes, femaleVotes)
         res.send({males: percentages.first, females: percentages.second})
         })
+}
+
+exports.ages = function (req, res){
+    const userVotes = req.user.votes
+    getUsersFromVotes(userVotes)
+        .then(users=>{
+            let ages = []
+            for( let rawUser of users){
+                const user = rawUser.completeUser[0]
+                const age = getAge(user.birthDate)
+                ages.push(age)
+            }
+            res.send(groupAges(ages))
+    })
 }
 
 exports.notifies = function (req,res) {
@@ -244,4 +243,35 @@ function getAge(dateString) {
 function calculatePercentage(x, y){
     const sum = x+y
     return {first:x/sum*100, second: y/sum*100 }
+}
+
+function getUsersFromVotes( votes){
+    return Vote.aggregate([
+        {
+            $match : { _id : { $in: votes }}
+        },{
+            $project: {_id: 0, user:1}
+        },{
+            $lookup : {
+                from:'users',
+                localField: 'user',
+                foreignField: '_id',
+                as: 'completeUser'
+            }
+        },{
+            $project: { completeUser: 1}
+        }
+    ])
+}
+
+function groupAges(agesArray){
+    let ages = {}
+    for(let age of agesArray){
+        if(ages[age.toString()]){
+            ages[age.toString()]++
+        } else {
+            ages[age.toString()] = 1
+        }
+    }
+    return ages
 }

@@ -64,4 +64,7 @@ module.exports = function(app) {
 
     app.route('/notifies')
         .get(loginController.authenticate, utilityController.notifies)
+
+    app.route('/ages')
+        .get(loginController.authenticate, utilityController.ages)
 };
