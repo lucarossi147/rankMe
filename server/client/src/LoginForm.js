@@ -4,8 +4,7 @@ import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Form, Container, Row, Col} from "react-bootstrap";
-import './login.css'
+import {Button, Form} from "react-bootstrap";
 
 function LoginForm(){
 
@@ -26,7 +25,8 @@ function LoginForm(){
     const handleSubmit= (evt) => {
         evt.preventDefault();
         const redirect = authService.login(username, password, dispatch)
-        if(redirect){
+        console.log(redirect)
+        if (redirect) {
             setRedirect(true)
             dispatch(loginAction())
         }
@@ -40,11 +40,10 @@ function LoginForm(){
         )
     }
     return (
-        <Container id="container">
-            <Container id="loginContainer">
-            <Form onSubmit={handleSubmit}>
-                <Row>
-                    <Col>
+        <div className="back">
+            <div className="div-center loginForm">
+                <div className="content">
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
                             <Form.Control required
@@ -56,10 +55,6 @@ function LoginForm(){
                                           className="form-control"
                             />
                         </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
                         <Form.Group>
                             <Form.Label>Password:</Form.Label>
                             <Form.Control required
@@ -70,19 +65,18 @@ function LoginForm(){
                                           className="form-control"
                             />
                         </Form.Group>
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                        <Button id="loginButton" variant="primary" type="submit">
-                            Login
-                        </Button>
-                        <Button id="signupButton" variant="link">
-                            <Link to="/signup">Signup</Link>
-                        </Button>
-                </Row>
-            </Form>
-            </Container>
-        </Container>
+                        <div id="group-buttons">
+                            <Button id="primaryButton" variant="primary" type="submit">
+                                Login
+                            </Button>
+                            <div id="secondaryButton">
+                                <Link to="/signup">Signup</Link>
+                            </div>
+                        </div>
+                    </Form>
+                </div>
+            </div>
+        </div>
     );
 }
 

@@ -49,8 +49,8 @@ function FormSocial(props){
     }
 
     //Qui controllo che il profilo di cui sto visualizzando il profilo sia quello dell'utente collegato
-    console.log(user)
-    console.log(accessToken)
+    //console.log(user)
+    //console.log(accessToken)
     if(user.token == accessToken){
         return(
             <div>

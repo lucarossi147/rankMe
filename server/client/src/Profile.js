@@ -6,6 +6,8 @@ import FormLocality from "./FormLocality";
 import Logout from "./Logout";
 import {Link, useLocation} from "react-router-dom"
 import ImageForm from "./ImageForm";
+import {Analytics} from "./Analytics";
+import axios from "axios";
 
 const CONFIG = require("./config.json");
 
@@ -32,15 +34,17 @@ const ProfileAuth = (props) => {
             console.log("Error id null in fetchprofile" + id)
             return;
         }
-        fetch(CONFIG.SERVER_URL + "/profile/" + id, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+
+        let config = {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
             }
-        }).then(res => res.json())
-            .then((res) => {
+        }
+
+        axios.get(CONFIG.SERVER_URL + "/profile/" + id, config
+        ).then((res) => {
                 setLoaded(true)
-                setUser(res)
+                setUser(res.data)
         }, (error) => {
                 setLoaded(false)
                 setError(error)
@@ -63,6 +67,7 @@ const ProfileAuth = (props) => {
                     <textarea readOnly value={user.bio || ""}/>
                     <Link to={"/"}>Back to Home</Link>
                     <ImageForm/>
+                    <Analytics/>
                     <Logout/>
                 </div>
             )
