@@ -59,12 +59,17 @@ module.exports = function(app) {
     app.route('/rank')
         .get(loginController.authenticate, utilityController.rank)
 
-    app.route('/gender')
-        .get(loginController.authenticate, utilityController.gender)
-
     app.route('/notifies')
         .get(loginController.authenticate, utilityController.notifies)
 
     app.route('/ages')
         .get(loginController.authenticate, utilityController.ages)
+
+    app.route('/gender')
+        .get(loginController.authenticate, utilityController.gender)
+
+    app.route('/numberOfVotes')
+        .get(loginController.authenticate, utilityController.countVotes)
+
+    //TODO Send ages, gender and numberOfVotes in a single response, analytics, we can leave those here
 };

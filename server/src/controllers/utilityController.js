@@ -203,6 +203,10 @@ exports.ages = function (req, res){
     })
 }
 
+exports.countVotes = function (req, res) {
+    return res.send(req.user.numberOfVotes)
+}
+
 exports.notifies = function (req,res) {
     const userNotifies = req.user.notifies;
     let votes = 0
