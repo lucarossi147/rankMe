@@ -1,7 +1,7 @@
 import UserVote from "./UserVote";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {CardGroup} from "react-bootstrap";
+import {CardGroup, Row} from "react-bootstrap";
 
 const CONFIG = require("./config.json");
 
@@ -46,9 +46,11 @@ function Match(){
         return (
             <div>
                 <h1>Choose the best photo: </h1>
-                <CardGroup>
-                    <UserVote user={user1}/>
-                    <UserVote user={user2}/>
+                <CardGroup className={"card-group-flex"}>
+                    <Row xs={1} md={2}>
+                        <UserVote user={user1}/>
+                        <UserVote user={user2}/>
+                    </Row>
                 </CardGroup>
             </div>
         );

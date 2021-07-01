@@ -41,8 +41,7 @@ function register(user) {
 }
 
 function login(username, password, dispatcher) {
-    let result = false
-    axios.post(CONFIG.SERVER_URL + "/login",
+    return axios.post(CONFIG.SERVER_URL + "/login",
         {
             username: username,
             password: password
@@ -52,16 +51,15 @@ function login(username, password, dispatcher) {
                 localStorage.setItem('accessToken', response.data.accessToken)
                 localStorage.setItem('refreshToken', response.data.refreshToken)
                 dispatcher(setUser(response.data.user))
-                result = true
                 successNotify("Login made")
+                return true
             } else if(response.status === 401){
-                result = false
                 errorNotify("Invalid username or password")
+                return  false
             }
         }).catch(function (error) {
             console.log('Error', error.message);
         });
-    return result
 }
 
 const logout = (dispatcher) => {

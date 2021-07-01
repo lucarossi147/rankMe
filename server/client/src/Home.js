@@ -14,9 +14,9 @@ export const Home = () => {
     return useSelector(state => state.userReducer.username)  ? <HomeAuth/> : <LoginForm/>
 }
 
-const HomeAuth = () => {
-    const [redirect, setRedirect] = useState(false)
 
+
+const HomeAuth = () => {
     function printNotify() {
         let config = {
             headers : {
@@ -41,16 +41,13 @@ const HomeAuth = () => {
 
     return (
         <div>
-            <h2>Home</h2>
             <Link to="/profile">Profile</Link>
             <Locality/>
             <Match/>
             <Logout/>
+            <Footer/>
         </div>
     );
-    /*
-    TODO aggiungere match
-     */
 }
 
 export const Locality = () => {
@@ -67,3 +64,10 @@ export const Locality = () => {
     }
 }
 
+function Footer() {
+    return (
+        <footer>
+            <p>Author: Luca Rossi & Davide Schiaroli, 2021</p>
+        </footer>
+    )
+}
