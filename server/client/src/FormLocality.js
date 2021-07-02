@@ -17,11 +17,13 @@ function FormLocality(){
                 'Authorization': 'Bearer ' + accessToken
             }
         }
-
-        if(locality.value.terms.length < 3 ){
-            errorNotify("Error submitting the city, please change locality or retry")
-            return
+        if(locality){
+            if(locality.value.terms.length < 3 ){
+                errorNotify("Error submitting the city, please change locality or retry")
+                return
+            }
         }
+
 
         axios.post(CONFIG.SERVER_URL + "/address",
             {

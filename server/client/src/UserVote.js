@@ -59,7 +59,6 @@ function UserVote(props) {
                         <small className="text-muted">{user.country}</small>
                     </Card.Footer>
                     <Button className="voteButton" onClick={handleSubmit}>Vote</Button>
-
                 </Card>
             </Col>
         </div>

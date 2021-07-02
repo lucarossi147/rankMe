@@ -1,11 +1,15 @@
 import {useSelector} from "react-redux";
 import {Home} from "./Home";
+import Genders from "./analytics/Genders";
+import Ranking from "./analytics/Ranking";
 
 function AnalyticsAuth(props) {
-    console.log("Analytics auth")
     return (
-        <Genders/>
+        <>
+            <Genders/>
+        </>
     )
+    //            <Ranking n={5}/>
 }
 
 export const Analytics = () => {

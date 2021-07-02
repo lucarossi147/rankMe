@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {errorNotify} from "./notifyAlerts";
+import {errorNotify} from "../notifyAlerts";
 import {Chart, Pies, Transform} from "rumble-charts";
+
+const CONFIG = require("../config.json")
 
 const Genders = () => {
     const [isLoaded, setLoaded] = useState(false)

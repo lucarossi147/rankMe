@@ -8,6 +8,7 @@ import {Link, useLocation} from "react-router-dom"
 import ImageForm from "./ImageForm";
 import {Analytics} from "./Analytics";
 import axios from "axios";
+import {Col, Container, Image, Row} from "react-bootstrap";
 
 const CONFIG = require("./config.json");
 
@@ -58,11 +59,24 @@ const ProfileAuth = (props) => {
     } else {
         if(localStorage.getItem('accessToken')){
             return (
-                <div>
-                    <h1> Welcome {user.username}</h1>
-                    <img src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found"/>
+                <div className="profile">
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Image src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found" roundedCircle/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                {user.username}
+                            </Col>
+                        </Row>
+                        <Row lg="auto">
+                            <FormSocial user={user}/>
+                        </Row>
+                    </Container>
                     <Rank rank={user.rankPosition}/>
-                    <FormSocial user={user}/>
+
                     <FormLocality user={user}/>
                     <textarea readOnly value={user.bio || ""}/>
                     <Link to={"/"}>Back to Home</Link>

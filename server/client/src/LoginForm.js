@@ -3,7 +3,6 @@ import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Form} from "react-bootstrap";
 
 function LoginForm(){
@@ -25,7 +24,6 @@ function LoginForm(){
     const handleSubmit= (evt) => {
         evt.preventDefault();
         const redirect = authService.login(username, password, dispatch)
-        console.log(redirect)
         if (redirect) {
             setRedirect(true)
             dispatch(loginAction())

@@ -95,3 +95,12 @@ footer {
     bottom:0;
     width:100%;
 }
+
+.rounded-circle {
+    max-width: 100%;
+}
+
+.row {
+    text-align: center;
+    justify-content: center;
+}

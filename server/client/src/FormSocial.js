@@ -1,6 +1,7 @@
 import {useState} from "react";
 import axios from "axios";
 import {errorNotify, successNotify} from "./notifyAlerts";
+import {Button, Col} from "react-bootstrap";
 
 const CONFIG = require("./config.json");
 
@@ -54,27 +55,36 @@ function FormSocial(props){
     if(user.token == accessToken){
         return(
             <div>
-                <label>
-                    Facebook:
-                    <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
-                </label>
-                <label>
-                    Instagram:
-                    <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
-                </label>
-                <button onClick={handleSubmit}>Update</button>
+                <Col>
+                    <label>
+                        Facebook:
+                        <input type="text" name="facebook" onChange={handleChange} value={facebook}/>
+                    </label>
+                </Col>
+                <Col>
+                    <label>
+                        Instagram:
+                        <input type="text" name="instagram" onChange={handleChange} value={instagram}/>
+                    </label>
+                </Col>
+                <Col>
+                    <button onClick={handleSubmit}>Update</button>
+                </Col>
             </div>
         )
     } else {
         return(
             <div>
-                <label>
-                    Facebook: {facebook}
-                </label>
-                <br/>
-                <label>
-                    Instagram: {instagram}
-                </label>
+                <Col>
+                    <Button variant="primary" size="ms">
+                        {facebook}
+                    </Button>
+                </Col>
+                <Col>
+                    <Button variant="primary" size="ms">
+                        {instagram}
+                    </Button>
+                </Col>
             </div>
         )
     }

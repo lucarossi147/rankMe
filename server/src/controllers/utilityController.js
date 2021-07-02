@@ -165,7 +165,7 @@ exports.rank = function(req, res){
                     }
                     i++
                 }
-                return res.send(users)
+                return res.send({"array" : users})
             })
     })
 }

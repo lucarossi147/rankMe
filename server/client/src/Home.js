@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import React, {useState} from "react";
+import React from "react";
 import LoginForm from "./LoginForm";
 import Logout from "./Logout";
 import Match from "./Match";
@@ -13,8 +13,6 @@ const CONFIG = require('./config.json')
 export const Home = () => {
     return useSelector(state => state.userReducer.username)  ? <HomeAuth/> : <LoginForm/>
 }
-
-
 
 const HomeAuth = () => {
     function printNotify() {
@@ -37,7 +35,8 @@ const HomeAuth = () => {
         )
     }
 
-    setInterval(printNotify, 30000);
+    const timerNotify = setInterval(printNotify, 30000);
+    //On component unmount unset the timer TODO
 
     return (
         <div>
