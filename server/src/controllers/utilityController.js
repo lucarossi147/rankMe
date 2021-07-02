@@ -189,11 +189,17 @@ exports.countVotes = function (req, res) {
 exports.analytics = function (req, res) {
     const userVotes = req.user.votes
     const numberOfVotes = req.user.numberOfVotes
-    Promise.all([getGenderAnalytics(userVotes), getAgesAnalytics(userVotes)])
+    Promise.all([getGenderAnalytics(userVotes), getAgesAnalytics(userVotes), getRankPosition(req.user.username)])
         .then(result => {
             const genderAnalytics = result[0]
             const agesAnalytics = result[1]
-            res.send({"numberOfVotes": numberOfVotes, "genderAnalytics": genderAnalytics, "agesAnalytics": agesAnalytics})
+            const rankPosition = result[2]
+            res.send({
+                "numberOfVotes": numberOfVotes,
+                "genderAnalytics": genderAnalytics,
+                "agesAnalytics": agesAnalytics,
+                "rankPosition":rankPosition
+            })
         })
 }
 
@@ -301,3 +307,20 @@ function getAgesAnalytics(votesArray){
         })
 }
 
+function getRankPosition(username){
+    return User.find().sort({'numberOfVotes': -1})
+        .then(rankedUsers => {
+            // if (!rankedUsers) users not found
+            let i = 1;
+            console.log(username)
+            for (let u of rankedUsers){
+                //if I use _id it doesn't work
+                //console.log(JSON.stringify(u._id) === JSON.stringify(user._id))
+                if (u.username === username) {
+                    return i
+                }
+                i++
+            }
+            // return res.sendStatus(404) user not found
+        })
+}
