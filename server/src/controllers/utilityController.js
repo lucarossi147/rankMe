@@ -312,7 +312,6 @@ function getRankPosition(username){
         .then(rankedUsers => {
             // if (!rankedUsers) users not found
             let i = 1;
-            console.log(username)
             for (let u of rankedUsers){
                 //if I use _id it doesn't work
                 //console.log(JSON.stringify(u._id) === JSON.stringify(user._id))
