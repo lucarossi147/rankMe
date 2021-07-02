@@ -1,7 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {errorNotify} from "../notifyAlerts";
-import {Table} from "react-bootstrap";
+import {ListGroup, Table} from "react-bootstrap";
+import Logout from "../Logout";
+import {Link} from "react-router-dom";
 
 const CONFIG = require("../config.json")
 
@@ -12,7 +14,6 @@ const Ranking = (props) => {
     useEffect(() => {
         getRanking()
     }, [isLoaded])
-
 
     const getRanking = () => {
         let config = {
@@ -30,7 +31,7 @@ const Ranking = (props) => {
 
         axios.get(CONFIG.SERVER_URL + "/rank", config)
             .then((res) => {
-                if(res.status === 200){
+                if(res.status === 200 || res.status === 304){
                     setLoaded(true)
                     setRanking(res.data)
                     console.log("ranking after axios call" + ranking)
@@ -42,32 +43,45 @@ const Ranking = (props) => {
         });
     }
 
-    if(isLoaded){
-        console.log("inside rendering")
-        console.log(isLoaded)
-        console.log("is empty" + Object.getOwnPropertyNames(ranking).length === 0)
+    if(isLoaded && ranking.array){
         return (
-            <>
-                <h2>Ranking </h2>
-                <Table striped bordered hover>
-                    <thead>
-                    <th>#</th>
-                    <th>Username</th>
-                    </thead>
-                    <tbody>
-                    {ranking.array.map(item =>
-                        <tr>
-                            <td scope="row">
-                                {item.position}
-                            </td>
-                            <td>
-                                {item.username}
-                            </td>
-                        </tr>
-                    )}
-                    </tbody>
-                </Table>
-            </>
+            <div className="content">
+                <div className="div-center">
+                    <h2>Ranking </h2>
+                    <Table striped bordered hover>
+                        <thead>
+                        <th>#</th>
+                        <th>Username</th>
+                        </thead>
+                        <tbody>
+                        {ranking.array.map(item =>
+                            <tr>
+                                <td scope="row">
+                                    {item.rankPosition}
+                                </td>
+                                <td>
+                                    {item.username}
+                                </td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </Table>
+                    <ListGroup horizontal>
+                        <ListGroup.Item>
+                            <Logout/>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Link to="/profile">My Profile </Link>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Link to="/analytics">Analytics </Link>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Link to={"/"}>Back to Home</Link>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </div>
+            </div>
         )
     }
     return (

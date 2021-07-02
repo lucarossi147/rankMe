@@ -7,6 +7,8 @@ import SignupForm from "./SignupForm";
 import Logout from "./Logout";
 import {Home} from "./Home";
 import {ToastContainer} from "react-toastify";
+import {Analytics} from "./Analytics";
+import Ranking from "./analytics/Ranking";
 
 function App(){
     return (
@@ -18,6 +20,8 @@ function App(){
                     <Route path="/login"   component={LoginForm}/>
                     <Route path="/signup"  component={SignupForm}/>
                     <Route path="/logout"  component={Logout}/>
+                    <Route path="/analytics"  component={Analytics}/>
+                    <Route path="/ranking"  component={Ranking}/>
                     <Route path="/"        component={Home}/>
                 </Switch>
             </Router>
