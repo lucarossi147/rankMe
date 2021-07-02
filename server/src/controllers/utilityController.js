@@ -172,39 +172,29 @@ exports.rank = function(req, res){
 
 exports.gender = function (req, res) {
     const userVotes = req.user.votes
-    getUsersFromVotes(userVotes)
-        .then(votesProjections=>{
-        let maleVotes = 0
-        let femaleVotes = 0
-        for( let user of votesProjections){
-            const completeUser = user.completeUser[0]
-            if (completeUser.gender === "female" ){
-                femaleVotes++
-            } else if( completeUser.gender === "male"){
-                maleVotes++
-            }
-        }
-        let percentages = calculatePercentage(maleVotes, femaleVotes)
-        res.send({males: percentages.first, females: percentages.second})
-        })
+    getGenderAnalytics(userVotes)
+        .then(genderAnalytics => res.send(genderAnalytics))
 }
 
 exports.ages = function (req, res){
     const userVotes = req.user.votes
-    getUsersFromVotes(userVotes)
-        .then(users=>{
-            let ages = []
-            for( let rawUser of users){
-                const user = rawUser.completeUser[0]
-                const age = getAge(user.birthDate)
-                ages.push(age)
-            }
-            res.send(groupAges(ages))
-    })
+    getAgesAnalytics(userVotes)
+        .then(agesAnalytics => res.send(agesAnalytics))
 }
 
 exports.countVotes = function (req, res) {
     return res.send(req.user.numberOfVotes)
+}
+
+exports.analytics = function (req, res) {
+    const userVotes = req.user.votes
+    const numberOfVotes = req.user.numberOfVotes
+    Promise.all([getGenderAnalytics(userVotes), getAgesAnalytics(userVotes)])
+        .then(result => {
+            const genderAnalytics = result[0]
+            const agesAnalytics = result[1]
+            res.send({"numberOfVotes": numberOfVotes, "genderAnalytics": genderAnalytics, "agesAnalytics": agesAnalytics})
+        })
 }
 
 exports.notifies = function (req,res) {
@@ -279,3 +269,35 @@ function groupAges(agesArray){
     }
     return ages
 }
+
+function getGenderAnalytics(votesArray){
+    return getUsersFromVotes(votesArray)
+        .then(votesProjections=>{
+            let maleVotes = 0
+            let femaleVotes = 0
+            for( let user of votesProjections){
+                const completeUser = user.completeUser[0]
+                if (completeUser.gender === "female" ){
+                    femaleVotes++
+                } else if( completeUser.gender === "male"){
+                    maleVotes++
+                }
+            }
+            let percentages = calculatePercentage(maleVotes, femaleVotes)
+            return {males: percentages.first, females: percentages.second}
+        })
+}
+
+function getAgesAnalytics(votesArray){
+    return getUsersFromVotes(votesArray)
+        .then(users=>{
+            let ages = []
+            for( let rawUser of users){
+                const user = rawUser.completeUser[0]
+                const age = getAge(user.birthDate)
+                ages.push(age)
+            }
+            return groupAges(ages)
+        })
+}
+
