@@ -1,14 +1,14 @@
+html, body, #root, #root>div{
+    height: 100%;
+    width: 100%;
+    background: #26547C;
+}
+
 .btn-primary {
     background-color: #26547C !important;
 }
 
-.back {
-    background: #26547C;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-}
+
 
 .div-center {
     border-radius: 10px;
@@ -37,13 +37,19 @@
     height: 420px;
 }
 
+.homeBox {
+    width: 80%;
+    height: 90%;
+}
+
+.profileBox {
+    width: 80%;
+    height: 50%;
+}
+
 div.content {
     display: table-cell;
     vertical-align: middle;
-}
-
-#group-buttons {
-    width: 100%;
 }
 
 #primaryButton {
@@ -58,20 +64,20 @@ div.content {
 
 .voteButton {
     display: flex;
-    margin: auto;
-}
-
-.card-img-top {
-    max-width: 800px;
-    max-height: 500px;
 }
 
 @media screen and (max-width: 800px) {
-    .card {
-        display: flex;
-        text-align: center;
-        max-width: 75%;
-        max-height: 400px;
+
+    .card-body {
+        font-size: 10px !important;
+    }
+
+    .homeTitle {
+        font-size: 6vw;
+    }
+
+    .card-img-top {
+        height: 200px !important;
     }
 
     .voteButton {
@@ -84,8 +90,8 @@ div.content {
     }
 }
 
-.card-group-flex {
-    display: flex;
+.card-title {
+    text-align: center;
 }
 
 footer {
@@ -97,10 +103,38 @@ footer {
 }
 
 .rounded-circle {
-    max-width: 100%;
+    margin-top: 25px;
+    max-width: 50%;
 }
 
 .row {
-    text-align: center;
     justify-content: center;
+}
+
+.profile {
+    background-color: #26547C !important;
+    height: 100%;
+    width: 100%;
+}
+
+.profileContainer {
+    background-color: #FCFCFC;
+    border-radius: 10px;
+}
+.card-img-top {
+    height: 25vw;
+    object-fit: cover;
+}
+
+.profileContainer > .row {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.btn-group {
+    padding: 10px;
+}
+
+.homeTitle {
+    text-align: center;
 }

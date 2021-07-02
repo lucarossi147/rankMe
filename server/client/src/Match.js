@@ -38,15 +38,15 @@ function Match(){
             )
     }
 
-   if(error){
-       return <div> Error: {error.message}</div>;
-   } else if (!isLoaded) {
-       return <div>Loading...</div>
-   } else {
+    if(error){
+        return <div> Error: {error.message}</div>;
+    } else if (!isLoaded) {
+        return <div>Loading...</div>
+    } else {
         return (
             <div>
-                <h1>Choose the best photo: </h1>
-                <CardGroup className={"card-group-flex"}>
+                <h1 className="homeTitle">Choose the best photo: </h1>
+                <CardGroup>
                     <Row xs={1} md={2}>
                         <UserVote user={user1}/>
                         <UserVote user={user2}/>
@@ -54,7 +54,7 @@ function Match(){
                 </CardGroup>
             </div>
         );
-   }
+    }
 }
 
 export default Match;

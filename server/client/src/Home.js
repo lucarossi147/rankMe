@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import FormLocality from "./FormLocality";
 import axios from "axios";
 import {successNotify} from "./notifyAlerts";
+import {ListGroup, Row} from "react-bootstrap";
 
 const CONFIG = require('./config.json')
 
@@ -40,11 +41,30 @@ const HomeAuth = () => {
 
     return (
         <div>
-            <Link to="/profile">Profile</Link>
-            <Locality/>
-            <Match/>
-            <Logout/>
-            <Footer/>
+            <div className="back">
+                <div className="div-center homeBox">
+                    <div className="content">
+                        <Locality/>
+                        <Match/>
+                        <Row>
+                            <ListGroup horizontal>
+                                <ListGroup.Item>
+                                    <Logout/>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/profile">My Profile </Link>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/analytics">Analytics </Link>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/ranking">Ranking </Link>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Row>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

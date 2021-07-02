@@ -40,9 +40,9 @@ function UserVote(props) {
 
     return (
         <div>
-            <Col className="card-col">
-                <Card border={"light"} bg={"light"}>
-                    <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} width={200} heigth={200} onClick={handleSubmit}/>
+            <Col >
+                <Card>
+                    <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
                     <Card.Body>
                         <Card.Title>
                             <Link
@@ -56,7 +56,7 @@ function UserVote(props) {
                         <Card.Text> </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <small className="text-muted">{user.country}</small>
+                        <TextPosition pos={user.country}/>
                     </Card.Footer>
                     <Button className="voteButton" onClick={handleSubmit}>Vote</Button>
                 </Card>
@@ -65,4 +65,7 @@ function UserVote(props) {
     )
 }
 
+const TextPosition = (props) => {
+    return props.pos ?  <small className="text-muted"> {props.pos}</small> : <small className="text-muted"> Unknown </small>
+}
 export default UserVote

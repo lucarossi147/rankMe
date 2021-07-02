@@ -21,12 +21,7 @@ function Logout(){
         return <Redirect to={'/'}/>
     }
 
-    return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="submit" value="Logout" />
-            </form>
-        </div>
-    );
+    return <input type="button" onClick={handleSubmit} value="Logout" />
 }
+
 export default Logout;

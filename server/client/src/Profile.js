@@ -2,13 +2,10 @@ import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
 import {Home} from "./Home"
 import {useSelector} from "react-redux";
-import FormLocality from "./FormLocality";
-import Logout from "./Logout";
 import {Link, useLocation} from "react-router-dom"
-import ImageForm from "./ImageForm";
-import {Analytics} from "./Analytics";
 import axios from "axios";
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Col, Container, Image, ListGroup, Row} from "react-bootstrap";
+import Logout from "./Logout";
 
 const CONFIG = require("./config.json");
 
@@ -60,7 +57,8 @@ const ProfileAuth = (props) => {
         if(localStorage.getItem('accessToken')){
             return (
                 <div className="profile">
-                    <Container>
+                    <div className="div-center profileBox">
+                    <Container className="profileContainer">
                         <Row>
                             <Col>
                                 <Image src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found" roundedCircle/>
@@ -71,18 +69,35 @@ const ProfileAuth = (props) => {
                                 {user.username}
                             </Col>
                         </Row>
-                        <Row lg="auto">
+                        <Row>
                             <FormSocial user={user}/>
                         </Row>
+                        <Row>
+                            <Col>
+                                <Rank rank={user.rankPosition}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <ListGroup horizontal>
+                                <ListGroup.Item>
+                                    <Logout/>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/profile">My Profile </Link>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/analytics">Analytics </Link>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to="/ranking">Ranking </Link>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Link to={"/"}>Back to Home</Link>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Row>
                     </Container>
-                    <Rank rank={user.rankPosition}/>
-
-                    <FormLocality user={user}/>
-                    <textarea readOnly value={user.bio || ""}/>
-                    <Link to={"/"}>Back to Home</Link>
-                    <ImageForm/>
-                    <Analytics/>
-                    <Logout/>
+                </div>
                 </div>
             )
         } else {
@@ -112,4 +127,11 @@ function Rank(props) {
 
 export default Profile;
 
-
+/*
+                <FormLocality user={user}/>
+                    <textarea readOnly value={user.bio || ""}/>
+                    <Link to={"/"}>Back to Home</Link>
+                    <ImageForm/>
+                    <Analytics/>
+                    <Logout/>
+ */
