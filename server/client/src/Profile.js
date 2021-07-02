@@ -28,25 +28,25 @@ const ProfileAuth = (props) => {
 
     const fetchProfile =  () => {
 
-        if(!id){
+        if (!id) {
             console.log("Error id null in fetchprofile" + id)
             return;
         }
 
         let config = {
-            headers : {
-                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
             }
         }
 
         axios.get(CONFIG.SERVER_URL + "/profile/" + id, config
         ).then((res) => {
-                setLoaded(true)
-                setUser(res.data)
+            setLoaded(true)
+            setUser(res.data)
         }, (error) => {
-                setLoaded(false)
-                setError(error)
-            })
+            setLoaded(false)
+            setError(error)
+        })
     }
 
     if(error){
