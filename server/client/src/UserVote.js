@@ -28,12 +28,11 @@ function UserVote(props) {
                 if(response.status === 200){
                     successNotify(" Correctly voted!")
                 } else {
-                    errorNotify("Problems occured during vote")
+                    errorNotify("Problems occurred during vote")
                 }
             }).catch(function (error) {
             errorNotify('Error', error.message);
         });
-
 
     }
 

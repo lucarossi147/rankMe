@@ -289,8 +289,9 @@ function getGenderAnalytics(votesArray){
                     maleVotes++
                 }
             }
-            let percentages = calculatePercentage(maleVotes, femaleVotes)
-            return {males: percentages.first, females: percentages.second}
+            //let percentages = calculatePercentage(maleVotes, femaleVotes)
+            //return {males: percentages.first, females: percentages.second}
+            return {males: maleVotes, females: femaleVotes}
         })
 }
 

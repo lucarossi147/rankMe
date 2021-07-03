@@ -7,17 +7,17 @@ const Genders = (props) => {
     let series = {}
     if(props.genders){
         series = [{
-            data: [1,1]
+            data: [props.genders.males, props.genders.females]
         }]
     } else {
         series = [{
-            data: [props.genders.males, props.genders.females]
+            data: [1,1]
         }];
     }
 
     return (
         <div>
-            <h2>Number of votes for age range</h2>
+            <h2>Your voters are</h2>
             <Chart width={600} height={250} series={series}>
                 <Transform method={['transpose', 'stack']}>
                     <Pies innerRadius='66%'

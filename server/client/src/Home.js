@@ -22,18 +22,19 @@ const HomeAuth = () => {
                 Authorization : 'Bearer ' + localStorage.getItem('accessToken')
             }
         }
-
-        axios.get(CONFIG.SERVER_URL + "/notifies",config).then(
-            (res) => {
-                console.log(res.data)
-                if(!!res.data){
-                    for(const string of res.data){
-                        successNotify(string)
+        if (localStorage.getItem('accessToken')){
+            axios.get(CONFIG.SERVER_URL + "/notifies",config).then(
+                (res) => {
+                    console.log(res.data)
+                    if(!!res.data){
+                        for(const string of res.data){
+                            successNotify(string)
+                        }
                     }
-                }
-            },
-            (err) => console.log(err)
-        )
+                },
+                (err) => console.log(err)
+            )
+       }
     }
 
     const timerNotify = setInterval(printNotify, 30000);

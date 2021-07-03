@@ -12,7 +12,7 @@ exports.getMatch = function (req, res) {
         // console.log(numberOfPeople)
         // const rand = Math.floor(Math.random() * numberOfPeople-1);
         // console.log(numberOfPeople)
-        const randomNumber = randomUtil.getRandom()
+        // const randomNumber = randomUtil.getRandom()
         const rand = Math.floor( randomUtil.getRandom() * (numberOfPeople-1));
         // console.log("rand "+rand)
         const myId = req.user._id
