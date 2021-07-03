@@ -60,6 +60,7 @@ function LoginForm(){
                                           name="password"
                                           value={password}
                                           onChange={handleChange}
+                                          placeholder="password"
                                           className="form-control"
                             />
                         </Form.Group>

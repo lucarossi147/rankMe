@@ -50,7 +50,7 @@ function UserVote(props) {
                                     pathname: "/profile",
                                     state: { redirectToUser: user._id },
                                 }}>
-                                {user.name} {user.surname}
+                                {user.username}
                             </Link>
                         </Card.Title>
                         <Card.Text> </Card.Text>
