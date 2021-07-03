@@ -39,14 +39,14 @@ const ProfileAuth = (props) => {
             }
         }
 
-        axios.get(CONFIG.SERVER_URL + "/profile/" + id, config
-        ).then((res) => {
-            setLoaded(true)
-            setUser(res.data)
-        }, (error) => {
-            setLoaded(false)
-            setError(error)
-        })
+        axios.get(CONFIG.SERVER_URL + "/profile/" + id, config)
+            .then((res) => {
+                setLoaded(true)
+                setUser(res.data)
+            }, (error) => {
+                setLoaded(false)
+                setError(error)
+            })
     }
 
     if(error){
@@ -58,46 +58,46 @@ const ProfileAuth = (props) => {
             return (
                 <div className="profile">
                     <div className="div-center profileBox">
-                    <Container className="profileContainer">
-                        <Row>
-                            <Col>
-                                <Image src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found" roundedCircle/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                {user.username}
-                            </Col>
-                        </Row>
-                        <Row>
-                            <FormSocial user={user}/>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Rank rank={user.rankPosition}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <ListGroup horizontal>
-                                <ListGroup.Item>
-                                    <Logout/>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Link to="/profile">My Profile </Link>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Link to="/analytics">Analytics </Link>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Link to="/ranking">Ranking </Link>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Link to={"/"}>Back to Home</Link>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Row>
-                    </Container>
-                </div>
+                        <Container className="profileContainer">
+                            <Row>
+                                <Col>
+                                    <Image src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found" roundedCircle/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    {user.username}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <FormSocial user={user}/>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Rank rank={user.rankPosition}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <ListGroup horizontal>
+                                    <ListGroup.Item>
+                                        <Logout/>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Link to="/profile">My Profile </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Link to="/analytics">Analytics </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Link to="/ranking">Ranking </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Link to={"/"}>Back to Home</Link>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Row>
+                        </Container>
+                    </div>
                 </div>
             )
         } else {
@@ -130,8 +130,5 @@ export default Profile;
 /*
                 <FormLocality user={user}/>
                     <textarea readOnly value={user.bio || ""}/>
-                    <Link to={"/"}>Back to Home</Link>
-                    <ImageForm/>
-                    <Analytics/>
-                    <Logout/>
+              TODO metter la bio nel èprofilo
  */

@@ -45,8 +45,8 @@ const Ranking = (props) => {
 
     if(isLoaded && ranking.array){
         return (
-            <div className="content">
-                <div className="div-center">
+            <div className="div-center">
+                <div className="content">
                     <h2>Ranking </h2>
                     <Table striped bordered hover>
                         <thead>
@@ -54,12 +54,13 @@ const Ranking = (props) => {
                         <th>Username</th>
                         </thead>
                         <tbody>
-                        {ranking.array.map(item =>
+                        {
+                            ranking.array.map(item =>
                             <tr>
-                                <td scope="row">
+                                <td key={item} scope="row">
                                     {item.rankPosition}
                                 </td>
-                                <td>
+                                <td >
                                     {item.username}
                                 </td>
                             </tr>

@@ -1,7 +1,9 @@
 import {Chart, Pies, Transform} from "rumble-charts";
 
 const Genders = (props) => {
-    console.log(props.genders)
+    /*
+    TODO mettere qualcosa come un tooltip sulla pie
+     */
     let series = {}
     if(props.genders){
         series = [{
@@ -14,19 +16,22 @@ const Genders = (props) => {
     }
 
     return (
-        <Chart width={600} height={250} series={series}>
-            <Transform method={['transpose', 'stack']}>
-                <Pies innerRadius='66%'
-                      colors='category10'
-                      combined={true}
-                      pieAttributes={{
-                          onMouseMove: (e) => e.target.style.opacity = 1,
-                          onMouseLeave: (e) => e.target.style.opacity = 0.5
-                      }}
-                      pieStyle={{opacity: 0.5}}
-                />
-            </Transform>
-        </Chart>
+        <div>
+            <h2>Number of votes for age range</h2>
+            <Chart width={600} height={250} series={series}>
+                <Transform method={['transpose', 'stack']}>
+                    <Pies innerRadius='66%'
+                          colors='category10'
+                          combined={true}
+                          pieAttributes={{
+                              onMouseMove: (e) => e.target.style.opacity = 1,
+                              onMouseLeave: (e) => e.target.style.opacity = 0.5
+                          }}
+                          pieStyle={{opacity: 0.5}}
+                    />
+                </Transform>
+            </Chart>
+        </div>
     )
 }
 

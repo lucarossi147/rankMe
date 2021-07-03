@@ -8,8 +8,6 @@ html, body, #root, #root>div{
     background-color: #26547C !important;
 }
 
-
-
 .div-center {
     border-radius: 10px;
     background-color: #FCFCFC;
@@ -45,6 +43,11 @@ html, body, #root, #root>div{
 .profileBox {
     width: 80%;
     height: 50%;
+}
+
+.analyticsBox {
+    width: 70%;
+    height: 70%;
 }
 
 div.content {
@@ -137,4 +140,8 @@ footer {
 
 .homeTitle {
     text-align: center;
+}
+
+.ageChart {
+    padding: 20px;
 }

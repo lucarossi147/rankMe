@@ -1,61 +1,57 @@
-import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
+import { Chart, Ticks, Layer, Bars, Title } from 'rumble-charts';
 
 const Ages = (props) => {
-    console.log(props.ages)
-    return <h1>Ages</h1>
-    const series = props.ages
-    //props.ages = array
-    /*
-    "agesAnalytics": {
-        "22": 3
-    },
+    //Populate series with number of votes for every age
+    const series = [
+        {
+            name: '0-18',
+            data: [0]
+        }, {
+            name: '19-30',
+            data: [0]
+        }, {
+            name: '31-50',
+            data: [0]
+        }, {
+            name: '50+',
+            data: [0]
+        }]
 
-    const series = [{
-        name: 'John',
-        data: [1, 2, 3]
-    }, {
-        name: 'Jane',
-        data: [5, 7, 11]
-    }, {
-        name: 'James',
-        data: [13, 17, 19]
-    }];
-*/
+    for(const age in props.ages){
+
+        switch (true){
+            case (age < 19):
+                series[0].data[0] += props.ages[age]
+                break;
+            case (age < 31):
+                series[1].data[0] += props.ages[age]
+                break;
+            case (age <51):
+                series[2].data[0] += props.ages[age]
+                break;
+            default:
+                series[3].data[0] += props.ages[age]
+                break;
+        }
+    }
+    console.log("series")
+    console.log(series)
+
     return (
-        <div style={{fontFamily: 'sans-serif', fontSize: '0.8em'}}>
+        <div className="ageChart">
+            <h2>Number of votes for age range</h2>
             <Chart width={600} height={300} series={series} minY={0}>
-                <Layer width='80%' height='90%' position='top center'>
+                <Layer width='30%' height='100%' position='center'>
                     <Ticks
                         axis='y'
                         lineLength='100%'
                         lineVisible={true}
-                        lineStyle={{stroke: 'lightgray'}}
-                        labelStyle={{textAnchor: 'end', dominantBaseline: 'middle', fill: 'lightgray'}}
+                        lineStyle={{stroke:'lightgray'}}
+                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fill:'lightgray'}}
                         labelAttributes={{x: -5}}
-                        labelFormat={label => label + ' km'}
+                        labelFormat={label => label + ' votes'}
                     />
-                    <Ticks
-                        axis='y'
-                        position='right'
-                        ticks={{minDistance: 1.6}}
-                        lineLength='100%'
-                        lineOffset='-100%'
-                        lineVisible={true}
-                        lineStyle={{stroke: 'lightblue'}}
-                        labelStyle={{textAnchor: 'start', dominantBaseline: 'middle', fill: 'lightblue'}}
-                        labelAttributes={{x: 5}}
-                        labelFormat={label => Math.round(label / 1.6) + ' miles'}
-                    />
-                    <Ticks
-                        axis='x'
-                        label={({index, props}) => props.series[index].name}
-                        labelStyle={{textAnchor: 'middle', dominantBaseline: 'text-before-edge', fill: 'lightgray'}}
-                        labelAttributes={{y: 3}}
-                    />
-                    <Bars
-                        groupPadding='3%'
-                        innerPadding='0.5%'
-                    />
+                    <Bars/>
                 </Layer>
             </Chart>
         </div>

@@ -10,7 +10,7 @@ import axios from "axios";
 
 const CONFIG = require("./config.json")
 
-function AnalyticsAuth(props) {
+function AnalyticsAuth() {
 
     const [isLoaded, setLoaded] = useState(false)
     const [data, setData] = useState({})
@@ -29,10 +29,8 @@ function AnalyticsAuth(props) {
 
         axios.get(CONFIG.SERVER_URL + "/analytics", config)
             .then((res) => {
-                console.log("In then")
-                setLoaded(true)
                 setData(res.data)
-                console.log("data" + data)
+                setLoaded(true)
             }, (err) => {
                 setLoaded(false)
                 setError(err)
@@ -47,7 +45,7 @@ function AnalyticsAuth(props) {
     } else {
         return (
             <div className="div-center">
-                <div className="content">
+                <div className="content analyticsBox">
                     <Genders genders={data.genderAnalytics}/>
                     <Ages ages={data.agesAnalytics}/>
                     <ListGroup horizontal>
