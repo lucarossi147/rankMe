@@ -8,7 +8,8 @@ import Logout from "./Logout";
 import {Home} from "./Home";
 import {ToastContainer} from "react-toastify";
 import {Analytics} from "./Analytics";
-import Ranking from "./analytics/Ranking";
+import Ranking from "./Ranking";
+import Badges from "./Badges";
 
 function App(){
     return (
@@ -22,6 +23,7 @@ function App(){
                     <Route path="/logout"  component={Logout}/>
                     <Route path="/analytics"  component={Analytics}/>
                     <Route path="/ranking"  component={Ranking}/>
+                    <Route path="/badges"  component={Badges}/>
                     <Route path="/"        component={Home}/>
                 </Switch>
             </Router>

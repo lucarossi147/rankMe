@@ -14,8 +14,7 @@ const authHeader = (user, accessToken) => {
 }
 
 function register(user) {
-    let result = false
-    axios.post(CONFIG.SERVER_URL + '/signup', {
+    return axios.post(CONFIG.SERVER_URL + '/signup', {
         name: user.name,
         surname: user.surname,
         username: user.username,
@@ -27,17 +26,16 @@ function register(user) {
     }, )
     .then((response) => {
         if(response.status === 409){
-            result = false
             errorNotify("Email or username already chosen")
+            return false
         } else {
-            result = true
             successNotify("Signup made, check your email")
+            return true
         }
     })
     .catch(function (error) {
         console.log(error);
     });
-    return result
 }
 
 function login(username, password, dispatcher) {

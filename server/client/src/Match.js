@@ -7,16 +7,21 @@ const CONFIG = require("./config.json");
 
 function Match(){
 
+    const [reload, setReload] = useState(false)
     const [user1, setUser1] = useState({})
     const [user2, setUser2] = useState({})
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
 
+    /*
+    TODO faccio controllo, in caso ci siano settati user1._id e user2._id prendo quelli per fare il match,
+      altrimenti chiamo feth profile
+     */
     const accessToken = localStorage.getItem('accessToken')
 
     useEffect(() => {
         fetchProfile()
-    }, [])
+    }, [reload])
 
     const fetchProfile = () => {
         let config = {
@@ -30,6 +35,7 @@ function Match(){
                     setUser1(result.data.user1)
                     setUser2(result.data.user2)
                     setLoaded(true)
+                    setReload(false)
                 },
                 (error) => {
                     setError(error)
@@ -44,15 +50,15 @@ function Match(){
         return <div>Loading...</div>
     } else {
         return (
-            <div>
+            <>
                 <h1 className="homeTitle">Choose the best photo: </h1>
                 <CardGroup>
                     <Row xs={1} md={2}>
-                        <UserVote user={user1}/>
-                        <UserVote user={user2}/>
+                        <UserVote callback={setReload} user={user1}/>
+                        <UserVote callback={setReload} user={user2}/>
                     </Row>
                 </CardGroup>
-            </div>
+            </>
         );
     }
 }

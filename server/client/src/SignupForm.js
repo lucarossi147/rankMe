@@ -6,7 +6,15 @@ import {Button, Col, Form} from "react-bootstrap";
 function SignupForm() {
 
     const [redirect, setRedirect] = useState(false)
-    const [signinUser, setUser] = useState({})
+    const [signinUser, setUser] = useState({
+        "name": "",
+        "username":"",
+        "surname":"",
+        "email":"",
+        "birthDate":"",
+        "password":"",
+        "gender":""
+    })
 
 
     const handleChange = (evt) => {
@@ -19,12 +27,18 @@ function SignupForm() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        setRedirect(authService.register(signinUser))
-        if(redirect){
-            return <Redirect to={'/'}/>
+        if(authService.register(signinUser)){
+            setRedirect(true)
         }
     }
 
+    if(redirect === true){
+        return (
+            <div>
+                <Redirect to={'/'}/>
+            </div>
+        )
+    }
     return (
         <div className="back">
             <div className="div-center signupForm">

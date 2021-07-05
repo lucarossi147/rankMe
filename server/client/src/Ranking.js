@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {errorNotify} from "../notifyAlerts";
-import {ListGroup, Table} from "react-bootstrap";
-import Logout from "../Logout";
+import {errorNotify} from "./notifyAlerts";
+import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import LinkBar from "./LinkBar";
 
-const CONFIG = require("../config.json")
+const CONFIG = require("./config.json")
 
 const Ranking = (props) => {
     const [isLoaded, setLoaded] = useState(false)
@@ -34,7 +34,6 @@ const Ranking = (props) => {
                 if(res.status === 200 || res.status === 304){
                     setLoaded(true)
                     setRanking(res.data)
-                    console.log("ranking after axios call" + ranking)
                 } else {
                     setLoaded(false)
                 }
@@ -45,7 +44,7 @@ const Ranking = (props) => {
 
     if(isLoaded && ranking.array){
         return (
-            <div className="div-center">
+            <div className="div-center analyticsBox">
                 <div className="content">
                     <h2>Ranking </h2>
                     <Table striped bordered hover>
@@ -61,26 +60,19 @@ const Ranking = (props) => {
                                     {item.rankPosition}
                                 </td>
                                 <td >
-                                    {item.username}
+                                    <Link
+                                        to={{
+                                            pathname: "/profile",
+                                            state: { redirectToUser: item._id },
+                                        }}>
+                                        {item.username}
+                                    </Link>
                                 </td>
                             </tr>
                         )}
                         </tbody>
                     </Table>
-                    <ListGroup horizontal>
-                        <ListGroup.Item>
-                            <Logout/>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to="/profile">My Profile </Link>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to="/analytics">Analytics </Link>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to={"/"}>Back to Home</Link>
-                        </ListGroup.Item>
-                    </ListGroup>
+                    <LinkBar/>
                 </div>
             </div>
         )

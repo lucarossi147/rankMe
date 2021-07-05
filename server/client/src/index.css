@@ -42,12 +42,12 @@ html, body, #root, #root>div{
 
 .profileBox {
     width: 80%;
-    height: 50%;
+    height: 90%;
 }
 
 .analyticsBox {
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 90%;
 }
 
 div.content {
@@ -65,27 +65,21 @@ div.content {
     float: right;
 }
 
-.voteButton {
-    display: flex;
-}
-
 @media screen and (max-width: 800px) {
 
     .card-body {
         font-size: 10px !important;
     }
 
+    .card {
+        max-width: 90%;
+    }
     .homeTitle {
         font-size: 6vw;
     }
 
     .card-img-top {
         height: 200px !important;
-    }
-
-    .voteButton {
-        display: flex;
-        justify-content: center;
     }
 
     footer {
@@ -124,6 +118,7 @@ footer {
     background-color: #FCFCFC;
     border-radius: 10px;
 }
+
 .card-img-top {
     height: 25vw;
     object-fit: cover;
@@ -144,4 +139,18 @@ footer {
 
 .ageChart {
     padding: 20px;
+}
+
+.list-group {
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.deck {
+    display: flex;
+}
+
+.deck > .card {
+    width: 25%;
+    margin: auto;
 }

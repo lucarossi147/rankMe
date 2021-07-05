@@ -23,8 +23,7 @@ function LoginForm(){
 
     const handleSubmit= (evt) => {
         evt.preventDefault();
-        const redirect = authService.login(username, password, dispatch)
-        if (redirect) {
+        if (authService.login(username, password, dispatch)) {
             setRedirect(true)
             dispatch(loginAction())
         }
@@ -38,7 +37,6 @@ function LoginForm(){
         )
     }
     return (
-        <div className="back">
             <div className="div-center loginForm">
                 <div className="content">
                     <Form onSubmit={handleSubmit}>
@@ -75,7 +73,6 @@ function LoginForm(){
                     </Form>
                 </div>
             </div>
-        </div>
     );
 }
 

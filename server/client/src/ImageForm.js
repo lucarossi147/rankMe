@@ -4,7 +4,7 @@ import {errorNotify, successNotify} from "./notifyAlerts";
 
 const CONFIG = require("./config.json");
 
-function ImageForm(){
+function ImageForm(props){
     const [selectedFile, setFile] = useState()
     const accessToken = localStorage.getItem('accessToken')
 
@@ -22,6 +22,7 @@ function ImageForm(){
         axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
             .then(function (response) {
                 successNotify("Photo correctly uploaded")
+                props.callback(true)
             })
             .catch(function (error) {
                 errorNotify("Error uploading photo")
@@ -35,7 +36,7 @@ function ImageForm(){
     return (
         <div>
             <input type="file" name="profile" onChange={onChangeHandler} />
-            <button onClick={onClickHandler}>Upload</button>
+            <button onClick={onClickHandler}>Upload photo</button>
         </div>
     );
 }

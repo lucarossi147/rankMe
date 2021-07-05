@@ -1,12 +1,11 @@
 import {useSelector} from "react-redux";
 import {Home} from "./Home";
 import Genders from "./analytics/Genders";
-import {ListGroup} from "react-bootstrap";
-import Logout from "./Logout";
-import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Ages from "./analytics/Ages";
 import axios from "axios";
+import LinkBar from "./LinkBar";
+import {Col, Row} from "react-bootstrap";
 
 const CONFIG = require("./config.json")
 
@@ -44,24 +43,17 @@ function AnalyticsAuth() {
         return <div>Loading...</div>
     } else {
         return (
-            <div className="div-center">
-                <div className="content analyticsBox">
-                    <Genders genders={data.genderAnalytics}/>
-                    <Ages ages={data.agesAnalytics}/>
-                    <ListGroup horizontal>
-                        <ListGroup.Item>
-                            <Logout/>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to="/profile">My Profile </Link>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to="/ranking">Ranking </Link>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to={"/"}>Back to Home</Link>
-                        </ListGroup.Item>
-                    </ListGroup>
+            <div className="div-center analyticsBox">
+                <div className="content ">
+                    <Row>
+                        <Col>
+                            <Genders genders={data.genderAnalytics}/>
+                        </Col>
+                        <Col>
+                            <Ages ages={data.agesAnalytics}/>
+                        </Col>
+                    </Row>
+                    <LinkBar active={"analytics"}/>
                 </div>
             </div>
         )

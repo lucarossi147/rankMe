@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {errorNotify, successNotify} from "./notifyAlerts"
+import {Redirect} from "react-router-dom";
 const CONFIG = require("./config.json");
 
 function FormLocality(){
 
     const [locality, setLocality] = useState(null)
     const accessToken = localStorage.getItem('accessToken')
+    const [redirect, setRedirect] = useState(null)
 
     const handleSubmit = (evt) =>{
         evt.preventDefault();
@@ -20,7 +22,6 @@ function FormLocality(){
         if(locality){
             if(locality.value.terms.length < 3 ){
                 errorNotify("Error submitting the city, please change locality or retry")
-                return
             } else {
                 axios.post(CONFIG.SERVER_URL + "/address",
                     {
@@ -31,6 +32,7 @@ function FormLocality(){
                     .then((res) => {
                         if(res.status === 200){
                             successNotify("Correctly update location")
+                            setRedirect(true)
                         } else {
                             errorNotify("Error on update of location")
                         }
@@ -40,22 +42,25 @@ function FormLocality(){
             }
         } else {
             errorNotify("Enter the name of your city first!")
-            return
         }
     }
 
-    return(
-        <div>
-            <GooglePlacesAutocomplete selectProps={
-                {
-                    locality,
-                    onChange: setLocality
+    if(redirect){
+        return <Redirect to="/profile"/>
+    } else {
+        return(
+            <div>
+                <GooglePlacesAutocomplete selectProps={
+                    {
+                        locality,
+                        onChange: setLocality
+                    }
                 }
-            }
-            />
-            <button onClick={handleSubmit}>Update</button>
-        </div>
-    )
+                />
+                <button onClick={handleSubmit}>Update</button>
+            </div>
+        )
+    }
 }
 
 export default FormLocality

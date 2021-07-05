@@ -1,7 +1,6 @@
-import { Chart, Ticks, Layer, Bars, Title } from 'rumble-charts';
+import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
 
 const Ages = (props) => {
-    //Populate series with number of votes for every age
     const series = [
         {
             name: '0-18',
@@ -18,7 +17,6 @@ const Ages = (props) => {
         }]
 
     for(const age in props.ages){
-
         switch (true){
             case (age < 19):
                 series[0].data[0] += props.ages[age]
@@ -34,8 +32,6 @@ const Ages = (props) => {
                 break;
         }
     }
-    console.log("series")
-    console.log(series)
 
     return (
         <div className="ageChart">

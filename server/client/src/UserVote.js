@@ -27,6 +27,7 @@ function UserVote(props) {
             .then( (response) => {
                 if(response.status === 200){
                     successNotify(" Correctly voted!")
+                    props.callback(true)
                 } else {
                     errorNotify("Problems occurred during vote")
                 }
@@ -35,7 +36,6 @@ function UserVote(props) {
         });
 
     }
-
 
     return (
         <div>
