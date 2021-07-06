@@ -7,6 +7,7 @@ import axios from "axios";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
+import NavComponent from "./NavComponent";
 
 const CONFIG = require("./config.json");
 
@@ -61,41 +62,47 @@ const ProfileAuth = (props) => {
         if(localStorage.getItem('accessToken')){
             console.log(user)
             return (
-                <div className="profile">
-                    <div className="div-center profileBox">
-                        <Container className="profileContainer">
-                            <Row>
-                            <Col>
-                                <Image id="profilepic" src={CONFIG.SERVER_URL + "/images/" + user.picture} roundedCircle alt="Profile not found"  onClick={() => setViewUpload(!viewUpload)}/>
-                                <Upload callback={setReload} display={viewUpload}/>
-                            </Col>
-                            <Col>
-                                <Row>
-                                    <h4>{user.name} {user.surname}</h4>
-                                </Row>
-                                <Row>
-                                    <h4>{user.username}</h4>
-                                </Row>
-                                <Row>
-                                    <h4>Rank: {props.rank}</h4>
-                                </Row>
-                                <Row>
-                                    <h4>{user.email}</h4>
-                                </Row>
-                                <Row>
-                                    <h5> {user.bio || ""}</h5>
-                                </Row>
-                            </Col>
-                            </Row>
-                            <Row>
-                                <div className="d-grid gap-2 d-md-block">
-                                    <FormSocial user={user}/>
-                                    <Locality callback={setReload}/>
-                                </div>
-                            </Row>
-                        </Container>
+                <>
+                    <NavComponent/>
+                    <div className="outside">
+                        <div className="profile">
+                            <div className="div-center profileBox">
+                                <Container className="profileContainer">
+                                    <Row>
+                                        <Col>
+                                            <Image id="profilepic"
+                                                   src={CONFIG.SERVER_URL + "/images/" + user.picture}
+                                                   roundedCircle
+                                                   alt="Profile not found"
+                                                   onClick={() => setViewUpload(!viewUpload)}
+                                            />
+                                            <Upload callback={setReload} display={viewUpload}/>
+                                        </Col>
+                                        <Col>
+                                            <div className="p1">
+                                                <Row>
+                                                    <h4>@{user.username} - {user.name} {user.surname}</h4>
+                                                </Row>
+                                                <Row>
+                                                    <h4>Rank: {user.rankPosition}</h4>
+                                                </Row>
+                                                <Row>
+                                                    <p> {user.bio || ""}</p>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row className="buttonBar">
+                                        <div className="d-grid gap-2 d-md-block">
+                                            <FormSocial user={user}/>
+                                            <Locality callback={setReload}/>
+                                        </div>
+                                    </Row>
+                                </Container>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </>
             )
         } else {
             return (

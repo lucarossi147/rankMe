@@ -73,7 +73,7 @@ exports.uploadPhoto = function (req, res){
         const outputFile = Date.now().toString()+'.jpg'
         sharp(filePath+fileName)
             .resize( 1024,768 , { //if we wanted classical full hd 16/9, 1920x1080
-                fit:'contain'
+                fit:'cover'
             })
             .toFile(filePath+outputFile)
             .then(data => {
@@ -282,17 +282,20 @@ function getGenderAnalytics(votesArray){
         .then(votesProjections=>{
             let maleVotes = 0
             let femaleVotes = 0
+            let others = 0
             for( let user of votesProjections){
                 const completeUser = user.completeUser[0]
                 if (completeUser.gender === "female" ){
                     femaleVotes++
                 } else if( completeUser.gender === "male"){
                     maleVotes++
+                } else {
+                    others++
                 }
             }
             //let percentages = calculatePercentage(maleVotes, femaleVotes)
             //return {males: percentages.first, females: percentages.second}
-            return {males: maleVotes, females: femaleVotes}
+            return {males: maleVotes, females: femaleVotes, others: others}
         })
 }
 

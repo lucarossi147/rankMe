@@ -39,13 +39,13 @@ exports.getMatch = function (req, res) {
                             .then(backup => {
                                 if(!backup) res.sendStatus(500)
                                 const user2 = backup
-                                User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies: "appeared"}}).then(()=>{})
+                                User.updateMany({_id :{$in: [user1._id,user2._id]}}, { $push: { notifies: "appeared"}}).then(()=>{})
                                 return res.send({user1, user2})
                             })
                     } else {
                         // console.log("SECOND USER")
                         // console.log(user2.username)
-                        User.updateMany({_id :{$in: [user1._id,myId]}}, { $push: { notifies:"appeared"}}).then(()=>{})
+                        User.updateMany({_id :{$in: [user1._id,user2._id]}}, { $push: { notifies:"appeared"}}).then(()=>{})
                         res.send({user1, user2})
                     }
                 })

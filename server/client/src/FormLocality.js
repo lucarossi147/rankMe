@@ -3,6 +3,7 @@ import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {errorNotify, successNotify} from "./notifyAlerts"
 import {Redirect} from "react-router-dom";
+import {Button} from "react-bootstrap";
 const CONFIG = require("./config.json");
 
 function FormLocality(props){
@@ -59,7 +60,9 @@ function FormLocality(props){
                     }
                 }
                 />
-                <button onClick={handleSubmit}>Update</button>
+                <Button variant="primary" onClick={handleSubmit}>
+                    Update
+                </Button>
             </div>
         )
     }

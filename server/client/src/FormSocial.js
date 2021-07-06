@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {errorNotify, successNotify} from "./notifyAlerts";
-import {Col, Row} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const CONFIG = require("./config.json");
@@ -79,6 +79,8 @@ function FormSocial(props){
             <>
                     <FacebookButton facebook={facebook}/>
                     <InstagramButton instagram={instagram}/>
+                    <AnalyticsButton/>
+                    <BadgeButton/>
             </>
         )
     }

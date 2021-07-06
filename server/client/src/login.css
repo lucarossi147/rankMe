@@ -1,0 +1,33 @@
+.aligner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    padding: 3%;
+    padding-top: 2% !important;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    min-width: 330px;
+    min-height: 240px;
+    max-width: 40%;
+    max-height: 30%;
+}
+
+.btn > a {
+    color: #26547C !important;
+}
+
+button:first-of-type {
+    background-color: #26547C;
+    color: whitesmoke;
+    border: none;
+}
+
+.buttonsJustifier {
+    display: flex;
+    justify-content: center;
+}

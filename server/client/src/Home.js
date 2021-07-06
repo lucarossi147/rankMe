@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 import Match from "./Match";
 import axios from "axios";
 import {successNotify} from "./notifyAlerts";
+import NavComponent from "./NavComponent";
 
 const CONFIG = require('./config.json')
 
@@ -37,10 +38,10 @@ const HomeAuth = () => {
     //On component unmount unset the timer TODO
 
     return (
-                <div className="div-center homeBox">
-                    <div className="content">
+        <>
+            <NavComponent/>
+
                         <Match/>
-                    </div>
-                </div>
+            </>
     );
 }

@@ -10,14 +10,12 @@ import {ToastContainer} from "react-toastify";
 import {Analytics} from "./Analytics";
 import Ranking from "./Ranking";
 import Badges from "./Badges";
-import NavComponent from "./NavComponent";
 
 function App(){
     return (
         <div>
             <ToastContainer/>
             <Router>
-                <NavComponent/>
                 <Switch>
                     <Route path="/profile" component={Profile}/>
                     <Route path="/login"   component={LoginForm}/>

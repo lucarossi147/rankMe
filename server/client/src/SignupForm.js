@@ -1,7 +1,11 @@
+import './signup.css'
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import authService from "./authService";
 import {Button, Col, Form, Row} from "react-bootstrap";
+import {errorNotify} from "./notifyAlerts";
+import {loginAction} from "./actions/allActions";
+import {useDispatch} from "react-redux";
 
 function SignupForm() {
 
@@ -13,8 +17,10 @@ function SignupForm() {
         "email":"",
         "birthDate":"",
         "password":"",
+        "password2":"",
         "gender":""
     })
+    const dispatch = useDispatch()
 
     const handleChange = (evt) => {
         const {name, value} = evt.target
@@ -26,8 +32,23 @@ function SignupForm() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        if(authService.register(signinUser)){
-            setRedirect(true)
+        if (signinUser.password2 === signinUser.password) {
+            authService.register(signinUser)
+                .then(
+                    () =>
+                        authService.login(signinUser.username, signinUser.password, dispatch)
+                            .then(() => {
+                                dispatch(loginAction())
+                                setRedirect(true)
+                            })
+                            .catch((err) => console.log(err))
+                )
+                .catch((err) => {
+                    console.log(err)
+                    errorNotify("Email or password already used")
+                })
+        } else {
+            errorNotify("Passwords are not the same")
         }
     }
 
@@ -40,8 +61,7 @@ function SignupForm() {
     }
 
     return (
-            <div className="div-center signupForm">
-                <div className="content">
+        <div className="aligner">
                     <Form onSubmit={handleSubmit}>
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -108,13 +128,16 @@ function SignupForm() {
                                     Gender:
                                 </Form.Label>
                                 <Form.Control as={"select"}
+                                              name="gender"
                                               value={signinUser.gender}
                                               onChange={handleChange}>
-                                    <option value="m">Male</option>
-                                    <option value="f">Female</option>
-                                    <option value="o">Prefer not to say</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Prefer not to say</option>
                                 </Form.Control>
                             </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>
                                     Password:
@@ -127,9 +150,21 @@ function SignupForm() {
                                     value={signinUser.password}
                                     onChange={handleChange} />
                             </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>
+                                    Reinsert password:
+                                </Form.Label>
+                                <Form.Control
+                                    required
+                                    type="password"
+                                    name="password2"
+                                    placeholder="password"
+                                    value={signinUser.password2}
+                                    onChange={handleChange} />
+                            </Form.Group>
                         </Form.Row>
                         <Row>
-                            <Button id="primaryButton" variant="primary" type="submit">
+                            <Button variant="primary" type="submit">
                                 Signup
                             </Button>
                             <Button variant="link" id="secondaryButton">
@@ -137,7 +172,6 @@ function SignupForm() {
                             </Button>
                         </Row>
                     </Form>
-                </div>
             </div>
     );
 }

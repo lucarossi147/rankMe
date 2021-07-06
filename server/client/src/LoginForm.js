@@ -4,6 +4,7 @@ import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import {Button, Form, Row} from "react-bootstrap";
+import './login.css'
 
 function LoginForm(){
 
@@ -31,14 +32,13 @@ function LoginForm(){
 
     if(redirect === true){
         return (
-            <div>
+            <>
                 <Redirect to={'/'}/>
-            </div>
+            </>
         )
     }
     return (
-            <div className="div-center loginForm">
-                <div className="content">
+        <div className="aligner">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
@@ -62,17 +62,17 @@ function LoginForm(){
                                           className="form-control"
                             />
                         </Form.Group>
-                        <Row>
-                            <Button id="primaryButton" variant="primary" type="submit">
+                        <div className="buttonsJustifier">
+                            <Button variant="primary" type="submit">
                                 Login
                             </Button>
-                            <Button variant={"link"} id="secondaryButton">
+                            <Button variant={"link"}>
                                 <Link to="/signup">Signup</Link>
                             </Button>
-                        </Row>
+                        </div>
+
                     </Form>
-                </div>
-            </div>
+        </div>
     );
 }
 
