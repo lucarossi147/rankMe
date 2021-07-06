@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
 import {Home} from "./Home"
 import {useSelector} from "react-redux";
-import {Link, useLocation} from "react-router-dom"
+import {useLocation} from "react-router-dom"
 import axios from "axios";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
