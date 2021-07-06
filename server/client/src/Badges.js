@@ -1,7 +1,6 @@
 import {Card, ProgressBar} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import LinkBar from "./LinkBar";
 
 const CONFIG = require('./config.json')
 
@@ -71,13 +70,12 @@ const Badges = () => {
                             <Card.Body>
                                 <Card.Title>Ottieni cento voti</Card.Title>
                                 <Card.Text>
-                                    Wait until someone vote you! (ten times)
+                                    Wait until someone vote you! (hundred times)
                                 </Card.Text>
                                 <ProgressBar animated={true} now={votes} />
                             </Card.Body>
                         </Card>
                     </div>
-                    <LinkBar/>
                 </div>
             </div>
         )

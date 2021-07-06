@@ -2,10 +2,9 @@ import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
 import {Home} from "./Home"
 import {useSelector} from "react-redux";
-import {useLocation} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 import axios from "axios";
-import {Col, Container, Image, ListGroup, Row} from "react-bootstrap";
-import LinkBar from "./LinkBar";
+import {Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
 
@@ -28,7 +27,6 @@ const ProfileAuth = (props) => {
 
     useEffect(() => {
         fetchProfile() //TODO muovere fethcprofile qua dentro https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
-        console.log(reload)
     }, [isLoaded, reload]) //Ricarico il profilo solo se c'è un side effect su isLoaded
 
     const fetchProfile =  () => {
@@ -61,38 +59,39 @@ const ProfileAuth = (props) => {
         return <div>Loading...</div>
     } else {
         if(localStorage.getItem('accessToken')){
+            console.log(user)
             return (
                 <div className="profile">
                     <div className="div-center profileBox">
                         <Container className="profileContainer">
                             <Row>
-                                <Col>
-                                    <Image src={CONFIG.SERVER_URL + "/images/" + user.picture} alt="Profile not found" roundedCircle onClick={() => setViewUpload(!viewUpload)}/>
-                                    <Upload callback={setReload} display={viewUpload}/>
-                                </Col>
+                            <Col>
+                                <Image id="profilepic" src={CONFIG.SERVER_URL + "/images/" + user.picture} roundedCircle alt="Profile not found"  onClick={() => setViewUpload(!viewUpload)}/>
+                                <Upload callback={setReload} display={viewUpload}/>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <h4>{user.name} {user.surname}</h4>
+                                </Row>
+                                <Row>
+                                    <h4>{user.username}</h4>
+                                </Row>
+                                <Row>
+                                    <h4>Rank: {props.rank}</h4>
+                                </Row>
+                                <Row>
+                                    <h4>{user.email}</h4>
+                                </Row>
+                                <Row>
+                                    <h5> {user.bio || ""}</h5>
+                                </Row>
+                            </Col>
                             </Row>
                             <Row>
-                                <Col>
-                                    {user.username}
-                                </Col>
-                            </Row>
-                            <Row>
-                                <FormSocial user={user}/>
-                            </Row>
-                            <Row>
-                                <Locality/>
-                            </Row>
-                            <Row>
-                                <p>Bio: </p>
-                                <p> {user.bio || ""}</p>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Rank rank={user.rankPosition}/>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <LinkBar active={"profile"}/>
+                                <div className="d-grid gap-2 d-md-block">
+                                    <FormSocial user={user}/>
+                                    <Locality callback={setReload}/>
+                                </div>
                             </Row>
                         </Container>
                     </div>
@@ -109,27 +108,12 @@ const ProfileAuth = (props) => {
     }
 }
 
-function Rank(props) {
-    if(props.rank){
-        return(
-            <div> Rank: {props.rank}</div>
-        );
-    } else {
-        return (
-            <div>
-                <h5>Posizione in classifica non calcolata</h5>
-            </div>
-        );
-    }
-}
-
-export const Locality = () => {
+export const Locality = (props) => {
     const user =  useSelector(state => state.userReducer)
     if(!user.country){
         return (
             <div>
-                <p>Hey! You didn't insert your location..</p>
-                <FormLocality/>
+                <FormLocality callback={props.callback}/>
             </div>
         )
     } else {
@@ -146,9 +130,3 @@ const Upload = (props) => {
 }
 
 export default Profile;
-
-/*
-
-                    <textarea readOnly value={user.bio || ""}/>
-              TODO metter la bio nel èprofilo
- */

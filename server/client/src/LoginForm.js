@@ -3,7 +3,7 @@ import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Row} from "react-bootstrap";
 
 function LoginForm(){
 
@@ -62,14 +62,14 @@ function LoginForm(){
                                           className="form-control"
                             />
                         </Form.Group>
-                        <div id="group-buttons">
+                        <Row>
                             <Button id="primaryButton" variant="primary" type="submit">
                                 Login
                             </Button>
-                            <div id="secondaryButton">
+                            <Button variant={"link"} id="secondaryButton">
                                 <Link to="/signup">Signup</Link>
-                            </div>
-                        </div>
+                            </Button>
+                        </Row>
                     </Form>
                 </div>
             </div>

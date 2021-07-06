@@ -4,7 +4,7 @@ const Genders = (props) => {
     /*
     TODO mettere qualcosa come un tooltip sulla pie
      */
-    let series = {}
+    let series
     if(props.genders && props.genders.males !== 0){
         series = [{
             data: [props.genders.males, props.genders.females]
@@ -21,6 +21,7 @@ const Genders = (props) => {
             <Chart width={600} height={250} series={series}>
                 <Transform method={['transpose', 'stack']}>
                     <Pies innerRadius='66%'
+                          colors='category10'
                           combined={true}
                           pieAttributes={{
                               onMouseMove: (e) => e.target.style.opacity = 1,

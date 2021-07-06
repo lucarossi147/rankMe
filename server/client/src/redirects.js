@@ -7,7 +7,3 @@ export function RedirectHome(){
 export function RedirectLogin(){
     return <Redirect to={"/login"}/>
 }
-
-export function RedirectSignup(){
-    return <Redirect to={"/signup"}/>
-}

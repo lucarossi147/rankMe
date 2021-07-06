@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import authService from "./authService";
-import {Button, Col, Form} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 function SignupForm() {
 
@@ -15,7 +15,6 @@ function SignupForm() {
         "password":"",
         "gender":""
     })
-
 
     const handleChange = (evt) => {
         const {name, value} = evt.target
@@ -34,13 +33,13 @@ function SignupForm() {
 
     if(redirect === true){
         return (
-            <div>
+            <>
                 <Redirect to={'/'}/>
-            </div>
+            </>
         )
     }
+
     return (
-        <div className="back">
             <div className="div-center signupForm">
                 <div className="content">
                     <Form onSubmit={handleSubmit}>
@@ -124,22 +123,22 @@ function SignupForm() {
                                     required
                                     type="password"
                                     name="password"
+                                    placeholder="password"
                                     value={signinUser.password}
                                     onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
-                        <div id="group-buttons">
+                        <Row>
                             <Button id="primaryButton" variant="primary" type="submit">
                                 Signup
                             </Button>
-                            <div id="secondaryButton">
+                            <Button variant="link" id="secondaryButton">
                                 <Link to="/login"> Login </Link>
-                            </div>
-                        </div>
+                            </Button>
+                        </Row>
                     </Form>
                 </div>
             </div>
-        </div>
     );
 }
 

@@ -51,7 +51,6 @@ function Match(){
     } else {
         return (
             <>
-                <h1 className="homeTitle">Choose the best photo: </h1>
                 <CardGroup>
                     <Row xs={1} md={2}>
                         <UserVote callback={setReload} user={user1}/>

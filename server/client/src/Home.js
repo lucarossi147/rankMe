@@ -4,8 +4,6 @@ import LoginForm from "./LoginForm";
 import Match from "./Match";
 import axios from "axios";
 import {successNotify} from "./notifyAlerts";
-import {Row} from "react-bootstrap";
-import LinkBar from "./LinkBar";
 
 const CONFIG = require('./config.json')
 
@@ -39,23 +37,10 @@ const HomeAuth = () => {
     //On component unmount unset the timer TODO
 
     return (
-            <div className="back">
                 <div className="div-center homeBox">
                     <div className="content">
                         <Match/>
-                        <Row>
-                            <LinkBar active={"home"}/>
-                        </Row>
                     </div>
                 </div>
-            </div>
     );
-}
-
-function Footer() {
-    return (
-        <footer>
-            <p>Author: Luca Rossi & Davide Schiaroli, 2021</p>
-        </footer>
-    )
 }

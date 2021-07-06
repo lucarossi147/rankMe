@@ -3,7 +3,6 @@ import axios from "axios";
 import {errorNotify} from "./notifyAlerts";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import LinkBar from "./LinkBar";
 
 const CONFIG = require("./config.json")
 
@@ -72,7 +71,6 @@ const Ranking = (props) => {
                         )}
                         </tbody>
                     </Table>
-                    <LinkBar/>
                 </div>
             </div>
         )

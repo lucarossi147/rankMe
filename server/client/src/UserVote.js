@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import 'react-toastify/dist/ReactToastify.css';
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {errorNotify, successNotify} from "./notifyAlerts";
 

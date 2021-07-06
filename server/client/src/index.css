@@ -99,11 +99,6 @@ footer {
     width:100%;
 }
 
-.rounded-circle {
-    margin-top: 25px;
-    max-width: 50%;
-}
-
 .row {
     justify-content: center;
 }
@@ -120,7 +115,7 @@ footer {
 }
 
 .card-img-top {
-    height: 25vw;
+        height: 25vw;
     object-fit: cover;
 }
 
@@ -153,4 +148,14 @@ footer {
 .deck > .card {
     width: 25%;
     margin: auto;
+}
+
+.logoutBox {
+    max-width: 30%;
+    height: 30%;
+}
+
+.logoutBox > button {
+    display: block;
+    margin: 0 auto;
 }

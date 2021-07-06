@@ -4,7 +4,6 @@ import Genders from "./analytics/Genders";
 import React, {useEffect, useState} from "react";
 import Ages from "./analytics/Ages";
 import axios from "axios";
-import LinkBar from "./LinkBar";
 import {Col, Row} from "react-bootstrap";
 
 const CONFIG = require("./config.json")
@@ -53,7 +52,6 @@ function AnalyticsAuth() {
                             <Ages ages={data.agesAnalytics}/>
                         </Col>
                     </Row>
-                    <LinkBar active={"analytics"}/>
                 </div>
             </div>
         )

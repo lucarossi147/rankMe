@@ -5,11 +5,11 @@ import {errorNotify, successNotify} from "./notifyAlerts"
 import {Redirect} from "react-router-dom";
 const CONFIG = require("./config.json");
 
-function FormLocality(){
+function FormLocality(props){
 
     const [locality, setLocality] = useState(null)
-    const accessToken = localStorage.getItem('accessToken')
     const [redirect, setRedirect] = useState(null)
+    const accessToken = localStorage.getItem('accessToken')
 
     const handleSubmit = (evt) =>{
         evt.preventDefault();
@@ -33,6 +33,7 @@ function FormLocality(){
                         if(res.status === 200){
                             successNotify("Correctly update location")
                             setRedirect(true)
+                            props.callback(true)
                         } else {
                             errorNotify("Error on update of location")
                         }
@@ -50,6 +51,7 @@ function FormLocality(){
     } else {
         return(
             <div>
+                <p>Hey! You didn't insert your location..</p>
                 <GooglePlacesAutocomplete selectProps={
                     {
                         locality,
