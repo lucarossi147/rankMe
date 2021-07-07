@@ -4,10 +4,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Button, Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {errorNotify, successNotify} from "./notifyAlerts";
-
-import styles from "./userVote.module.css"
+import { useMediaQuery } from 'react-responsive';
 const CONFIG = require("./config.json");
 
+
+function FooterOptional(props) {
+    const isTabletOrMobileDevice = useMediaQuery({
+        query: '(max-device-width: 1224px)'
+    })
+    console.log(isTabletOrMobileDevice)
+    if(!isTabletOrMobileDevice){
+        return (
+            <>
+                <Card.Footer>
+                    <TextPosition pos={props.country}/>
+                </Card.Footer>
+                <Button className="voteButton" onClick={props.callback}>Vote</Button>
+            </>
+        )
+    } else return <></>
+}
 
 function UserVote(props) {
     let user = props.user
@@ -40,27 +56,21 @@ function UserVote(props) {
 
     return (
         <div>
-            <Col>
-                <Card>
-                    <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
-                    <Card.Body>
-                        <Card.Title>
-                            <Link
-                                to={{
-                                    pathname: "/profile",
-                                    state: { redirectToUser: user._id },
-                                }}>
-                                {user.username}
-                            </Link>
-                        </Card.Title>
-                        <Card.Text> </Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                        <TextPosition pos={user.country}/>
-                    </Card.Footer>
-                    <Button className="voteButton" onClick={handleSubmit}>Vote</Button>
-                </Card>
-            </Col>
+            <Card>
+                <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
+                <Card.Body>
+                    <Card.Title>
+                        <Link
+                            to={{
+                                pathname: "/profile",
+                                state: { redirectToUser: user._id },
+                            }}>
+                            {user.username}
+                        </Link>
+                    </Card.Title>
+                </Card.Body>
+                <FooterOptional country={user.country} callback={handleSubmit}/>
+            </Card>
         </div>
     )
 }
