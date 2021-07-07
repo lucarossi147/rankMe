@@ -3,8 +3,8 @@ import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
-import {Button, Form} from "react-bootstrap";
-import './login.css'
+import {Button, Form, Row} from "react-bootstrap";
+import './login.module.css'
 
 function LoginForm(){
 
@@ -39,7 +39,8 @@ function LoginForm(){
     }
     return (
         <div className="aligner">
-                    <Form onSubmit={handleSubmit} className="formLogin">
+                    <Form onSubmit={handleSubmit} className={"d-flex align-items-center justify-content-center"}>
+                        <h1>Login</h1>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
                             <Form.Control required

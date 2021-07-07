@@ -1,4 +1,4 @@
-import './signup.css'
+import './signup.module.css'
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import authService from "./authService";
