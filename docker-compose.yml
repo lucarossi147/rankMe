@@ -25,7 +25,7 @@ services:
       - ./mydata:/data
   client:
     build:
-      context: ./client
+      context: ./server/client
       dockerfile: Dockerfile
     image: client
     container_name: clientContainer

@@ -13,7 +13,7 @@ import Badges from "./Badges";
 
 function App(){
     return (
-        <div>
+        <>
             <ToastContainer/>
             <Router>
                 <Switch>
@@ -27,7 +27,7 @@ function App(){
                     <Route path="/"        component={Home}/>
                 </Switch>
             </Router>
-        </div>
+        </>
 )
 }
 

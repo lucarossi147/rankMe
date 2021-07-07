@@ -1,20 +1,35 @@
-html{
-    height: 100%;
-    width: 100%;
-}
-
-html > .aligner {
+.aligner {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: inherit;
+    height: 90vh;
 }
 
-.btn > a {
-    color: #26547C !important;
+.form {
+
 }
 
 button:first-of-type {
-    color: whitesmoke;
     border: none;
+}
+
+.label {
+    font-size: large;
+}
+
+.link {
+    color: #26547C !important;
+}
+
+.backColor {
+    background-color: #26547C !important;
+}
+
+.alignImage {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
 }

@@ -33,7 +33,7 @@ function pausecomp(millis)
 //connessione al db
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-        LOCAL_DB, {
+        DOCKER_DB, {
             useFindAndModify: false,
             useNewUrlParser: true,
             useUnifiedTopology: true

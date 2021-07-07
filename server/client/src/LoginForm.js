@@ -3,8 +3,9 @@ import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
-import {Button, Form, Row} from "react-bootstrap";
-import './login.module.css'
+import {Button, Form, Image, Container} from "react-bootstrap";
+import styles from './login.module.css'
+import Logo from "./res/logo_last.png";
 
 function LoginForm(){
 
@@ -38,42 +39,43 @@ function LoginForm(){
         )
     }
     return (
-        <div className="aligner">
-                    <Form onSubmit={handleSubmit} className={"d-flex align-items-center justify-content-center"}>
-                        <h1>Login</h1>
-                        <Form.Group>
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control required
-                                          type="text"
-                                          name="username"
-                                          value={username}
-                                          onChange={handleChange}
-                                          placeholder="username"
-                                          className="form-control"
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Password:</Form.Label>
-                            <Form.Control required
-                                          type="password"
-                                          name="password"
-                                          value={password}
-                                          onChange={handleChange}
-                                          placeholder="password"
-                                          className="form-control"
-                            />
-                        </Form.Group>
-                        <div className="buttonsJustifier">
-                            <Button variant="primary" type="submit">
-                                Login
-                            </Button>
-                            <Button variant={"link"}>
-                                <Link to="/signup">Signup</Link>
-                            </Button>
-                        </div>
-
-                    </Form>
-        </div>
+        <>
+            <div className={styles.alignImage}>
+                <Image className={styles.image} src={Logo}/>
+            </div>
+            <div className={styles.aligner}>
+                <Form onSubmit={handleSubmit} className={styles.form}>
+                    <Form.Group>
+                        <Form.Label className={styles.label}>Username</Form.Label>
+                        <Form.Control required
+                                      type="text"
+                                      name="username"
+                                      value={username}
+                                      onChange={handleChange}
+                                      placeholder="username"
+                                      className="form-control"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label className={styles.label}>Password:</Form.Label>
+                        <Form.Control required
+                                      type="password"
+                                      name="password"
+                                      value={password}
+                                      onChange={handleChange}
+                                      placeholder="password"
+                                      className="form-control"
+                        />
+                    </Form.Group>
+                    <Button className={styles.backColor} variant="primary" type="submit">
+                        Login
+                    </Button>
+                    <Button variant={"link"} className={styles.link}>
+                        <Link className={styles.link} classto="/signup">Signup</Link>
+                    </Button>
+                </Form>
+            </div>
+        </>
     );
 }
 
