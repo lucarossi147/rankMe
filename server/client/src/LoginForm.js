@@ -25,10 +25,13 @@ function LoginForm(){
 
     const handleSubmit= (evt) => {
         evt.preventDefault();
-        if (authService.login(username, password, dispatch)) {
-            setRedirect(true)
-            dispatch(loginAction())
-        }
+        authService.login(username,password, dispatch)
+            .then(() => {
+                setRedirect(true)
+                dispatch(loginAction())
+            }).catch((err) => {
+                console.log(err)
+        })
     }
 
     if(redirect === true){
@@ -71,7 +74,7 @@ function LoginForm(){
                         Login
                     </Button>
                     <Button variant={"link"} className={styles.link}>
-                        <Link className={styles.link} classto="/signup">Signup</Link>
+                        <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/signup">Signup</Link>
                     </Button>
                 </Form>
             </div>
