@@ -6,15 +6,12 @@
     width: 100%;
 }
 
-form {
+.formSignup {
     padding: 3%;
     padding-top: 2% !important;
     background-color: whitesmoke;
     border-radius: 10px;
-    min-width: 330px;
-    min-height: 240px;
-    max-width: 60%;
-    max-height: 50%;
+    max-width: 85%;
 }
 
 .btn > a {

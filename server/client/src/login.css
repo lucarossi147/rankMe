@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-form {
+.formLogin {
     padding: 3%;
     padding-top: 2% !important;
     background-color: whitesmoke;

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Logo from './res/logo_last.png'
 import {useSelector} from "react-redux";
 import React from "react";
+import "./navbar.css"
 
 const LogoutLink = () => (
     <Nav.Link>
