@@ -40,6 +40,7 @@ function LoginForm(){
     return (
         <div className="aligner">
                     <Form onSubmit={handleSubmit}>
+                        <h1>Login</h1>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
                             <Form.Control required
