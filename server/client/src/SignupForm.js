@@ -2,10 +2,12 @@ import './signup.module.css'
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import authService from "./authService";
-import {Button, Col, Form} from "react-bootstrap";
+import {Button, Col, Form, Image} from "react-bootstrap";
 import {errorNotify} from "./notifyAlerts";
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
+import styles from "./login.module.css";
+import Logo from "./res/logo_last.png";
 
 function SignupForm() {
 
@@ -61,11 +63,15 @@ function SignupForm() {
     }
 
     return (
-        <div className="aligner">
-                <Form onSubmit={handleSubmit} className="formSignup">
+        <>
+            <div className={styles.alignImage}>
+                <Image className={styles.image} src={Logo}/>
+            </div>
+            <div className={styles.aligner}>
+                <Form onSubmit={handleSubmit} className={styles.form}>
                     <Form.Row>
                         <Form.Group as={Col}>
-                            <Form.Label>Name:</Form.Label>
+                            <Form.Label className={styles.label}>Name:</Form.Label>
                             <Form.Control required
                                           type="text"
                                           name="name"
@@ -75,7 +81,7 @@ function SignupForm() {
                             />
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Surname:</Form.Label>
+                            <Form.Label className={styles.label}>Surname:</Form.Label>
                             <Form.Control required
                                           type="text"
                                           name="surname"
@@ -87,7 +93,7 @@ function SignupForm() {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Username:
                             </Form.Label>
                             <Form.Control required
@@ -99,7 +105,7 @@ function SignupForm() {
                             />
                         </Form.Group >
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Email:
                             </Form.Label>
                             <Form.Control required
@@ -113,7 +119,7 @@ function SignupForm() {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Date of birth:
                             </Form.Label>
                             <Form.Control required
@@ -124,7 +130,7 @@ function SignupForm() {
                             />
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Gender:
                             </Form.Label>
                             <Form.Control as={"select"}
@@ -139,7 +145,7 @@ function SignupForm() {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Password:
                             </Form.Label>
                             <Form.Control
@@ -151,7 +157,7 @@ function SignupForm() {
                                 onChange={handleChange} />
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>
+                            <Form.Label className={styles.label}>
                                 Reinsert password:
                             </Form.Label>
                             <Form.Control
@@ -163,16 +169,15 @@ function SignupForm() {
                                 onChange={handleChange} />
                         </Form.Group>
                     </Form.Row>
-                    <div className="buttonsJustifier">
-                        <Button variant="primary" type="submit">
+                        <Button className={styles.backColor} variant="primary" type="submit">
                             Signup
                         </Button>
-                        <Button variant="link" id="secondaryButton">
-                            <Link to="/login"> Login </Link>
-                        </Button>
-                    </div>
+                    <Button variant={"link"} className={styles.link}>
+                        <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/login">Login</Link>
+                    </Button>
                 </Form>
             </div>
+        </>
     );
 }
 

@@ -2,28 +2,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: 90vh;
 }
 
-.formSignup {
-    padding: 3%;
-    padding-top: 2% !important;
-    border-radius: 10px;
-    max-width: 85%;
-}
+.form {
 
-.btn > a {
-    color: #26547C !important;
 }
 
 button:first-of-type {
-    background-color: #26547C;
-    color: whitesmoke;
     border: none;
 }
 
-.buttonsJustifier {
+.label {
+    font-size: large;
+}
+
+.backColor {
+    background-color: #26547C !important;
+}
+
+.alignImage {
+    height: 10vh;
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .image {
+        display: none;
+    }
+}
+
+.image {
+
+}
+
+.link {
+    color: #26547C !important;
 }
