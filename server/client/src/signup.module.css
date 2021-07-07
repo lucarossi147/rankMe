@@ -6,6 +6,16 @@
     width: 100%;
 }
 
+form {
+    padding: 3%;
+    padding-top: 2% !important;
+    border-radius: 10px;
+    min-width: 330px;
+    min-height: 240px;
+    max-width: 60%;
+    max-height: 50%;
+}
+
 .btn > a {
     color: #26547C !important;
 }

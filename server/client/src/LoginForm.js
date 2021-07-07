@@ -4,7 +4,7 @@ import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
 import {Button, Form, Row} from "react-bootstrap";
-import './login.css'
+import './login.module.css'
 
 function LoginForm(){
 
@@ -39,7 +39,7 @@ function LoginForm(){
     }
     return (
         <div className="aligner">
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className={"d-flex align-items-center justify-content-center"}>
                         <h1>Login</h1>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
