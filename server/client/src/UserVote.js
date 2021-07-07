@@ -5,6 +5,7 @@ import {Button, Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {errorNotify, successNotify} from "./notifyAlerts";
 
+import styles from "./userVote.module.css"
 const CONFIG = require("./config.json");
 
 
@@ -39,7 +40,7 @@ function UserVote(props) {
 
     return (
         <div>
-            <Col >
+            <Col>
                 <Card>
                     <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
                     <Card.Body>

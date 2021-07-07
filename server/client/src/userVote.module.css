@@ -1,0 +1,9 @@
+@media screen and (max-width: 600px){
+    .voteButton {
+        display: none;
+    }
+
+    .card-footer {
+        display: none;
+    }
+}
