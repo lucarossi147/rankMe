@@ -5,7 +5,7 @@ import Match from "./Match";
 import axios from "axios";
 import {successNotify} from "./notifyAlerts";
 import NavComponent from "./NavComponent";
-
+import styles from "./home.module.css"
 const CONFIG = require('./config.json')
 
 export const Home = () => {
@@ -40,8 +40,9 @@ const HomeAuth = () => {
     return (
         <>
             <NavComponent/>
-
-                        <Match/>
-            </>
+            <div className={styles.aligner}>
+                <Match/>
+            </div>
+        </>
     );
 }

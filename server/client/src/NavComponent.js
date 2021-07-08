@@ -26,16 +26,17 @@ export const NavComponent = () => {
                 <Nav
                     className="mr-auto my-2 my-lg-0"
                     style={{ maxHeight: '100px' }}
-                    navbarScroll
                 >
-                    <Nav.Link>
-                        <Link to="/profile">
-                            My Profile
-                        </Link>
-                    </Nav.Link>
                     <Nav.Link>
                         <Link to="/ranking">Ranking </Link>
                     </Nav.Link>
+                    <Nav.Link>
+                        <Link to="/profile">
+                            Profile
+                        </Link>
+                    </Nav.Link>
+                </Nav>
+                <Nav>
                     <Auth/>
                 </Nav>
             </Navbar.Collapse>
