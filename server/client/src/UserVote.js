@@ -55,7 +55,6 @@ function UserVote(props) {
     }
 
     return (
-        <div>
             <Card>
                 <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
                 <Card.Body>
@@ -71,7 +70,6 @@ function UserVote(props) {
                 </Card.Body>
                 <FooterOptional country={user.country} callback={handleSubmit}/>
             </Card>
-        </div>
     )
 }
 

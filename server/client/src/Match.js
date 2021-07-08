@@ -1,7 +1,7 @@
 import UserVote from "./UserVote";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {CardGroup, Row, Container,} from "react-bootstrap";
+import {CardGroup, Row, Container, Col,} from "react-bootstrap";
 
 const CONFIG = require("./config.json");
 
@@ -53,8 +53,8 @@ function Match(){
             <>
             <Container>
                 <CardGroup>
-                        <UserVote callback={setReload} user={user1}/>
-                        <UserVote callback={setReload} user={user2}/>
+                    <UserVote callback={setReload} user={user1}/>
+                    <UserVote callback={setReload} user={user2}/>
                 </CardGroup>
             </Container>
             </>
