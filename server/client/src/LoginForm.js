@@ -3,7 +3,7 @@ import {Link, Redirect} from "react-router-dom"
 import authService from "./authService"
 import {loginAction} from "./actions/allActions";
 import {useDispatch} from "react-redux";
-import {Button, Form, Image, Container} from "react-bootstrap";
+import {Button, Form, Image} from "react-bootstrap";
 import styles from './login.module.css'
 import Logo from "./res/logo_last.png";
 

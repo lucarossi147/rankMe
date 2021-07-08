@@ -1,4 +1,4 @@
-import {Card, CardGroup, Container, ProgressBar, Row} from "react-bootstrap";
+import {Card, CardGroup, Container, ProgressBar} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
