@@ -80,7 +80,6 @@ function FormSocial(props){
                     <FacebookButton facebook={facebook}/>
                     <InstagramButton instagram={instagram}/>
                     <AnalyticsButton/>
-                    <BadgeButton/>
             </>
         )
     }

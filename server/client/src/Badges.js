@@ -1,4 +1,4 @@
-import {Card, CardGroup, Container, ProgressBar} from "react-bootstrap";
+import {Card, CardGroup, Container, ProgressBar, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
@@ -43,29 +43,29 @@ const Badges = () => {
 
         return (
             <Container>
-                <CardGroup>
-                    <Card>
-                        <Card.Header>Beginner</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Get one vote!</Card.Title>
-                            <ProgressBar now={(votes>0)?100:0}/>
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header>Average</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Get 10 votes!</Card.Title>
-                            <ProgressBar  now={votes*10} />
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header>Awesome</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Get 100 votes!</Card.Title>
-                            <ProgressBar animated={true} now={votes} />
-                        </Card.Body>
-                    </Card>
-                </CardGroup>
+                    <CardGroup>
+                        <Card>
+                            <Card.Header>Beginner</Card.Header>
+                            <Card.Body>
+                                <Card.Title>Get one vote!</Card.Title>
+                                <ProgressBar now={(votes>0)?100:0}/>
+                            </Card.Body>
+                        </Card>
+                        <Card>
+                            <Card.Header>Average</Card.Header>
+                            <Card.Body>
+                                <Card.Title>Get 10 votes!</Card.Title>
+                                <ProgressBar  now={votes*10} />
+                            </Card.Body>
+                        </Card>
+                        <Card>
+                            <Card.Header>Awesome</Card.Header>
+                            <Card.Body>
+                                <Card.Title>Get 100 votes!</Card.Title>
+                                <ProgressBar animated={true} now={votes} />
+                            </Card.Body>
+                        </Card>
+                    </CardGroup>
             </Container>
         )
     }

@@ -4,12 +4,13 @@ import {Home} from "./Home"
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom"
 import axios from "axios";
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Badge, Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
 import NavComponent from "./NavComponent";
 
 import styles from './profile.module.css'
+import Badges from "./Badges";
 const CONFIG = require("./config.json");
 
 export const Profile = () => {
@@ -96,8 +97,10 @@ const ProfileAuth = (props) => {
                                 <Locality callback={setReload}/>
                             </div>
                         </Row>
+                        <Row>
+                            <Badges/>
+                        </Row>
                     </Container>
-
                 </>
             )
         } else {
