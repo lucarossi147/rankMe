@@ -11,23 +11,27 @@ function ImageForm(props){
     const onClickHandler = () => {
         const data = new FormData();
         data.append('profile', selectedFile)
-
-        let config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                'Authorization': 'Bearer ' + accessToken
+        if (selectedFile){
+            let config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    'Authorization': 'Bearer ' + accessToken
+                }
             }
+
+            axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
+                .then(res => {
+                    //TODO controlla effettiva risposta corretta
+                    successNotify("Photo correctly uploaded")
+                    props.callback(true)
+                })
+                .catch(err => {
+                    errorNotify("Error uploading photo")
+                });
+        } else {
+            errorNotify("Select a file first")
         }
 
-        axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
-            .then(res => {
-                //TODO controlla effettiva risposta corretta
-                successNotify("Photo correctly uploaded")
-                props.callback(true)
-            })
-            .catch(err => {
-                errorNotify("Error uploading photo")
-            });
     }
 
     const onChangeHandler = evt => {

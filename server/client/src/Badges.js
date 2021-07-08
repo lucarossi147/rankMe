@@ -1,4 +1,4 @@
-import {Card, ProgressBar} from "react-bootstrap";
+import {Card, CardGroup, Container, ProgressBar} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
@@ -42,42 +42,31 @@ const Badges = () => {
         const votes = data.numberOfVotes
 
         return (
-            <div className="back">
-                <div className="div-center homeBox">
-                    <div className="deck">
-                        <Card>
-                            <Card.Header>Badge #1</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Ottieni il tuo primo voto</Card.Title>
-                                <Card.Text>
-                                    Wait until someone vote you!
-                                </Card.Text>
-                                <ProgressBar now={(votes>0)?100:0}/>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header>Badge #2</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Ottieni dieci voti</Card.Title>
-                                <Card.Text>
-                                    Wait until someone vote you! (ten times)
-                                </Card.Text>
-                                <ProgressBar  animated={true} now={votes*10} />
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header>Badge #3</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Ottieni cento voti</Card.Title>
-                                <Card.Text>
-                                    Wait until someone vote you! (hundred times)
-                                </Card.Text>
-                                <ProgressBar animated={true} now={votes} />
-                            </Card.Body>
-                        </Card>
-                    </div>
-                </div>
-            </div>
+            <Container>
+                <CardGroup>
+                    <Card>
+                        <Card.Header>Beginner</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Get one vote!</Card.Title>
+                            <ProgressBar now={(votes>0)?100:0}/>
+                        </Card.Body>
+                    </Card>
+                    <Card>
+                        <Card.Header>Average</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Get 10 votes!</Card.Title>
+                            <ProgressBar  now={votes*10} />
+                        </Card.Body>
+                    </Card>
+                    <Card>
+                        <Card.Header>Awesome</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Get 100 votes!</Card.Title>
+                            <ProgressBar animated={true} now={votes} />
+                        </Card.Body>
+                    </Card>
+                </CardGroup>
+            </Container>
         )
     }
 

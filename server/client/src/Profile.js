@@ -9,6 +9,7 @@ import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
 import NavComponent from "./NavComponent";
 
+import styles from './profile.module.css'
 const CONFIG = require("./config.json");
 
 export const Profile = () => {
@@ -64,52 +65,51 @@ const ProfileAuth = (props) => {
             return (
                 <>
                     <NavComponent/>
-                    <div className="outside">
-                        <div className="profile">
-                            <div className="div-center profileBox">
-                                <Container className="profileContainer">
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Image className={styles.image}
+                                       src={CONFIG.SERVER_URL + "/images/" + user.picture}
+                                       roundedCircle
+                                       alt="Profile not found"
+                                       onClick={() => setViewUpload(!viewUpload)}
+                                />
+                                <Upload callback={setReload} display={viewUpload}/>
+                            </Col>
+                            <Col>
+                                <Container>
                                     <Row>
-                                        <Col>
-                                            <Image id="profilepic"
-                                                   src={CONFIG.SERVER_URL + "/images/" + user.picture}
-                                                   roundedCircle
-                                                   alt="Profile not found"
-                                                   onClick={() => setViewUpload(!viewUpload)}
-                                            />
-                                            <Upload callback={setReload} display={viewUpload}/>
-                                        </Col>
-                                        <Col>
-                                            <div className="p1">
-                                                <Row>
-                                                    <h4>@{user.username} - {user.name} {user.surname}</h4>
-                                                </Row>
-                                                <Row>
-                                                    <h4>Rank: {user.rankPosition}</h4>
-                                                </Row>
-                                                <Row>
-                                                    <p> {user.bio || ""}</p>
-                                                </Row>
-                                            </div>
-                                        </Col>
+                                        <h4>@{user.username} - {user.name} {user.surname}</h4>
                                     </Row>
-                                    <Row className="buttonBar">
-                                        <div className="d-grid gap-2 d-md-block">
-                                            <FormSocial user={user}/>
-                                            <Locality callback={setReload}/>
-                                        </div>
+                                    <Row>
+                                        <h4>Rank: {user.rankPosition}</h4>
+                                    </Row>
+                                    <Row>
+                                        <p> {user.bio || ""}</p>
                                     </Row>
                                 </Container>
+                            </Col>
+                        </Row>
+                        <Row className={styles.padded}>
+                            <div className="d-grid gap-2 d-md-block">
+                                <FormSocial user={user}/>
+                                <Locality callback={setReload}/>
                             </div>
-                        </div>
-                    </div>
+                        </Row>
+                    </Container>
+
                 </>
             )
         } else {
             return (
-                <div>
-                    <h1>Welcome unauthorized user!</h1>
-                    <h3>Please login or signup to the site!</h3>
-                </div>
+                <>
+                    <NavComponent/>
+                    <div>
+                        <h1>Welcome unauthorized user!</h1>
+                        <h3>Please login or signup to the site!</h3>
+                    </div>
+                </>
+
             )
         }
     }
