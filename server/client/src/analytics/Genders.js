@@ -25,8 +25,8 @@ const Genders = (props) => {
                           colors='category10'
                           combined={true}
                           pieAttributes={{
-                              onMouseMove: (e) => e.target.style.opacity = 1,
-                              onMouseLeave: (e) => e.target.style.opacity = 0.5
+                              onMouseMove: (e) => e.target.style.opacity = 0.5,
+                              onMouseLeave: (e) => e.target.style.opacity = 1
                           }}
                           pieStyle={{opacity: 0.5}}
                     />
