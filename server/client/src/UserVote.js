@@ -13,7 +13,7 @@ function FooterOptional(props) {
     const isTabletOrMobileDevice = useMediaQuery({
         query: '(max-device-width: 1224px)'
     })
-    console.log(isTabletOrMobileDevice)
+
     if(!isTabletOrMobileDevice){
         return (
             <>
