@@ -29,32 +29,33 @@ const ProfileAuth = (props) => {
     const [reload, setReload] = useState(false)
 
     useEffect(() => {
-        fetchProfile() //TODO muovere fethcprofile qua dentro https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
-    }, [isLoaded, reload]) //Ricarico il profilo solo se c'è un side effect su isLoaded
+        const fetchProfile =  () => {
 
-    const fetchProfile =  () => {
-
-        if (!id) {
-            console.log("Error id null in fetchprofile" + id)
-            return;
-        }
-
-        let config = {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            if (!id) {
+                console.log("Error id null in fetchprofile" + id)
+                return;
             }
-        }
 
-        axios.get(CONFIG.SERVER_URL + "/profile/" + id, config)
-            .then((res) => {
-                setLoaded(true)
-                setUser(res.data)
-                setReload(false)
-            }, (error) => {
-                setLoaded(false)
-                setError(error)
-            })
-    }
+            let config = {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            }
+
+            axios.get(CONFIG.SERVER_URL + "/profile/" + id, config)
+                .then((res) => {
+                    setLoaded(true)
+                    setUser(res.data)
+                    setReload(false)
+                }, (error) => {
+                    setLoaded(false)
+                    setError(error)
+                })
+        }
+        fetchProfile()
+    }, [isLoaded, reload])
+
+
 
     if(error){
         return <div>Error: {error.message}</div>;

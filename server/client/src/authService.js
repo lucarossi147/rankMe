@@ -4,13 +4,8 @@ import {errorNotify, successNotify} from "./notifyAlerts";
 
 const CONFIG = require("./config.json");
 
-const authHeader = (user, accessToken) => {
-
-    if(user && accessToken){
-        return { Authorization : 'Bearer ' + user.accessToken}
-    } else {
-        return {}
-    }
+const authHeader = () => {
+    return { Authorization : 'Bearer ' + localStorage.getItem("accessToken")}
 }
 
 function register(user) {

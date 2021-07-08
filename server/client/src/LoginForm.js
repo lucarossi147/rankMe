@@ -12,6 +12,7 @@ function LoginForm(){
     const [redirect, setRedirect] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
     const dispatch = useDispatch()
 
     const handleChange = (evt) => {
@@ -35,12 +36,9 @@ function LoginForm(){
     }
 
     if(redirect === true){
-        return (
-            <>
-                <Redirect to={'/'}/>
-            </>
-        )
+        return <Redirect to={'/'}/>
     }
+
     return (
         <>
             <div className={styles.alignImage}>
