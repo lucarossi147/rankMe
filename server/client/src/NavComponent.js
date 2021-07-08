@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import Logo from './res/logo_last.png'
 import {useSelector} from "react-redux";
 import React from "react";
-import "./navbar.css"
+import styles from "./navbar.module.css"
 
 const LogoutLink = () => (
     <Nav.Link>
@@ -28,10 +28,10 @@ export const NavComponent = () => {
                     style={{ maxHeight: '100px' }}
                 >
                     <Nav.Link>
-                        <Link to="/ranking">Ranking </Link>
+                        <Link to="/ranking" className={styles.a}>Ranking </Link>
                     </Nav.Link>
                     <Nav.Link>
-                        <Link to="/profile">
+                        <Link to="/profile" className={styles.a}>
                             Profile
                         </Link>
                     </Nav.Link>

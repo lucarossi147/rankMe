@@ -5,6 +5,7 @@ import {Button, Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {errorNotify, successNotify} from "./notifyAlerts";
 import { useMediaQuery } from 'react-responsive';
+import styles from './userVote.module.css'
 const CONFIG = require("./config.json");
 
 
@@ -19,7 +20,7 @@ function FooterOptional(props) {
                 <Card.Footer>
                     <TextPosition pos={props.country}/>
                 </Card.Footer>
-                <Button className="voteButton" onClick={props.callback}>Vote</Button>
+                <Button className={styles.voteButton} onClick={props.callback}>Vote</Button>
             </>
         )
     } else return <></>
@@ -59,11 +60,12 @@ function UserVote(props) {
                 <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
                 <Card.Body>
                     <Card.Title>
-                        <Link
+                        <Link className={styles.link}
                             to={{
                                 pathname: "/profile",
                                 state: { redirectToUser: user._id },
-                            }}>
+                            }}
+                        >
                             {user.username}
                         </Link>
                     </Card.Title>
