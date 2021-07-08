@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {errorNotify} from "./notifyAlerts";
-import {Table} from "react-bootstrap";
+import {Container, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import NavComponent from "./NavComponent";
 
 const CONFIG = require("./config.json")
 
@@ -43,36 +44,42 @@ const Ranking = (props) => {
 
     if(isLoaded && ranking.array){
         return (
-            <div className="div-center analyticsBox">
-                <div className="content">
-                    <h2>Ranking </h2>
-                    <Table striped bordered hover>
-                        <thead>
-                        <th>#</th>
-                        <th>Username</th>
-                        </thead>
-                        <tbody>
-                        {
-                            ranking.array.map(item =>
-                            <tr>
-                                <td key={item} scope="row">
-                                    {item.rankPosition}
-                                </td>
-                                <td >
-                                    <Link
-                                        to={{
-                                            pathname: "/profile",
-                                            state: { redirectToUser: item._id },
-                                        }}>
-                                        {item.username}
-                                    </Link>
-                                </td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </Table>
-                </div>
-            </div>
+            <>
+                <NavComponent/>
+                <Container>
+                    <div className="div-center analyticsBox">
+                        <div className="content">
+                            <h2>Ranking </h2>
+                            <Table striped bordered hover>
+                                <thead>
+                                <th>#</th>
+                                <th>Username</th>
+                                </thead>
+                                <tbody>
+                                {
+                                    ranking.array.map(item =>
+                                        <tr>
+                                            <td key={item} scope="row">
+                                                {item.rankPosition}
+                                            </td>
+                                            <td >
+                                                <Link
+                                                    to={{
+                                                        pathname: "/profile",
+                                                        state: { redirectToUser: item._id },
+                                                    }}>
+                                                    {item.username}
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
+                </Container>
+            </>
+
         )
     }
     return (
