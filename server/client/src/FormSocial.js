@@ -15,9 +15,19 @@ function FormSocial(props){
     const handleChange = (evt) => {
         const {name,value} = evt.target;
         if(name === 'instagram'){
+            if (value.startsWith('https://www.instagram.com/')){
+                setFb(value)
+            } else {
+                errorNotify("Seems like this isn't Instagram")
+            }
+
             setIg(value)
         } else if(name==='facebook'){
-            setFb(value)
+            if (value.startsWith('https://www.facebook.com/')){
+                setFb(value)
+            } else {
+                errorNotify("Seems like this isn't facebook")
+            }
         }
     }
 

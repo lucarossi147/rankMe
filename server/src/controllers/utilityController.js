@@ -11,10 +11,10 @@ exports.setSocialMediaLink = function (req, res){
 
     const filter = { "_id": user._id};
     let update = { }
-    if (facebook) {
+    if (facebook && facebook.startsWith('https://www.facebook.com/')) {
         update.facebook = facebook
     }
-    if (instagram) {
+    if (instagram && instagram.startsWith('https://www.instagram.com/')) {
         update.instagram = instagram
     }
     User.findOneAndUpdate(filter, update,{

@@ -71,7 +71,6 @@ module.exports = function(app) {
     app.route('/numberOfVotes')
         .get(loginController.authenticate, utilityController.countVotes)
 
-    //TODO Send ages, gender and numberOfVotes in a single response, analytics, we can leave those here
     app.route('/analytics')
         .get(loginController.authenticate, utilityController.analytics)
 };
