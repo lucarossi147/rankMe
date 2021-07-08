@@ -4,10 +4,11 @@ const Genders = (props) => {
     /*
     TODO mettere qualcosa come un tooltip sulla pie
      */
+    console.log(props)
     let series
-    if(props.genders && props.genders.males !== 0){
+    if(props.genders && (props.genders.males !== 0 || props.genders.females !== 0 || props.genders.others !== 0) ){
         series = [{
-            data: [props.genders.males, props.genders.females]
+            data: [props.genders.males, props.genders.females, props.genders.others]
         }]
     } else {
         series = [{

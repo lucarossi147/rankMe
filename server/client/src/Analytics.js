@@ -4,7 +4,7 @@ import Genders from "./analytics/Genders";
 import React, {useEffect, useState} from "react";
 import Ages from "./analytics/Ages";
 import axios from "axios";
-import {Col, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 
 const CONFIG = require("./config.json")
 
@@ -27,6 +27,7 @@ function AnalyticsAuth() {
 
         axios.get(CONFIG.SERVER_URL + "/analytics", config)
             .then((res) => {
+                console.log(res.data)
                 setData(res.data)
                 setLoaded(true)
             }, (err) => {
@@ -42,18 +43,16 @@ function AnalyticsAuth() {
         return <div>Loading...</div>
     } else {
         return (
-            <div className="div-center analyticsBox">
-                <div className="content ">
-                    <Row>
-                        <Col>
-                            <Genders genders={data.genderAnalytics}/>
-                        </Col>
-                        <Col>
-                            <Ages ages={data.agesAnalytics}/>
-                        </Col>
-                    </Row>
-                </div>
-            </div>
+            <Container>
+                <Row>
+                    <Col>
+                        <Genders genders={data.genderAnalytics}/>
+                    </Col>
+                    <Col>
+                        <Ages ages={data.agesAnalytics}/>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
