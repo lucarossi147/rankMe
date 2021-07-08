@@ -15,7 +15,7 @@ const LogoutLink = () => (
 
 export const NavComponent = () => {
     return (
-        <Navbar collapseOnSelect bg="light" expand="lg">
+        <Navbar collapseOnSelect bg="light" expand="lg" className={styles.bottomSpace}>
             <Navbar.Brand>
                 <Link to="/">
                     <Image src={Logo}/>
