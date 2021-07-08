@@ -1,56 +1,66 @@
-import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
-
+import {BarChart, Bar, CartesianGrid, Legend, XAxis, YAxis, Tooltip} from "recharts";
+import {Container} from "react-bootstrap";
 const Ages = (props) => {
-    const series = [
-        {
-            name: '0-18',
-            data: [0]
-        }, {
-            name: '19-30',
-            data: [0]
-        }, {
-            name: '31-50',
-            data: [0]
-        }, {
-            name: '50+',
-            data: [0]
-        }]
 
+    let age0to18 = 0
+    let age19to30 = 0
+    let age31to50 = 0
+    let age51plus = 0
     for(const age in props.ages){
         switch (true){
             case (age < 19):
-                series[0].data[0] += props.ages[age]
+                age0to18 += props.ages[age]
                 break;
             case (age < 31):
-                series[1].data[0] += props.ages[age]
+                age19to30 += props.ages[age]
                 break;
             case (age <51):
-                series[2].data[0] += props.ages[age]
+                age31to50 += props.ages[age]
                 break;
             default:
-                series[3].data[0] += props.ages[age]
+                age51plus += props.ages[age]
                 break;
         }
     }
 
+    const data = [
+        {name: '0 to 18', votes: age0to18},
+        {name: '19 to 30', votes: age19to30},
+        {name: '31 to 50', votes: age31to50},
+        {name: '50+', votes: age51plus}
+    ]
+        console.log(data)
+
     return (
-        <div className="ageChart">
-            <h2>Number of votes for age range</h2>
-            <Chart width={600} height={300} series={series} minY={0}>
-                <Layer width='30%' height='100%' position='center'>
-                    <Ticks
-                        axis='y'
-                        lineLength='100%'
-                        lineVisible={true}
-                        lineStyle={{stroke:'lightgray'}}
-                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fill:'lightgray'}}
-                        labelAttributes={{x: -5}}
-                        labelFormat={label => label + ' votes'}
-                    />
-                    <Bars/>
-                </Layer>
-            </Chart>
-        </div>
+        <Container>
+            <h1>How old are your voters?</h1>
+            <BarChart
+                width={600}
+                height={300}
+                data={data}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="votes" fill="#26547C" />
+            </BarChart>
+        </Container>
+
+        // <BarChart
+        //     width={600}
+        //     height={300}
+        //     data={data}
+        //     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        // >
+        //     <CartesianGrid strokeDasharray="3 3" />
+        //     <XAxis dataKey="name" />
+        //     <YAxis />
+        //     <Legend />
+        //     <Bar dataKey="votes" fill="#8884d8" />
+        //     <div> Some text </div>
+        // </BarChart>
     )
 }
 

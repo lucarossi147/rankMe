@@ -1,38 +1,32 @@
-import {Chart, Pies, Transform} from "rumble-charts";
+import {Container} from "react-bootstrap";
+import {PieChart, Pie, Tooltip} from "recharts";
 
 const Genders = (props) => {
-    /*
-    TODO mettere qualcosa come un tooltip sulla pie
-     */
-    console.log(props)
-    let series
+    let data
     if(props.genders && (props.genders.males !== 0 || props.genders.females !== 0 || props.genders.others !== 0) ){
-        series = [{
-            data: [props.genders.males, props.genders.females, props.genders.others]
-        }]
+        data = [
+            {name:'males', value: props.genders.males},
+            {name:'females', value: props.genders.females},
+            {name:'others', value: props.genders.others}
+        ]
+        console.log('hey')
+        console.log(data)
     } else {
-        series = [{
-            data: [1,1]
-        }];
+        data = [
+            {name:'males', value: 0},
+            {name:'females', value: 0},
+            {name:'others', value: 0}
+        ];
     }
 
     return (
-        <div>
+        <Container>
             <h2>Your voters are</h2>
-            <Chart width={600} height={250} series={series}>
-                <Transform method={['transpose', 'stack']}>
-                    <Pies innerRadius='66%'
-                          colors='category10'
-                          combined={true}
-                          pieAttributes={{
-                              onMouseMove: (e) => e.target.style.opacity = 0.5,
-                              onMouseLeave: (e) => e.target.style.opacity = 1
-                          }}
-                          pieStyle={{opacity: 0.5}}
-                    />
-                </Transform>
-            </Chart>
-        </div>
+            <PieChart width={400} height={400}>
+                <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80} fill="#26547C" />
+                <Tooltip />
+            </PieChart>
+        </Container>
     )
 }
 

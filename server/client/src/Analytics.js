@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import Ages from "./analytics/Ages";
 import axios from "axios";
 import {Col, Container, Row} from "react-bootstrap";
+import NavComponent from "./NavComponent";
 
 const CONFIG = require("./config.json")
 
@@ -43,16 +44,20 @@ function AnalyticsAuth() {
         return <div>Loading...</div>
     } else {
         return (
-            <Container>
-                <Row>
-                    <Col>
-                        <Genders genders={data.genderAnalytics}/>
-                    </Col>
-                    <Col>
-                        <Ages ages={data.agesAnalytics}/>
-                    </Col>
-                </Row>
-            </Container>
+            <>
+                <NavComponent/>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Genders genders={data.genderAnalytics}/>
+                        </Col>
+                        <Col>
+                            <Ages ages={data.agesAnalytics}/>
+                        </Col>
+                    </Row>
+                </Container>
+            </>
+
         )
     }
 }
