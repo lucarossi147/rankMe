@@ -49,6 +49,14 @@ function AnalyticsAuth() {
                 <Container>
                     <Row>
                         <Col>
+                            <h3>You are the number # {data.rankPosition} in the global ranking!</h3>
+                        </Col>
+                        <Col>
+                            <h3>You received a total of {data.numberOfVotes} votes</h3>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             <Genders genders={data.genderAnalytics}/>
                         </Col>
                         <Col>
