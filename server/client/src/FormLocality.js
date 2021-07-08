@@ -14,7 +14,6 @@ function FormLocality(props){
 
     const handleSubmit = (evt) =>{
         evt.preventDefault();
-        console.log(locality)
         let config = {
             headers: {
                 'Authorization': 'Bearer ' + accessToken

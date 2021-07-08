@@ -16,7 +16,7 @@ const Ranking = (props) => {
 
     useEffect(() => {
         getRanking()
-    }, [isLoaded])
+    }, [isLoaded, locality])
 
     const getRanking = () => {
         let config = {
@@ -46,6 +46,7 @@ const Ranking = (props) => {
     }
 
     if(isLoaded && ranking.array){
+        console.log("rendered")
         return (
             <>
                 <NavComponent/>
@@ -90,7 +91,6 @@ const Ranking = (props) => {
                     </div>
                 </Container>
             </>
-
         )
     }
     return (
@@ -103,13 +103,52 @@ const Ranking = (props) => {
 export const FilterForm = (props) => {
     const filtering = props.enable
     const locality = props.locality
+
+    const [localityType, setLocalityType] = useState(null)
+
+    const onChangeLocality = (event) => {
+        if(event.target.value !== null) {
+            setLocalityType(event.target.value)
+        }
+    }
+
+    const setFilteredLocality = (place) => {
+        switch (localityType){
+            case "city":
+                if(place.value.terms[0] !== null){
+                    props.callback(place.value.terms[0].value)
+                }
+                break
+            case "country":
+                if(place.value.terms[1] !== null){
+                    props.callback(place.value.terms[1].value)
+                }
+                break
+            case "state":
+                if(place.value.terms[2] !== null){
+                    props.callback(place.value.terms[2].value)
+                }
+                break;
+        }
+        console.log("Searching for : "+localityType + " and the result is: " + locality)
+    }
+
+    const onChangeAge = (event) => {
+        const age = event.target.value
+        console.log(age)
+    }
+
     if(filtering === true) {
+        console.log(locality)
+        console.log("type: "+ localityType)
         return (
             <Row>
-                <h1>{locality}</h1>
                 <Form>
-                    <Form.Label>Enter age:</Form.Label>
-                    <Form.Control type="number" placeholder="22" min={0} max={100}/>
+                    <div onChange={onChangeAge}>
+                        <Form.Label>Enter age:</Form.Label>
+                        <Form.Control type="number" placeholder="22" min={0} max={100}/>
+                    </div>
+                    <Form.Group>
                         <Form.Check
                             type="radio"
                             name="gender"
@@ -121,19 +160,43 @@ export const FilterForm = (props) => {
                             type="radio"
                             label={`male`}
                         />
-                    <GooglePlacesAutocomplete selectProps={
-                        {
-                            locality,
-                            onChange: props.callback
-                        }
-                    }
+                    </Form.Group>
+                    <Form.Group>
+                        <div onChange={onChangeLocality}>
+                        <Form.Check
+                            name="place"
+                            type="radio"
+                            label={`city`}
+                            value="city"
                         />
+                        <Form.Check
+                            inline
+                            name="place"
+                            type="radio"
+                            label={`country`}
+                            value="country"
+                        />
+                        <Form.Check
+                            inline
+                            name="place"
+                            type="radio"
+                            label={`state`}
+                            value="state"
+                        />
+                        </div>
+                        <GooglePlacesAutocomplete
+                            selectProps={{
+                                locality,
+                                onChange: setFilteredLocality,
+                            }}
+                        />
+                    </Form.Group>
                 </Form>
             </Row>
         )
     } else {
         return (
-           <a> Not enabled</a>
+            <a> Not enabled</a>
         )
     }
 }
