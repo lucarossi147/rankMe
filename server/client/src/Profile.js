@@ -3,6 +3,7 @@ import FormSocial from "./FormSocial"
 import {Home} from "./Home"
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom"
+import ReactLoading from 'react-loading';
 import axios from "axios";
 import { Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
@@ -18,6 +19,28 @@ export const Profile = () => {
     const id = location.state?.redirectToUser
     const user =  useSelector(state => state.userReducer)
     return user.username  ? <ProfileAuth user={user} id={id}/> : <Home/>
+}
+
+function ImageUser(props) {
+    const user = props.user
+    const viewUpload = props.display
+    if(user._id === useSelector(state => state.userReducer._id)){
+        return (
+            <Image className={styles.image}
+                   src={CONFIG.SERVER_URL + "/images/" + user.picture}
+                   roundedCircle
+                   alt="Profile not found"
+                   onClick={() => props.callback(!viewUpload)}
+            />
+        ) } else {
+        return (
+            <Image className={styles.image}
+                   src={CONFIG.SERVER_URL + "/images/" + user.picture}
+                   roundedCircle
+                   alt="Profile not found"
+            />
+        )
+    }
 }
 
 const ProfileAuth = (props) => {
@@ -60,62 +83,43 @@ const ProfileAuth = (props) => {
     if(error){
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>
+        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
     } else {
-        if(localStorage.getItem('accessToken')){
-            console.log(user)
-            return (
-                <>
-                    <NavComponent/>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Image className={styles.image}
-                                       src={CONFIG.SERVER_URL + "/images/" + user.picture}
-                                       roundedCircle
-                                       alt="Profile not found"
-                                       onClick={() => setViewUpload(!viewUpload)}
-                                />
-                                <Upload callback={setReload} display={viewUpload}/>
-                            </Col>
-                            <Col>
-                                <Container>
-                                    <Row>
-                                        <h4>@{user.username} - {user.name} {user.surname}</h4>
-                                    </Row>
-                                    <Row>
-                                        <h4>Rank: {user.rankPosition}</h4>
-                                    </Row>
-                                    <Row>
-                                        <p> {user.bio || ""}</p>
-                                    </Row>
-                                </Container>
-                            </Col>
-                        </Row>
-                        <Row className={styles.padded}>
-                            <div className="d-grid gap-2 d-md-block">
-                                <FormSocial user={user}/>
-                                <Locality callback={setReload}/>
-                            </div>
-                        </Row>
-                        <Row>
-                            <Badges/>
-                        </Row>
-                    </Container>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <NavComponent/>
-                    <div>
-                        <h1>Welcome unauthorized user!</h1>
-                        <h3>Please login or signup to the site!</h3>
-                    </div>
-                </>
-
-            )
-        }
+        return (
+            <>
+                <NavComponent/>
+                <Container>
+                    <Row>
+                        <Col>
+                            <ImageUser user={user} callback={setViewUpload} display={viewUpload}/>
+                            <Upload callback={setReload} display={viewUpload}/>
+                        </Col>
+                        <Col>
+                            <Container>
+                                <Row>
+                                    <h4>@{user.username} - {user.name} {user.surname}</h4>
+                                </Row>
+                                <Row>
+                                    <h4>Rank: {user.rankPosition}</h4>
+                                </Row>
+                                <Row>
+                                    <p> {user.bio || ""}</p>
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                    <Row className={styles.padded}>
+                        <div className="d-grid gap-2 d-md-block">
+                            <FormSocial user={user}/>
+                            <Locality callback={setReload}/>
+                        </div>
+                    </Row>
+                    <Row>
+                        <Badges/>
+                    </Row>
+                </Container>
+            </>
+        )
     }
 }
 

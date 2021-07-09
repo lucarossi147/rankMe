@@ -5,6 +5,7 @@ import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import NavComponent from "./NavComponent";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import ReactLoading from "react-loading";
 
 const CONFIG = require("./config.json")
 
@@ -97,11 +98,8 @@ const Ranking = () => {
             </>
         )
     }
-    return (
-        <h1>
-            Ranking not loaded
-        </h1>
-    )
+
+    return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
 }
 
 export const FilterForm = (props) => {

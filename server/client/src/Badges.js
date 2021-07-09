@@ -23,13 +23,11 @@ const Badges = () => {
 
         axios.get(CONFIG.SERVER_URL + "/analytics", config)
             .then((res) => {
-                console.log(res.data)
                 setData(res.data)
                 setLoaded(true)
             }, (err) => {
                 setLoaded(false)
                 setError(err)
-                //Maybe errorNotify
             })
     }
 
@@ -40,7 +38,6 @@ const Badges = () => {
         return <div>Loading...</div>
     } else {
         const votes = data.numberOfVotes
-
         return (
             <Container>
                     <CardGroup>

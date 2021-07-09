@@ -3,8 +3,23 @@ import axios from "axios";
 import {errorNotify, successNotify} from "./notifyAlerts";
 import {Button, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const CONFIG = require("./config.json");
+
+function EditButton(props) {
+    const id = useSelector(state => state.userReducer._id)
+    if(id === props.user._id){
+        return (
+            <Button onClick={() => props.callback(true)}>
+                Edit info
+            </Button>
+        );
+    } else {
+        return <></>
+    }
+
+}
 
 function FormSocial(props){
     const user = props.user
@@ -16,24 +31,15 @@ function FormSocial(props){
     const handleChange = (evt) => {
         const {name,value} = evt.target;
         if(name === 'instagram'){
-            if (value.startsWith('https://www.instagram.com/')){
-                setFb(value)
-            } else {
-                errorNotify("Seems like this isn't Instagram")
-            }
-
             setIg(value)
         } else if(name==='facebook'){
-            if (value.startsWith('https://www.facebook.com/')){
-                setFb(value)
-            } else {
-                errorNotify("Seems like this isn't facebook")
-            }
+            setFb(value)
         }
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+
         if(!instagram || !facebook){
             errorNotify("One or more social fields empty")
             return;
@@ -72,10 +78,6 @@ function FormSocial(props){
         });
     }
 
-    //Qui controllo che il profilo di cui sto visualizzando il profilo sia quello dell'utente collegato
-    //console.log(user)
-    //console.log(accessToken)
-    //user.token == accessToken
     if(editable){
         return(
             <div>
@@ -99,12 +101,10 @@ function FormSocial(props){
     } else {
         return(
             <>
-                <Button onClick={() => setEditable(true)}>
-                    Edit info
-                </Button>
+                <EditButton callback={setEditable} user={user}/>
                     <FacebookButton facebook={facebook}/>
                     <InstagramButton instagram={instagram}/>
-                    <AnalyticsButton/>
+                    <AnalyticsButton user={user}/>
             </>
         )
     }
@@ -146,17 +146,23 @@ const InstagramButton = (props) => {
     )
 }
 
-function AnalyticsButton() {
-    return (
-        <Link to="/analytics">
-            <button type="button" className="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="35"
-                     fill="currentColor" className="bi bi-bar-chart" viewBox="0 0 16 16">
-                    <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
-                </svg>
-            </button>
-        </Link>
-    );
+function AnalyticsButton(props) {
+    const id = useSelector(state => state.userReducer._id)
+    if(id === props.user._id) {
+        return (
+            <Link to="/analytics">
+                <button type="button" className="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="35"
+                         fill="currentColor" className="bi bi-bar-chart" viewBox="0 0 16 16">
+                        <path
+                            d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+                    </svg>
+                </button>
+            </Link>
+        );
+    } else {
+        return <></>
+    }
 }
 
 export default FormSocial;
