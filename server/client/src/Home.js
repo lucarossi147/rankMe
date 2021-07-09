@@ -22,7 +22,6 @@ const HomeAuth = () => {
         if (localStorage.getItem('accessToken')){
             axios.get(CONFIG.SERVER_URL + "/notifies",config).then(
                 (res) => {
-                    console.log(res.data)
                     if(!!res.data){
                         for(const string of res.data){
                             successNotify(string)

@@ -1,9 +1,10 @@
 import UserVote from "./UserVote";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {CardGroup, Container} from "react-bootstrap";
 
 import styles from "./match.module.css"
+import ReactLoading from "react-loading";
 
 const CONFIG = require("./config.json");
 
@@ -49,7 +50,20 @@ function Match(){
     if(error){
         return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>
+        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
+        /*
+        TODO scegliere tra questi
+    blank
+    balls
+    bars
+    bubbles
+    cubes
+    cylon
+    spin
+    spinningBubbles
+    spokes
+
+         */
     } else {
         return (
             <>

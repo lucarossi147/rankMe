@@ -6,6 +6,7 @@ import Ages from "./analytics/Ages";
 import axios from "axios";
 import {Col, Container, Row} from "react-bootstrap";
 import NavComponent from "./NavComponent";
+import ReactLoading from "react-loading";
 
 const CONFIG = require("./config.json")
 
@@ -41,7 +42,7 @@ function AnalyticsAuth() {
     if(error){
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>
+        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
     } else {
         return (
             <>
