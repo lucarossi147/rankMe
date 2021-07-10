@@ -119,7 +119,9 @@ exports.rank = function(req, res){
     } else {
         numberOfPeopleToRank = 10
     }
+    let gender = req.query.gender
 
+    // console.log(numberOfPeopleToRank)
     let filter = {}
     if(city) {
         // console.log(city)
@@ -148,8 +150,12 @@ exports.rank = function(req, res){
                     //does not work with ===
                     rankedUsers = rankedUsers.filter(user => getAge(user.birthDate) == age)
                 }
+                if (gender && typeof gender!== undefined) {
+                    rankedUsers = rankedUsers.filter(user => user.gender === gender)
+                }
                 for (let u of rankedUsers){
-                    if(i <= numberOfPeopleToRank  || !userFound){
+                    // console.log(users.length)
+                    if(i <= numberOfPeopleToRank){
                         //if I use _id it doesn't work
                         // console.log(u.username)
                         if (u.username === user.username) {
@@ -157,15 +163,18 @@ exports.rank = function(req, res){
                         }
                         users.push(createUser(u._id, i, u.username, u.picture))
                     } else if (!userFound) {
-                        console.log("else if")
+                        // console.log("else if")
                         if (u.username === user.username) {
                             userFound = true
-                            return res.send(users)
+                            //return res.send(users)
+                            users.push(createUser(u._id, i, u.username, u.picture))
+                            break;
                         }
-                        users.push(createUser(u._id, i, u.username, u.picture))
+                        //users.push(createUser(u._id, i, u.username, u.picture))
                     }
                     i++
                 }
+                // console.log(users)
                 return res.send({"array" : users})
             })
     })
