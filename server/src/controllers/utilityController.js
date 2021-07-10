@@ -113,16 +113,19 @@ exports.rank = function(req, res){
     const state = req.query.state
     const country = req.query.country
     const age = req.query.age
+    const gender = req.query.gender
+
     let numberOfPeopleToRank
     if(req.query.n){
         numberOfPeopleToRank = req.query.n
     } else {
         numberOfPeopleToRank = 10
     }
-    let gender = req.query.gender
 
-    // console.log(numberOfPeopleToRank)
     let filter = {}
+    if (gender) {
+        filter["gender"] = gender
+    }
     if(city) {
         // console.log(city)
         filter["city"] = city
@@ -134,47 +137,36 @@ exports.rank = function(req, res){
         filter["country"] = country
     }
     User.findById(myId, function (err, user) {
-        if (err) return err
+        if (err) return res.sendStatus(500)
         let users = []
         let userFound = false
-        User.find(filter).sort({'numberOfVotes': -1})
+        User.find(filter, '_id username picture birthDate').sort({'numberOfVotes': -1})
             .then(rankedUsers => {
                 // console.log(rankedUsers)
                 if (!rankedUsers) {
-                    console.log("utenti non trovati")
+                    console.log("users not found")
                     return res.send(users)
                 }
                 let i = 1;
                 //filter age
                 if (age && typeof age !== undefined) {
-                    //does not work with ===
                     rankedUsers = rankedUsers.filter(user => getAge(user.birthDate) == age)
                 }
-                if (gender && typeof gender!== undefined) {
-                    rankedUsers = rankedUsers.filter(user => user.gender === gender)
-                }
                 for (let u of rankedUsers){
-                    // console.log(users.length)
                     if(i <= numberOfPeopleToRank){
-                        //if I use _id it doesn't work
-                        // console.log(u.username)
                         if (u.username === user.username) {
                             userFound = true
                         }
                         users.push(createUser(u._id, i, u.username, u.picture))
                     } else if (!userFound) {
-                        // console.log("else if")
                         if (u.username === user.username) {
                             userFound = true
-                            //return res.send(users)
                             users.push(createUser(u._id, i, u.username, u.picture))
                             break;
                         }
-                        //users.push(createUser(u._id, i, u.username, u.picture))
                     }
                     i++
                 }
-                // console.log(users)
                 return res.send({"array" : users})
             })
     })
