@@ -59,7 +59,7 @@ const Ranking = () => {
                             n: 10
                         })
                     }}>
-                        Enable or disable filtering
+                        Toggle
                     </Button>
                     <FilterForm
                         enable={filtering}
