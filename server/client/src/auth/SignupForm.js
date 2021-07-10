@@ -1,13 +1,13 @@
 import './signup.module.css'
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
-import authService from "./authService";
+import authService from "../authService";
 import {Button, Col, Form, Image} from "react-bootstrap";
-import {errorNotify} from "./notifyAlerts";
-import {loginAction} from "./actions/allActions";
+import {errorNotify} from "../notifyAlerts";
+import {loginAction} from "../actions/allActions";
 import {useDispatch} from "react-redux";
 import styles from "./login.module.css";
-import Logo from "./res/logo_last.png";
+import Logo from "../res/logo_last.png";
 
 function SignupForm() {
 

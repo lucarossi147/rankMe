@@ -1,15 +1,14 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Profile from "./Profile";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
-import Logout from "./Logout";
-import {Home} from "./Home";
+import Profile from "./profile/Profile";
+import LoginForm from "./auth/LoginForm";
+import SignupForm from "./auth/SignupForm";
+import Logout from "./auth/Logout";
+import {Home} from "./Home/Home";
 import {ToastContainer} from "react-toastify";
-import {Analytics} from "./Analytics";
-import Ranking from "./Ranking";
-import Badges from "./Badges";
+import {Analytics} from "./analytics/Analytics";
+import Ranking from "./ranking/Ranking";
 
 function App(){
     return (
@@ -23,7 +22,6 @@ function App(){
                     <Route path="/logout"  component={Logout}/>
                     <Route path="/analytics"  component={Analytics}/>
                     <Route path="/ranking"  component={Ranking}/>
-                    <Route path="/badges"  component={Badges}/>
                     <Route path="/"        component={Home}/>
                 </Switch>
             </Router>

@@ -1,14 +1,14 @@
 import {useSelector} from "react-redux";
-import {Home} from "./Home";
-import Genders from "./analytics/Genders";
+import {Home} from "../Home/Home";
+import Genders from "./Genders";
 import React, {useEffect, useState} from "react";
-import Ages from "./analytics/Ages";
+import Ages from "./Ages";
 import axios from "axios";
 import {Col, Container, Row} from "react-bootstrap";
-import NavComponent from "./NavComponent";
+import NavComponent from "../navbar/NavComponent";
 import ReactLoading from "react-loading";
 
-const CONFIG = require("./config.json")
+const CONFIG = require("../config.json")
 
 function AnalyticsAuth() {
 

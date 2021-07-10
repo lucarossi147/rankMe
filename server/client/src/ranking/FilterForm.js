@@ -1,108 +1,8 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {errorNotify} from "./notifyAlerts";
-import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import NavComponent from "./NavComponent";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import ReactLoading from "react-loading";
+import React, {useState} from "react";
 
-const CONFIG = require("./config.json")
-
-const Ranking = () => {
-    const [isLoaded, setLoaded] = useState(false)
-    const [ranking, setRanking] = useState({})
-    const [filtering, setFiltering] = useState(false)
-    const [result, setResult] = useState({}) //Result deve contenere i campi age, n, city state e country con n di default a 10
-
-    useEffect(() => {
-        getRanking()
-    }, [filtering, isLoaded, result])
-
-    const getRanking = () => {
-        let config = {
-            headers : {
-                Authorization : 'Bearer ' + localStorage.getItem('accessToken')
-            },
-            params : {
-                n : result.n || 10,
-                age: result.age,
-                gender: result.gender,
-                city: result.city,
-                state: result.state,
-                country: result.country
-            }
-        }
-
-        axios.get(CONFIG.SERVER_URL + "/rank", config)
-            .then((res) => {
-                if(res.status === 200 || res.status === 304){
-                    setLoaded(true)
-                    setRanking(res.data)
-                } else {
-                    setLoaded(false)
-                }
-            }).catch(function (error) {
-            errorNotify('Error', error.message);
-        });
-    }
-
-    if(isLoaded && ranking.array){
-        return (
-            <>
-                <NavComponent/>
-                <Container>
-                    <Button onClick={() => {
-                        setFiltering(!filtering)
-                        setResult({
-                            n: 10
-                        })
-                    }}>
-                        Enable or disable filtering
-                    </Button>
-                    <FilterForm
-                        enable={filtering}
-                        createUrl={setResult}
-                    />
-                    <div className="div-center analyticsBox">
-                        <div className="content">
-                            <h2>Ranking </h2>
-                            <Table striped bordered hover>
-                                <thead>
-                                <th>#</th>
-                                <th>Username</th>
-                                </thead>
-                                <tbody>
-                                {
-                                    ranking.array.map(item =>
-                                        <tr>
-                                            <td key={item} scope="row">
-                                                {item.rankPosition}
-                                            </td>
-                                            <td >
-                                                <Link
-                                                    to={{
-                                                        pathname: "/profile",
-                                                        state: { redirectToUser: item._id },
-                                                    }}>
-                                                    {item.username}
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </Table>
-                        </div>
-                    </div>
-                </Container>
-            </>
-        )
-    }
-
-    return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
-}
-
-export const FilterForm = (props) => {
+const FilterForm = (props) => {
     const filtering = props.enable
 
     const [localityType, setLocalityType] = useState(null)
@@ -119,7 +19,6 @@ export const FilterForm = (props) => {
             n: max
         };
         array[localityType] = locality
-        console.log(array)
         props.createUrl(array)
     }
 
@@ -247,5 +146,4 @@ export const FilterForm = (props) => {
     }
 }
 
-export default Ranking
-
+export default FilterForm

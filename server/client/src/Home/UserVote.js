@@ -1,12 +1,12 @@
 import axios from "axios";
 import React from "react";
 import 'react-toastify/dist/ReactToastify.css';
-import {Button, Card, Col} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {errorNotify, successNotify} from "./notifyAlerts";
+import {errorNotify} from "../notifyAlerts";
 import { useMediaQuery } from 'react-responsive';
 import styles from './userVote.module.css'
-const CONFIG = require("./config.json");
+const CONFIG = require("../config.json");
 
 
 function FooterOptional(props) {
@@ -44,7 +44,7 @@ function UserVote(props) {
             }, config)
             .then( (response) => {
                 if(response.status === 200){
-                    successNotify(" Correctly voted!")
+                    //successNotify(" Correctly voted!")
                     props.callback(true)
                 } else {
                     errorNotify("Problems occurred during vote")

@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import {errorNotify, successNotify} from "./notifyAlerts"
+import {errorNotify, successNotify} from "../notifyAlerts"
 import {Redirect} from "react-router-dom";
 import {Button} from "react-bootstrap";
-const CONFIG = require("./config.json");
+const CONFIG = require("../config.json");
 
 function FormLocality(props){
 

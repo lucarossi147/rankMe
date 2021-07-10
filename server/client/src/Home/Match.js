@@ -6,7 +6,7 @@ import {CardGroup, Container} from "react-bootstrap";
 import styles from "./match.module.css"
 import ReactLoading from "react-loading";
 
-const CONFIG = require("./config.json");
+const CONFIG = require("../config.json");
 
 function Match(){
 
@@ -23,34 +23,35 @@ function Match(){
     const accessToken = localStorage.getItem('accessToken')
 
     useEffect(() => {
+        const fetchProfile = () => {
+            let config = {
+                headers : {
+                    Authorization : 'Bearer ' + accessToken
+                }
+            }
+            axios.get(CONFIG.SERVER_URL + "/findMatch", config)
+                .then(
+                    (result) => {
+                        setUser1(result.data.user1)
+                        setUser2(result.data.user2)
+                        setLoaded(true)
+                        setReload(false)
+                    },
+                    (error) => {
+                        setError(error)
+                        setLoaded(false)
+                    }
+                )
+        }
         fetchProfile()
     }, [reload])
 
-    const fetchProfile = () => {
-        let config = {
-            headers : {
-                Authorization : 'Bearer ' + accessToken
-            }
-        }
-        axios.get(CONFIG.SERVER_URL + "/findMatch", config)
-            .then(
-                (result) => {
-                    setUser1(result.data.user1)
-                    setUser2(result.data.user2)
-                    setLoaded(true)
-                    setReload(false)
-                },
-                (error) => {
-                    setError(error)
-                    setLoaded(false)
-                }
-            )
-    }
+
 
     if(error){
         return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
+        return <ReactLoading type={"bars"} color={"26547C"} height={667} width={375} />
         /*
         TODO scegliere tra questi
     blank

@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom"
-import authService from "./authService"
-import {loginAction} from "./actions/allActions";
+import authService from "../authService"
+import {loginAction} from "../actions/allActions";
 import {useDispatch} from "react-redux";
 import {Button, Form, Image} from "react-bootstrap";
 import styles from './login.module.css'
-import Logo from "./res/logo_last.png";
+import Logo from "../res/logo_last.png";
 
 function LoginForm(){
 

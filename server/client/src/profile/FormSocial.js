@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {errorNotify, successNotify} from "./notifyAlerts";
+import {errorNotify, successNotify} from "../notifyAlerts";
 import {Button, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-const CONFIG = require("./config.json");
+const CONFIG = require("../config.json");
 
 function EditButton(props) {
     const id = useSelector(state => state.userReducer._id)

@@ -1,12 +1,12 @@
 import {useSelector} from "react-redux";
 import React from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from "../auth/LoginForm";
 import Match from "./Match";
 import axios from "axios";
-import {successNotify} from "./notifyAlerts";
-import NavComponent from "./NavComponent";
+import {successNotify} from "../notifyAlerts";
+import NavComponent from "../navbar/NavComponent";
 import styles from "./home.module.css"
-const CONFIG = require('./config.json')
+const CONFIG = require('../config.json')
 
 export const Home = () => {
     return useSelector(state => state.userReducer.username)  ? <HomeAuth/> : <LoginForm/>

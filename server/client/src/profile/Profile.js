@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import FormSocial from "./FormSocial"
-import {Home} from "./Home"
+import {Home} from "../Home/Home"
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom"
 import ReactLoading from 'react-loading';
@@ -8,11 +8,11 @@ import axios from "axios";
 import { Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
-import NavComponent from "./NavComponent";
-
+import NavComponent from "../navbar/NavComponent";
 import styles from './profile.module.css'
 import Badges from "./Badges";
-const CONFIG = require("./config.json");
+
+const CONFIG = require("../config.json");
 
 export const Profile = () => {
     const location = useLocation()
@@ -126,11 +126,7 @@ const ProfileAuth = (props) => {
 export const Locality = (props) => {
     const user =  useSelector(state => state.userReducer)
     if(!user.country){
-        return (
-            <div>
-                <FormLocality callback={props.callback}/>
-            </div>
-        )
+        return <FormLocality callback={props.callback}/>
     } else {
         return null
     }

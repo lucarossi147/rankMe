@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {errorNotify, successNotify} from "./notifyAlerts";
+import {errorNotify, successNotify} from "../notifyAlerts";
 
-const CONFIG = require("./config.json");
+const CONFIG = require("../config.json");
 
 function ImageForm(props){
     const [selectedFile, setFile] = useState()
@@ -20,12 +20,12 @@ function ImageForm(props){
             }
 
             axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
-                .then(res => {
+                .then((res) => {
                     //TODO controlla effettiva risposta corretta
                     successNotify("Photo correctly uploaded")
                     props.callback(true)
                 })
-                .catch(err => {
+                .catch((err) => {
                     errorNotify("Error uploading photo")
                 });
         } else {
