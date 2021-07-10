@@ -7,12 +7,6 @@ import styles from "./navbar.module.css"
 import authService from "../authService";
 import {logoutAction} from "../actions/allActions";
 
-const LogoutLink = () => (
-    <Nav.Link>
-        <LogoutModal/>
-    </Nav.Link>
-);
-
 function LogoutModal() {
     const [show, setShow] = useState(false);
     const [redirect, setRedirect] = useState(false)
@@ -40,7 +34,6 @@ function LogoutModal() {
             <Button variant="primary" onClick={handleShow}>
                 Logout
             </Button>
-
             <Modal show={show} onHide={close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Logout</Modal.Title>
@@ -61,6 +54,8 @@ function LogoutModal() {
 
 
 export const NavComponent = () => {
+    const user =  useSelector(state => state.userReducer)
+
     return (
         <Navbar collapseOnSelect bg="light" expand="lg" className={styles.bottomSpace}>
             <Navbar.Brand>
@@ -78,7 +73,12 @@ export const NavComponent = () => {
                         <Link to="/ranking" className={styles.a}>Ranking </Link>
                     </Nav.Link>
                     <Nav.Link>
-                        <Link to="/profile" className={styles.a}>
+                        <Link
+                            className={styles.a}
+                            to={{
+                                pathname: "/profile",
+                                state: { redirectToUser: user._id },
+                            }}>
                             Profile
                         </Link>
                     </Nav.Link>
@@ -92,7 +92,10 @@ export const NavComponent = () => {
 }
 
 const Auth = () => {
-    return useSelector(state => state.userReducer.username)  ? <LogoutLink/> : <></>
+    return useSelector(state => state.userReducer.username)  ? (
+        <Nav.Link>
+            <LogoutModal/>
+        </Nav.Link>) : <></>
 }
 
 export default NavComponent

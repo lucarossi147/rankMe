@@ -76,7 +76,7 @@ const ProfileAuth = (props) => {
                 })
         }
         fetchProfile()
-    }, [isLoaded, reload])
+    }, [isLoaded, reload, id])
 
 
 
@@ -103,7 +103,7 @@ const ProfileAuth = (props) => {
                                     <h4>Rank: {user.rankPosition}</h4>
                                 </Row>
                                 <Row>
-                                    <p> {user.bio || ""}</p>
+                                    <p> {user.bio || ""} </p>
                                 </Row>
                             </Container>
                         </Col>

@@ -13,7 +13,7 @@ const Ranking = () => {
     const [isLoaded, setLoaded] = useState(false)
     const [ranking, setRanking] = useState({})
     const [filtering, setFiltering] = useState(false)
-    const [result, setResult] = useState({}) //Result deve contenere i campi age, n, city state e country con n di default a 10
+    const [result, setResult] = useState({})
 
     useEffect(() => {
         const getRanking = () => {

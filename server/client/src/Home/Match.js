@@ -24,11 +24,13 @@ function Match(){
 
     useEffect(() => {
         const fetchProfile = () => {
+
             let config = {
                 headers : {
                     Authorization : 'Bearer ' + accessToken
                 }
             }
+
             axios.get(CONFIG.SERVER_URL + "/findMatch", config)
                 .then(
                     (result) => {
