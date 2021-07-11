@@ -6,36 +6,35 @@ services:
       context: ./server
       dockerfile: Dockerfile
     image: server
-    container_name: serverContainer
     ports:
       - 3000:3000
     networks:
-      - interna
+      - internal
+
   mongodb:
-    build:
-      context: ./mongodb
-      dockerfile: Dockerfile
-    image: mymongo
-    container_name: mongodbContainer
+    image: mongo
     ports:
       - 27017-27019:27017-27019
     networks:
-      - interna
+      - internal
     volumes:
-      - ./mydata:/data
+      - mongodb_data:/data/db
   client:
     build:
       context: ./server/client
       dockerfile: Dockerfile
     image: client
-    container_name: clientContainer
     ports:
       - 5000:5000
     networks:
-      - interna
+      - internal
 
 networks:
-  interna:
+  internal:
     driver: bridge
     driver_opts:
       com.docker.network.bridge.name: "brinterna"
+
+volumes:
+  pdf:
+  mongodb_data:

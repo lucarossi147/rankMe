@@ -9,4 +9,4 @@ RUN npm install
 COPY . /app
 RUN export PORT=5000
 RUN HTTPS=true
-CMD ["react-script", "start"]
+CMD ["node", "index.js"]

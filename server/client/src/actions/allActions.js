@@ -10,6 +10,19 @@ export const logoutAction = () => {
     }
 }
 
+export const setMatch = (users) => {
+    return {
+        type : 'SET_MATCH',
+        users
+    }
+}
+
+export const deleteMatch = () => {
+    return {
+        type: 'DELETE_MATCH'
+    }
+}
+
 export const setUser = (user) => {
     return {
         type: 'SET_USER',

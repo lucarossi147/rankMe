@@ -35,7 +35,7 @@ RUN set -ex; \
 	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
 	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
 	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+	gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
 	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
 	command -v gpgconf && gpgconf --kill all || :; \
 	rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc; \
@@ -54,7 +54,7 @@ ENV GPG_KEYS 9DA31620334BD75D9DCB49F368818C72E52529D4
 RUN set -ex; \
 	export GNUPGHOME="$(mktemp -d)"; \
 	for key in $GPG_KEYS; do \
-		gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+		gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$key"; \
 	done; \
 	gpg --batch --export $GPG_KEYS > /etc/apt/trusted.gpg.d/mongodb.gpg; \
 	command -v gpgconf && gpgconf --kill all || :; \
@@ -90,8 +90,8 @@ RUN mkdir -p /data/db /data/configdb \
 	&& chown -R mongodb:mongodb /data/db /data/configdb
 
 # MODIFICHE INTRODOTTE DA VITTORIO GHINI PER ASW E SYSTEMS INTEGRATION
-VOLUME /data/db /data/configdb
-# COPY ./mydbinit.js /docker-entrypoint-initdb.d/
+# VOLUME /data/db /data/configdb
+#COPY ./mydbinit.js /docker-entrypoint-initdb.d/
 # per avere strumenti di debugging dentro ai container
 RUN	apt-get update 						&&	\
 	apt-get -y install iptables net-tools netcat curl	&&	\

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {errorNotify} from "../notifyAlerts";
-import {Button, Container, Table} from "react-bootstrap";
+import {Button, Container, Image, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import NavComponent from "../navbar/NavComponent";
 import ReactLoading from "react-loading";
 import FilterForm from "./FilterForm";
+import styles from "../ranking/ranking.module.css";
 
 const CONFIG = require("../config.json")
 
@@ -81,6 +82,10 @@ const Ranking = () => {
                                                 {item.rankPosition}
                                             </td>
                                             <td >
+                                                <Image className={styles.image}
+                                                       src={CONFIG.SERVER_URL + "/images/" + item.picture}
+                                                       roundedCircle
+                                                />
                                                 <Link
                                                     to={{
                                                         pathname: "/profile",
