@@ -17,7 +17,7 @@ exports.getMatch = function (req, res) {
         // console.log("rand "+rand)
         const myId = req.user._id
         //get first random profile
-        User.findOne({_id:{$ne:myId}}).skip(rand)
+        User.findOne({_id:{$ne:myId}}, '_id username picture city country state numberOfVotes').skip(rand)
             .then(user1 => {
                 // console.log("FIRST USER")
                 // console.log(user1.username)
@@ -30,12 +30,12 @@ exports.getMatch = function (req, res) {
                     },{
                         _id:{$nin: [user1._id,myId]}
                     }]
-                }).then(user2 => {
+                }, '_id username picture city country state numberOfVotes' ).then(user2 => {
                     if (!user2) {
                         //if we didn't find anything return a random user
 
                         //it's not that random, maybe we should add a field numberOfTimesAppearedInMatch to use both to sort and use the person who appeared less, and for the analytics
-                        User.findOne({_id:{$nin: [user1._id,myId]}})
+                        User.findOne({_id:{$nin: [user1._id,myId]}}, '_id username picture city country state numberOfVotes')
                             .then(backup => {
                                 if(!backup) res.sendStatus(500)
                                 const user2 = backup

@@ -66,11 +66,14 @@ exports.getProfile = function (req, res) {
 
 
 exports.uploadPhoto = function (req, res){
-    //console.log('uploadPhoto')
+    const fileName = req.file.filename;
+    const filePath = appRoot+'/images/'
+    const outputFile = Date.now().toString()+'.jpg'
+
+    fs.unlink(filePath+req.user.picture, err => {
+        if (err) return res.sendStatus(500)
+    })
     try {
-        const fileName = req.file.filename;
-        const filePath = appRoot+'/images/'
-        const outputFile = Date.now().toString()+'.jpg'
         sharp(filePath+fileName)
             .resize( 1024,768 , { //if we wanted classical full hd 16/9, 1920x1080
                 fit:'cover'
@@ -78,23 +81,22 @@ exports.uploadPhoto = function (req, res){
             .toFile(filePath+outputFile)
             .then(data => {
                 fs.unlink(filePath+fileName, err => {
-                    if (err) return res.send(err)
+                    if (err) return res.sendStatus(500)
                 })
             })
             .catch(err => {
-                return res.send(err)
+                return res.sendStatus(500)
             });
         const filter = { "_id": req.user._id};
         const update = { "picture": outputFile };
         User.findOneAndUpdate(filter, update,{
             new: true
         }).then(doc => {
-            if (!doc) { res.status(500).json({"description": "an error occurred"}) }
-            res.sendStatus(200)
+            if (!doc) { return res.sendStatus(500).json({"description": "an error occurred"}) }
+            return res.sendStatus(200)
         })
     }catch(err) {
-        console.log(err);
-        res.send(400);
+        return res.sendStatus(400);
     }
 }
 
