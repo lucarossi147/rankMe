@@ -108,7 +108,7 @@ exports.userImage = function (req, res) {
 }
 
 exports.rank = function(req, res){
-    const myId = req.user._id
+    const user = req.user
     const city = req.query.city
     const state = req.query.state
     const country = req.query.country
@@ -136,40 +136,37 @@ exports.rank = function(req, res){
         // console.log(country)
         filter["country"] = country
     }
-    User.findById(myId, function (err, user) {
-        if (err) return res.sendStatus(500)
-        let users = []
-        let userFound = false
-        User.find(filter, '_id username picture birthDate').sort({'numberOfVotes': -1})
-            .then(rankedUsers => {
-                // console.log(rankedUsers)
-                if (!rankedUsers) {
-                    console.log("users not found")
-                    return res.send(users)
-                }
-                let i = 1;
-                //filter age
-                if (age && typeof age !== undefined) {
-                    rankedUsers = rankedUsers.filter(user => getAge(user.birthDate) == age)
-                }
-                for (let u of rankedUsers){
-                    if(i <= numberOfPeopleToRank){
-                        if (u.username === user.username) {
-                            userFound = true
-                        }
-                        users.push(createUser(u._id, i, u.username, u.picture))
-                    } else if (!userFound) {
-                        if (u.username === user.username) {
-                            userFound = true
-                            users.push(createUser(u._id, i, u.username, u.picture))
-                            break;
-                        }
+    let users = []
+    let userFound = false
+    User.find(filter, '_id username picture birthDate').sort({'numberOfVotes': -1})
+        .then(rankedUsers => {
+            // console.log(rankedUsers)
+            if (!rankedUsers) {
+                console.log("users not found")
+                return res.send(users)
+            }
+            let i = 1;
+            //filter age
+            if (age && typeof age !== undefined) {
+                rankedUsers = rankedUsers.filter(u => getAge(u.birthDate) == age)
+            }
+            for (let u of rankedUsers){
+                if(i <= numberOfPeopleToRank){
+                    if (u.username === user.username) {
+                        userFound = true
                     }
-                    i++
+                    users.push(createUser(u._id, i, u.username, u.picture))
+                } else if (!userFound) {
+                    if (u.username === user.username) {
+                        userFound = true
+                        users.push(createUser(u._id, i, u.username, u.picture))
+                        break;
+                    }
                 }
-                return res.send({"array" : users})
-            })
-    })
+                i++
+            }
+            return res.send({"array" : users})
+        })
 }
 
 exports.gender = function (req, res) {
