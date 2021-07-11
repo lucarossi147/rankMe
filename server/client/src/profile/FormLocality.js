@@ -4,6 +4,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {errorNotify, successNotify} from "../notifyAlerts"
 import {Redirect} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import styles from "./profile.module.css"
 const CONFIG = require("../config.json");
 
 function FormLocality(props){
@@ -59,7 +60,7 @@ function FormLocality(props){
                     }
                 }
                 />
-                <Button variant="primary" onClick={handleSubmit}>
+                <Button className={styles.backColor} variant="primary" onClick={handleSubmit}>
                     Update
                 </Button>
             </div>
