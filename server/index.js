@@ -19,7 +19,7 @@ httpsServer = https.createServer(credentials,app)
 
 const PORT = 3000;
 const LOCAL_DB = 'mongodb://localhost:27017/rankMe';
-const DOCKER_DB = 'mongodb://mongodbContainer.rankMe_interna:27017';
+const DOCKER_DB = 'mongodb://rankme_mongodb_1.rankMe_internal:27017/rankme';
 
 // aspetto 10 sec che il container di mongo sia su
 function pausecomp(millis)

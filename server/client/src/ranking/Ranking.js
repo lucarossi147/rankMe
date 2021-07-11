@@ -54,20 +54,20 @@ const Ranking = () => {
             <>
                 <NavComponent/>
                 <Container>
-                    <Button onClick={() => {
-                        setFiltering(!filtering)
-                        setResult({
-                            n: 10
-                        })
-                    }}>
+                    <Button
+                        className={styles.backColor}
+                        onClick={() => {
+                            setFiltering(!filtering)
+                            setResult({
+                                n: 10
+                            })
+                        }}>
                         Toggle filters
                     </Button>
                     <FilterForm
                         enable={filtering}
                         createUrl={setResult}
                     />
-                    <div className="div-center analyticsBox">
-                        <div className="content">
                             <h2>Ranking </h2>
                             <Table striped bordered hover>
                                 <thead>
@@ -87,6 +87,7 @@ const Ranking = () => {
                                                        roundedCircle
                                                 />
                                                 <Link
+                                                    className={styles.a}
                                                     to={{
                                                         pathname: "/profile",
                                                         state: { redirectToUser: item._id },
@@ -98,8 +99,6 @@ const Ranking = () => {
                                     )}
                                 </tbody>
                             </Table>
-                        </div>
-                    </div>
                 </Container>
             </>
         )

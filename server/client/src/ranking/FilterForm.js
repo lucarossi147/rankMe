@@ -1,6 +1,7 @@
 import {Button, Col, Form, Row} from "react-bootstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import React, {useState} from "react";
+import styles from "../ranking/ranking.module.css";
 
 const FilterForm = (props) => {
     const filtering = props.enable
@@ -134,7 +135,7 @@ const FilterForm = (props) => {
                         }
                     </Col>
                     <Col>
-                        <Button type="secondary">Submit</Button>
+                        <Button className={styles.backColor} type="secondary">Submit</Button>
                     </Col>
                 </Row>
             </Form>

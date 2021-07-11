@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 import {errorNotify} from "../notifyAlerts";
 import { useMediaQuery } from 'react-responsive';
 import styles from './userVote.module.css'
+import {deleteMatch} from "../actions/allActions";
+import {useDispatch} from "react-redux";
 const CONFIG = require("../config.json");
 
 
@@ -28,10 +30,10 @@ function FooterOptional(props) {
 
 function UserVote(props) {
     let user = props.user
+    const dispatch = useDispatch()
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-
         let config = {
             headers : {
                 Authorization : 'Bearer ' + localStorage.getItem('accessToken')
@@ -44,7 +46,7 @@ function UserVote(props) {
             }, config)
             .then( (response) => {
                 if(response.status === 200){
-                    //successNotify(" Correctly voted!")
+                    dispatch(deleteMatch())
                     props.callback(true)
                 } else {
                     errorNotify("Problems occurred during vote")

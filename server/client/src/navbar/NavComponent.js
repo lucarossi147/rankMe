@@ -31,7 +31,7 @@ function LogoutModal() {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button className={styles.backColor} variant="primary" onClick={handleShow}>
                 Logout
             </Button>
             <Modal show={show} onHide={close}>
@@ -43,7 +43,7 @@ function LogoutModal() {
                     <Button variant="secondary" onClick={close}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button className={styles.backColor} variant="primary" onClick={handleClose}>
                         Logout
                     </Button>
                 </Modal.Footer>

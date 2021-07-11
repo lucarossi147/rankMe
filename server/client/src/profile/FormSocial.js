@@ -1,32 +1,16 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {errorNotify, successNotify} from "../notifyAlerts";
-import {Button, Col} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {Button, Col, Row} from "react-bootstrap";
+import styles from "./profile.module.css"
 
 const CONFIG = require("../config.json");
-
-function EditButton(props) {
-    const id = useSelector(state => state.userReducer._id)
-    if(id === props.user._id){
-        return (
-            <Button onClick={() => props.callback(true)}>
-                Edit info
-            </Button>
-        );
-    } else {
-        return <></>
-    }
-
-}
 
 function FormSocial(props){
     const user = props.user
     const [instagram, setIg] = useState(user.instagram || '')
     const [facebook, setFb] = useState(user.facebook || '')
     const accessToken = localStorage.getItem('accessToken')
-    const [editable, setEditable] = useState(false)
 
     const handleChange = (evt) => {
         const {name,value} = evt.target;
@@ -69,7 +53,7 @@ function FormSocial(props){
             .then(function (response) {
                 if(response.status === 200){
                     successNotify("Correctly update social links")
-                    setEditable(false)
+                    props.callback(false)
                 } else {
                     errorNotify("No update of social links")
                 }
@@ -78,9 +62,9 @@ function FormSocial(props){
         });
     }
 
-    if(editable){
+    if(props.editable){
         return(
-            <div>
+            <Row>
                 <Col>
                     <label>
                         Facebook:
@@ -94,17 +78,21 @@ function FormSocial(props){
                     </label>
                 </Col>
                 <Col>
-                    <button onClick={handleSubmit}>Update</button>
+                    <Button className={styles.backColor} onClick={handleSubmit}>Update</Button>
                 </Col>
-            </div>
+            </Row>
         )
     } else {
         return(
             <>
-                <EditButton callback={setEditable} user={user}/>
-                    <FacebookButton facebook={facebook}/>
-                    <InstagramButton instagram={instagram}/>
-                    <AnalyticsButton user={user}/>
+                <Row>
+                    <Col>
+                        <FacebookButton facebook={facebook}/>
+                    </Col>
+                    <Col>
+                        <InstagramButton instagram={instagram}/>
+                    </Col>
+                </Row>
             </>
         )
     }
@@ -122,7 +110,7 @@ const openLink = (link) => {
 const FacebookButton = (props) => {
     const link = "https://" + props.facebook
     return (
-        <button onClick={() => openLink(link)} type="button" className="btn btn-primary social">
+        <button onClick={() => openLink(link)} type="button" className={styles.backColor + " btn btn-primary social"}>
             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="35" fill="currentColor" className="bi bi-facebook"
                  viewBox="0 0 16 16">
                 <path
@@ -146,23 +134,6 @@ const InstagramButton = (props) => {
     )
 }
 
-function AnalyticsButton(props) {
-    const id = useSelector(state => state.userReducer._id)
-    if(id === props.user._id) {
-        return (
-            <Link to="/analytics">
-                <button type="button" className="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="35"
-                         fill="currentColor" className="bi bi-bar-chart" viewBox="0 0 16 16">
-                        <path
-                            d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
-                    </svg>
-                </button>
-            </Link>
-        );
-    } else {
-        return <></>
-    }
-}
+
 
 export default FormSocial;

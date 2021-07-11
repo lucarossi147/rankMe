@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {errorNotify, successNotify} from "../notifyAlerts";
+import {Button, Col, Row} from "react-bootstrap";
+import styles from "./profile.module.css";
 
 const CONFIG = require("../config.json");
 
@@ -20,12 +22,12 @@ function ImageForm(props){
             }
 
             axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
-                .then((res) => {
+                .then(() => {
                     //TODO controlla effettiva risposta corretta
                     successNotify("Photo correctly uploaded")
                     props.callback(true)
                 })
-                .catch((err) => {
+                .catch(() => {
                     errorNotify("Error uploading photo")
                 });
         } else {
@@ -40,8 +42,14 @@ function ImageForm(props){
 
     return (
         <div>
-            <input type="file" name="profile" onChange={onChangeHandler} />
-            <button onClick={onClickHandler}>Upload photo</button>
+            <Row>
+                <Col>
+                    <input type="file" name="profile" onChange={onChangeHandler}/>
+                </Col>
+                <Col>
+                    <Button className={styles.backColor} onClick={onClickHandler}>Upload photo</Button>
+                </Col>
+            </Row>
         </div>
     );
 }
