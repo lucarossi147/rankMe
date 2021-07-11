@@ -1,7 +1,6 @@
 import {Card, CardGroup, Container, ProgressBar} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import styles from "./profile.module.css"
 
 const CONFIG = require('../config.json')
 
