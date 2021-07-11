@@ -8,7 +8,6 @@ module.exports = function(app) {
 
     const multer = require('multer');
 
-    //forse bisogna aggiungere una cartella static public
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, appRoot+'/images');
@@ -73,4 +72,7 @@ module.exports = function(app) {
 
     app.route('/analytics')
         .get(loginController.authenticate, utilityController.analytics)
+
+    app.route('/bio')
+        .post(loginController.authenticate, utilityController.setBio)
 };

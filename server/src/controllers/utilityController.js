@@ -26,6 +26,17 @@ exports.setSocialMediaLink = function (req, res){
     })
 }
 
+
+exports.setBio = function (req, res){
+    const bio = req.body.bio;
+    const user = req.user;
+
+    User.findByIdAndUpdate(user._id, {"bio": bio}).then(doc => {
+        if (!doc) { return res.sendStatus(500).json({"description": "an error occurred"}) }
+        return res.sendStatus(200)
+    })
+}
+
 exports.getProfile = function (req, res) {
     User.findById(req.params.userId, function (err, user) {
         if (err) return res.sendStatus(500)
