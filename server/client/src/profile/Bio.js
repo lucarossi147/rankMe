@@ -32,6 +32,7 @@ export function Bio(props) {
             .then(function (response) {
                 if(response.status === 200){
                     successNotify("Correctly update bio")
+                    setText(text)
                     props.callback(false)
                 } else {
                     errorNotify("No update of bio...")

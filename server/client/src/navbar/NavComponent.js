@@ -69,19 +69,15 @@ export const NavComponent = () => {
                     className="mr-auto my-2 my-lg-0"
                     style={{ maxHeight: '100px' }}
                 >
-                    <Nav.Link>
-                        <Link to="/ranking" className={styles.a}>Ranking </Link>
-                    </Nav.Link>
-                    <Nav.Link>
+                        <Link to="/ranking" className={styles.a + " nav-link"}>Ranking </Link>
                         <Link
-                            className={styles.a}
+                            className={styles.a + " nav-link"}
                             to={{
                                 pathname: "/profile",
                                 state: { redirectToUser: user._id },
                             }}>
                             Profile
                         </Link>
-                    </Nav.Link>
                 </Nav>
                 <Nav>
                     <Auth/>
