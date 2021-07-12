@@ -14,6 +14,9 @@ function LoginForm(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+    /*  Probabilmente una soluzione più clean sarebbe questa ->
+        https://stackoverflow.com/questions/60807864/how-to-setstate-response-of-api-request-in-reactjs-with-hooks
+     */
     const dispatch = useDispatch()
 
     const handleChange = (evt) => {
