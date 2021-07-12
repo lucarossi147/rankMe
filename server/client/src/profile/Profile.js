@@ -140,7 +140,8 @@ function EditButton(props) {
 
 export const Locality = (props) => {
     const user =  useSelector(state => state.userReducer)
-    if(!user.country){
+    const loggedUser = useSelector(state => state.userReducer._id)
+    if(!user.country && (user._id === loggedUser)){
         return <FormLocality callback={props.callback}/>
     } else {
         return null
