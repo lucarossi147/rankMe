@@ -37,14 +37,18 @@ function SignupForm() {
         if (signinUser.password2 === signinUser.password) {
             authService.register(signinUser)
                 .then(
-                    () =>
-                        authService.login(signinUser.username, signinUser.password, dispatch)
-                            .then(() => {
-                                dispatch(loginAction())
-                                setRedirect(true)
-                            })
-                            .catch((err) => console.log(err))
-                )
+                    (res1) => {
+                        if (res1) {
+                            authService.login(signinUser.username, signinUser.password, dispatch)
+                                .then((res) => {
+                                    if (res) {
+                                        dispatch(loginAction())
+                                        setRedirect(true)
+                                    }
+                                })
+                                .catch((err) => console.log(err))
+                        }
+                    })
                 .catch((err) => {
                     console.log(err)
                     errorNotify("Email or password already used")

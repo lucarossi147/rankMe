@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {Button, Form, Image} from "react-bootstrap";
 import styles from './login.module.css'
 import Logo from "../res/logo_last.png";
+import {errorNotify} from "../notifyAlerts";
 
 function LoginForm(){
 
@@ -27,10 +28,14 @@ function LoginForm(){
     const handleSubmit= (evt) => {
         evt.preventDefault();
         authService.login(username,password, dispatch)
-            .then(() => {
-                setRedirect(true)
-                dispatch(loginAction())
-            }).catch((err) => {
+            .then((res) => {
+                    if(res){
+                        setRedirect(true)
+                        dispatch(loginAction())
+                    } else {
+                        errorNotify("Wrong credentials, retry!")
+                    }
+                }).catch((err) => {
                 console.log(err)
         })
     }

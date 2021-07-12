@@ -29,35 +29,10 @@ e il server con il DB
 
 #todo 
 
-Implementare pagina di rank -> Da fare nella pagina analytics
 
-Implementare dashboard, dove l'utente può votare delle foto proposte -> Fatto +-
 
-Gestire foto lato client -> Impossibile
-
-Modificare profilo utente, tasto mi reinderizza a pagina per le modifiche
-
-Finchè ho il refresh token sono autorizzato
-
-Implementare localizzazione
-
-Usare authservice.headers dove possibile
-
-Refactorare codice in cartelle
-
-Aggiungere il genere al signup
-
-Fare chiamata a notifies per vedere le ultime notifiche
-
-Fare il redirect su login o su home dopo il signup
-
-Fare chiamate a notifies SOLO se si e' gia' loggati
-
-Toast che il signup e' andato a buon fine 
-
-http: authorization header Bearer accessToken 
-
-https://www.youtube.com/watch?v=hM9uKmy-BQQ
+//TODO non va Aggiungere il genere al signup
+Per il deploy automatico copiare le immagini nel dockerfile
 
 Dockerfile client:
 #Tell docker to use this image, node, as base image

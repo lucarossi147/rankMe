@@ -5,12 +5,13 @@ import {useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom"
 import ReactLoading from 'react-loading';
 import axios from "axios";
-import { Col, Container, Image, Row} from "react-bootstrap";
+import {Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
 import ImageForm from "./ImageForm";
 import NavComponent from "../navbar/NavComponent";
 import styles from './profile.module.css'
 import Badges from "./Badges";
+import {Bio} from "./Bio";
 
 const CONFIG = require("../config.json");
 
@@ -20,6 +21,8 @@ export const Profile = () => {
     const user =  useSelector(state => state.userReducer)
     return user.username  ? <ProfileAuth user={user} id={id}/> : <Home/>
 }
+
+
 
 const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
@@ -82,7 +85,7 @@ const ProfileAuth = (props) => {
                                     <h4>Rank: {user.rankPosition}</h4>
                                 </Row>
                                 <Row>
-                                    <p> {user.bio || ""} </p>
+                                    <Bio callback={setEditable} user={user} editable={editable}/>
                                 </Row>
                                 <Row>
                                     <Col>
@@ -109,6 +112,7 @@ const ProfileAuth = (props) => {
         )
     }
 }
+
 function EditButton(props) {
     const id = useSelector(state => state.userReducer._id)
 

@@ -23,7 +23,6 @@ function ImageForm(props){
 
             axios.post(CONFIG.SERVER_URL + "/uploadPhoto", data, config)
                 .then(() => {
-                    //TODO controlla effettiva risposta corretta
                     successNotify("Photo correctly uploaded")
                     props.callback(true)
                 })

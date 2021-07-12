@@ -44,10 +44,8 @@ function login(username, password, dispatcher) {
                 localStorage.setItem('accessToken', response.data.accessToken)
                 localStorage.setItem('refreshToken', response.data.refreshToken)
                 dispatcher(setUser(response.data.user))
-                successNotify("Login made")
                 return true
             } else if(response.status === 401){
-                errorNotify("Invalid username or password")
                 return  false
             }
         }).catch(function (error) {
@@ -76,7 +74,7 @@ const logout = (dispatcher) => {
     }).catch(err => {
         console.log(err)
     })
-
+    localStorage.clear()
     dispatcher(deleteUser())
 }
 

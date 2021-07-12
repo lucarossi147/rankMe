@@ -40,7 +40,7 @@ mongoose.connect(
         }).then(() => console.log('MongoDB Connected'))
           .catch((err) => console.log(err));
 
-//TODO: risolvere problema di CORS app.use(cors), così pare che funzioni
+
 
 app.use(cors());
 

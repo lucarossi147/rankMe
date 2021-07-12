@@ -16,7 +16,7 @@ function FormSocial(props){
         const {name,value} = evt.target;
         if(name === 'instagram'){
             setIg(value)
-        } else if(name==='facebook'){
+        } else if(name === 'facebook'){
             setFb(value)
         }
     }
