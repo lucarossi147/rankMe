@@ -11,14 +11,6 @@ services:
     networks:
       - internal
 
-  mongodb:
-    image: mongo
-    ports:
-      - 27017-27019:27017-27019
-    networks:
-      - internal
-    volumes:
-      - mongodb_data:/data/db
   client:
     build:
       context: ./server/client
@@ -36,5 +28,4 @@ networks:
       com.docker.network.bridge.name: "brinterna"
 
 volumes:
-  pdf:
   mongodb_data:
