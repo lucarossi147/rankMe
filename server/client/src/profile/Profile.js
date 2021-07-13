@@ -172,7 +172,7 @@ function ImageUser(props) {
             <Image className={styles.image}
                    src={CONFIG.SERVER_URL + "/images/" + user.picture}
                    roundedCircle
-                   alt="Profile pic not setted"
+                   alt="Profile pic not found"
                    onClick={() => props.callback(!viewUpload)}
             />
         ) } else {
@@ -180,7 +180,7 @@ function ImageUser(props) {
             <Image className={styles.image}
                    src={CONFIG.SERVER_URL + "/images/" + user.picture}
                    roundedCircle
-                   alt="Profile pic not setted"
+                   alt="Profile pic not found"
             />
         )
     }
