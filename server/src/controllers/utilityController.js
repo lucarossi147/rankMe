@@ -295,17 +295,17 @@ function getGenderAnalytics(votesArray){
             let femaleVotes = 0
             let others = 0
             for( let user of votesProjections){
-                const completeUser = user.completeUser[0]
-                if (completeUser.gender === "female" ){
-                    femaleVotes++
-                } else if( completeUser.gender === "male"){
-                    maleVotes++
-                } else {
-                    others++
+                if (user.completeUser.length===1){
+                    const completeUser = user.completeUser[0]
+                    if (completeUser.gender === "female" ){
+                        femaleVotes++
+                    } else if( completeUser.gender === "male"){
+                        maleVotes++
+                    } else {
+                        others++
+                    }
                 }
             }
-            //let percentages = calculatePercentage(maleVotes, femaleVotes)
-            //return {males: percentages.first, females: percentages.second}
             return {males: maleVotes, females: femaleVotes, others: others}
         })
 }
@@ -315,9 +315,11 @@ function getAgesAnalytics(votesArray){
         .then(users=>{
             let ages = []
             for( let rawUser of users){
-                const user = rawUser.completeUser[0]
-                const age = getAge(user.birthDate)
-                ages.push(age)
+                if (rawUser.completeUser.length===1){
+                    const user = rawUser.completeUser[0]
+                    const age = getAge(user.birthDate)
+                    ages.push(age)
+                }
             }
             return groupAges(ages)
         })
