@@ -1,12 +1,12 @@
-import {errorNotify} from "../notifyAlerts";
+import {errorNotify} from "../server/client/src/notifyAlerts";
 import {Button, Container, Image, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import NavComponent from "../navbar/NavComponent";
-import {Loading} from "../loading/Loading";
+import NavComponent from "../server/client/src/navbar/NavComponent";
+import {Loading} from "../server/client/src/loading/Loading";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-const CONFIG = require("../config.json")
+const CONFIG = require("../server/client/src/config.json")
 
 interface resultI {
     n: number,

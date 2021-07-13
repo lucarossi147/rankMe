@@ -1,15 +1,15 @@
 import * as React from "react";
 import axios from "axios";
-import {errorNotify, successNotify} from "../notifyAlerts"
+import {errorNotify, successNotify} from "../server/client/src/notifyAlerts"
 import {Button} from "react-bootstrap";
 import {useEffect} from "react";
 
-const CONFIG = require("../config.json")
+const CONFIG = require("../server/client/src/config.json")
 
 interface bioProps {
     bio: string,
     readonly editable: boolean,
-    callback: (boolean) => void
+    callback: (arg: boolean) => void
 }
 
 export function Bio(props:bioProps){
