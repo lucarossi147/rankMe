@@ -3,9 +3,9 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {CardGroup, Container} from "react-bootstrap";
 import styles from "./match.module.css"
-import ReactLoading from "react-loading";
 import {useDispatch, useSelector} from "react-redux";
 import {setMatch} from "../actions/allActions";
+import {Loading} from "../loading/Loading";
 
 const CONFIG = require("../config.json");
 
@@ -64,7 +64,7 @@ function Match(){
     if(error){
         return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
+        return <Loading/>
     } else {
         return (
             <>

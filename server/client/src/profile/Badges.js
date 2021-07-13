@@ -7,7 +7,7 @@ const CONFIG = require('../config.json')
 const Badges = () => {
 
     const [isLoaded, setLoaded] = useState(false)
-    const [data, setData] = useState({})
+    const [votes, setVotes] = useState(0)
     const [error, setError] = useState('')
 
     useEffect(() => {
@@ -21,9 +21,9 @@ const Badges = () => {
             }
         }
 
-        axios.get(CONFIG.SERVER_URL + "/analytics", config)
+        axios.get(CONFIG.SERVER_URL + "/numberOfVotes", config)
             .then((res) => {
-                setData(res.data)
+                setVotes(res.data.numberOfVotes)
                 setLoaded(true)
             }, (err) => {
                 setLoaded(false)
@@ -37,7 +37,6 @@ const Badges = () => {
     } else if (!isLoaded) {
         return <div>Loading...</div>
     } else {
-        const votes = data.numberOfVotes
         return (
             <Container>
                     <CardGroup>
