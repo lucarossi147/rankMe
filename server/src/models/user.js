@@ -90,7 +90,7 @@ let UserSchema = new Schema({
     },
     notifies:{
         type: Object,
-        default: ["Welcome to RankMe"]
+        default: []
     }
 });
 

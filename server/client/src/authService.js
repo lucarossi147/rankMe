@@ -25,6 +25,7 @@ function register(user) {
             return false
         } else {
             successNotify("Signup made, check your email")
+            successNotify("Choose the best profile!")
             return true
         }
     })
