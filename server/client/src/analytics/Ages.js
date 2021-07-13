@@ -31,35 +31,20 @@ const Ages = (props) => {
     ]
 
     return (
-        <Container>
-            <h1>How old are your voters?</h1>
-            <BarChart
-                width={600}
-                height={300}
-                data={data}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="votes" fill="#26547C" />
-            </BarChart>
-        </Container>
 
-        // <BarChart
-        //     width={600}
-        //     height={300}
-        //     data={data}
-        //     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        // >
-        //     <CartesianGrid strokeDasharray="3 3" />
-        //     <XAxis dataKey="name" />
-        //     <YAxis />
-        //     <Legend />
-        //     <Bar dataKey="votes" fill="#8884d8" />
-        //     <div> Some text </div>
-        // </BarChart>
+        <BarChart
+            width={600}
+            height={300}
+            data={data}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="votes" fill="#26547C" />
+        </BarChart>
+
     )
 }
 

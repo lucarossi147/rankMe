@@ -21,13 +21,10 @@ const Genders = (props) => {
     }
 
     return (
-        <Container>
-            <h2>Your voters are</h2>
-            <PieChart width={400} height={400}>
-                <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80} />
-                <Tooltip />
-            </PieChart>
-        </Container>
+        <PieChart width={400} height={400}>
+            <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80} />
+            <Tooltip />
+        </PieChart>
     )
 }
 
