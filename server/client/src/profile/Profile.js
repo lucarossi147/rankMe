@@ -57,7 +57,7 @@ const ProfileAuth = (props) => {
         }
 
         fetchProfile()
-    }, [reload, editable])
+    }, [isLoaded, reload, editable, id])
 
 
 

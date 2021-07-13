@@ -33,8 +33,9 @@ const HomeAuth = () => {
        }
     }
 
+    let timerNotify = null
     if(!localStorage.getItem("timer")){
-        const timerNotify = setInterval(printNotify, 30000);
+        timerNotify = setInterval(printNotify, 30000);
         localStorage.setItem("timer", timerNotify.toString())
     }
 

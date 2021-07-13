@@ -29,7 +29,6 @@ const Ages = (props) => {
         {name: '31 to 50', votes: age31to50},
         {name: '50+', votes: age51plus}
     ]
-        console.log(data)
 
     return (
         <Container>

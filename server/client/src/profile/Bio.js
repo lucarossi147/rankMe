@@ -12,7 +12,7 @@ export function Bio(props) {
 
     useEffect(() => {
         setText(props.user.bio)
-    })
+    }, [])
 
 
     const handleChange = (evt) => {
@@ -56,7 +56,7 @@ export function Bio(props) {
     if (props.editable) {
         return (
             <>
-                <textarea name="bio" onChange={handleChange} value={text}/>
+                <textarea style={{height: "auto"}} name="bio" onChange={handleChange} value={text}/>
                 <Button className={styles.backColor} onClick={handleSubmit}>Update</Button>
             </>
         )

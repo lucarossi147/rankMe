@@ -58,7 +58,6 @@ const logout = (dispatcher) => {
     const refreshToken = localStorage.getItem('refreshToken')
 
     if(!accessToken && !refreshToken){
-        console.log('Already logged out!')
         return
     }
 
@@ -69,7 +68,6 @@ const logout = (dispatcher) => {
     }).then(res => {
         if(res.status === 200){
             successNotify("Logout made")
-            console.log("User correctly logged out")
         }
     }).catch(err => {
         console.log(err)
