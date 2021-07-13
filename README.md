@@ -27,13 +27,6 @@ Questo comando lancierà tre container, client server e un database mongodb
 Tutti e tre condividono una rete, "interna" sulla quale il client comunica con il server
 e il server con il DB
 
-#todo 
-
-
-
-//TODO non va Aggiungere il genere al signup
-Per il deploy automatico copiare le immagini nel dockerfile
-
 Dockerfile client:
 #Tell docker to use this image, node, as base image
 FROM node:alpine
