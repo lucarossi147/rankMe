@@ -20,6 +20,7 @@ httpsServer = https.createServer(credentials,app)
 const PORT = 3000;
 const LOCAL_DB = 'mongodb://localhost:27017/rankMe';
 const DOCKER_DB = 'mongodb://rankme_mongodb_1.rankMe_internal:27017/rankme';
+const ONLINE_DB = 'mongodb+srv://rankme:rankme@rankmecluster.1ieru.mongodb.net/RankMe?retryWrites=true&w=majority'
 
 // aspetto 10 sec che il container di mongo sia su
 function pausecomp(millis)
@@ -33,7 +34,7 @@ function pausecomp(millis)
 //connessione al db
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-        LOCAL_DB, {
+        ONLINE_DB, {
             useFindAndModify: false,
             useNewUrlParser: true,
             useUnifiedTopology: true
