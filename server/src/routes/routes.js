@@ -53,7 +53,7 @@ module.exports = function(app) {
         .get(geoCoder.testGeoCode)
 
     app.route('/address')
-        .post(loginController.authenticate, geoCoder.createAddress)
+        .post(loginController.authenticate, utilityController.createAddress)
 
     app.route('/rank')
         .get(loginController.authenticate, utilityController.rank)

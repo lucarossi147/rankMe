@@ -195,7 +195,7 @@ exports.ages = function (req, res){
 }
 
 exports.countVotes = function (req, res) {
-    return res.send(req.user.numberOfVotes)
+    return res.send({numberOfVotes: req.user.numberOfVotes})
 }
 
 exports.analytics = function (req, res) {
@@ -340,4 +340,15 @@ function getRankPosition(username){
             }
             // return res.sendStatus(404) user not found
         })
+}
+
+
+
+exports.createAddress = function (req, res) {
+    console.log(req.user)
+    User.findByIdAndUpdate(req.user._id, {city: req.body.city, state: req.body.state, country: req.body.country},(err, user)=>{
+        if (err) return res.status(500).send(err)
+        if (!user) return res.sendStatus(404)
+        res.sendStatus(200)
+    })
 }

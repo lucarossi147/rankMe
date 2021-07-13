@@ -58,9 +58,11 @@ function AnalyticsAuth() {
                     </Row>
                     <Row>
                         <Col>
+                            <h2>Your voters are</h2>
                             <Genders genders={data.genderAnalytics}/>
                         </Col>
                         <Col>
+                            <h1>How old are your voters?</h1>
                             <Ages ages={data.agesAnalytics}/>
                         </Col>
                     </Row>

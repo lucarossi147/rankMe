@@ -28,6 +28,38 @@ function FooterOptional(props) {
     } else return <></>
 }
 
+function CardTextOptional(props) {
+    const isTabletOrMobileDevice = useMediaQuery({
+        query: '(max-device-width: 1224px)'
+    })
+
+        if(isTabletOrMobileDevice){
+            return (
+                <Card.Title>
+                    <Link className={styles.link}
+                          to={{
+                              pathname: "/profile",
+                              state: { redirectToUser: props.user._id },
+                          }}
+                    >
+                        {props.user.username}
+                    </Link><br/>
+                    <TextPosition pos={props.user} />
+                </Card.Title>
+            )
+        } else return (
+            <Card.Title>
+                <Link className={styles.link}
+                      to={{
+                          pathname: "/profile",
+                          state: { redirectToUser: props.user._id },
+                      }}
+                >
+                    {props.user.username}
+                </Link>
+            </Card.Title>
+        )}
+
 function UserVote(props) {
     let user = props.user
     const dispatch = useDispatch()
@@ -61,16 +93,8 @@ function UserVote(props) {
             <Card>
                 <Card.Img variant="top" src={CONFIG.SERVER_URL + "/images/" + user.picture} onClick={handleSubmit}/>
                 <Card.Body>
-                    <Card.Title>
-                        <Link className={styles.link}
-                            to={{
-                                pathname: "/profile",
-                                state: { redirectToUser: user._id },
-                            }}
-                        >
-                            {user.username}
-                        </Link>
-                    </Card.Title>
+
+                    <CardTextOptional user={user} />
                 </Card.Body>
                 <FooterOptional user={user} callback={handleSubmit}/>
             </Card>
@@ -78,6 +102,6 @@ function UserVote(props) {
 }
 
 const TextPosition = (props) => {
-    return props.pos.country ?  <small className="text-muted"> {props.pos.city +", " + props.pos.country}</small> : <small className="text-muted"> Unknown </small>
+    return props.pos.country ?  <small className="text-muted"> {props.pos.city +", " + props.pos.country}</small> : <small className="text-muted"> Unknown location </small>
 }
 export default UserVote
