@@ -7,6 +7,7 @@ import axios from "axios";
 import {Col, Container, Row} from "react-bootstrap";
 import NavComponent from "../navbar/NavComponent";
 import ReactLoading from "react-loading";
+import styles from "../Home/match.module.css";
 
 const CONFIG = require("../config.json")
 
@@ -42,7 +43,7 @@ function AnalyticsAuth() {
     if(error){
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
+        return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
     } else {
         return (
             <>

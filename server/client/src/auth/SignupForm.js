@@ -20,7 +20,7 @@ function SignupForm() {
         "birthDate":"",
         "password":"",
         "password2":"",
-        "gender":""
+        "gender":"male"
     })
     const dispatch = useDispatch()
 
@@ -143,7 +143,7 @@ function SignupForm() {
                                           onChange={handleChange}>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
-                                <option value="other">Prefer not to say</option>
+                                <option value="not specified">Prefer not to say</option>
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>

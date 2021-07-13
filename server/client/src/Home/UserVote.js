@@ -20,7 +20,7 @@ function FooterOptional(props) {
         return (
             <>
                 <Card.Footer>
-                    <TextPosition pos={props.country}/>
+                    <TextPosition pos={props.user}/>
                 </Card.Footer>
                 <Button className={styles.voteButton} onClick={props.callback}>Vote</Button>
             </>
@@ -72,12 +72,12 @@ function UserVote(props) {
                         </Link>
                     </Card.Title>
                 </Card.Body>
-                <FooterOptional country={user.country} callback={handleSubmit}/>
+                <FooterOptional user={user} callback={handleSubmit}/>
             </Card>
     )
 }
 
 const TextPosition = (props) => {
-    return props.pos ?  <small className="text-muted"> {props.pos}</small> : <small className="text-muted"> Unknown </small>
+    return props.pos.country ?  <small className="text-muted"> {props.pos.city +", " + props.pos.country}</small> : <small className="text-muted"> Unknown </small>
 }
 export default UserVote

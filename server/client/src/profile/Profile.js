@@ -22,8 +22,6 @@ export const Profile = () => {
     return user.username  ? <ProfileAuth user={user} id={id}/> : <Home/>
 }
 
-
-
 const ProfileAuth = (props) => {
     const [isLoaded, setLoaded] = useState(false)
     const [error, setError] = useState('')
@@ -65,7 +63,7 @@ const ProfileAuth = (props) => {
     if(error){
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
+        return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
     } else {
         return (
             <>
@@ -89,7 +87,7 @@ const ProfileAuth = (props) => {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <EditButton displayUpload={viewUpload} editable={editable} setEditable={setEditable}  callback={setViewUpload} user={user}/>
+                                        <EditButton displayUpload={viewUpload} editable={editable} setEditable={setEditable} callback={setViewUpload} user={user}/>
                                     </Col>
                                     <Col>
                                         <AnalyticsButton user={user}/>
@@ -101,7 +99,7 @@ const ProfileAuth = (props) => {
                     <Row className={styles.padded}>
                         <div className="d-grid gap-2 d-md-block">
                             <FormSocial user={user} callback={setEditable} editable={editable}/>
-                            <Locality callback={setReload}/>
+                            <Locality user={user} callback={setReload}/>
                         </div>
                     </Row>
                     <Row>
@@ -140,8 +138,7 @@ function EditButton(props) {
 
 export const Locality = (props) => {
     const user =  useSelector(state => state.userReducer)
-    const loggedUser = useSelector(state => state.userReducer._id)
-    if(!user.country && (user._id === loggedUser)){
+    if(!user.country && (user._id === props._id)){
         return <FormLocality callback={props.callback}/>
     } else {
         return null

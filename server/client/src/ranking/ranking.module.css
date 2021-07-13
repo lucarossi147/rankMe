@@ -12,3 +12,8 @@
 .a{
     color: #26547C !important;
 }
+
+.center {
+    display: flex;
+    align-content: center;
+}

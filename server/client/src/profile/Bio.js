@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {errorNotify, successNotify} from "../notifyAlerts";
 import styles from "./profile.module.css";
@@ -8,7 +8,11 @@ const CONFIG = require("../config.json")
 export function Bio(props) {
 
     const accessToken = localStorage.getItem('accessToken')
+    const [text, setText] = useState(props.user.bio || "")
 
+    useEffect(() => {
+        setText(props.user.bio)
+    })
     const handleChange = (evt) => {
         const {name,value} = evt.target;
         if(name === 'bio'){
@@ -32,7 +36,6 @@ export function Bio(props) {
             .then(function (response) {
                 if(response.status === 200){
                     successNotify("Correctly update bio")
-                    setText(text)
                     props.callback(false)
                 } else {
                     errorNotify("No update of bio...")
@@ -42,7 +45,6 @@ export function Bio(props) {
         });
     }
 
-    const [text, setText] = useState(props.user.bio || "")
 
     if (props.editable) {
         return (

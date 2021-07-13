@@ -64,7 +64,7 @@ function Match(){
     if(error){
         return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading type={"bars"} color={"26547C"} height={667} width={375} />
+        return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
     } else {
         return (
             <>

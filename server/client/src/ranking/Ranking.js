@@ -104,7 +104,7 @@ const Ranking = () => {
         )
     }
 
-    return <ReactLoading type={"spinningBubbles"} color={"26547C"} height={667} width={375} />
+    return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
 }
 
 export default Ranking
