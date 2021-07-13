@@ -33,8 +33,10 @@ const HomeAuth = () => {
        }
     }
 
-    const timerNotify = setInterval(printNotify, 30000);
-    //On component unmount unset the timer TODO
+    if(!localStorage.getItem("timer")){
+        const timerNotify = setInterval(printNotify, 30000);
+        localStorage.setItem("timer", timerNotify.toString())
+    }
 
     return (
         <>

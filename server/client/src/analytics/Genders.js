@@ -4,13 +4,14 @@ import {PieChart, Pie, Tooltip} from "recharts";
 const Genders = (props) => {
     let data
     if(props.genders && (props.genders.males !== 0 || props.genders.females !== 0 || props.genders.others !== 0) ){
+        /*
+        TODO trovare un rosa adeguato per questo blu
+         */
         data = [
-            {name:'males', value: props.genders.males},
-            {name:'females', value: props.genders.females},
-            {name:'others', value: props.genders.others}
+            {name:'males', value: props.genders.males, fill: "#26547C"},
+            {name:'females', value: props.genders.females, fill: "pink"},
+            {name:'others', value: props.genders.others, fill: "grey"}
         ]
-        console.log('hey')
-        console.log(data)
     } else {
         data = [
             {name:'males', value: 0},
@@ -23,7 +24,7 @@ const Genders = (props) => {
         <Container>
             <h2>Your voters are</h2>
             <PieChart width={400} height={400}>
-                <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80} fill="#26547C" />
+                <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80} />
                 <Tooltip />
             </PieChart>
         </Container>

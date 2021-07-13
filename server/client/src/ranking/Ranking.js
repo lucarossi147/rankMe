@@ -4,9 +4,9 @@ import {errorNotify} from "../notifyAlerts";
 import {Button, Container, Image, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import NavComponent from "../navbar/NavComponent";
-import ReactLoading from "react-loading";
 import FilterForm from "./FilterForm";
 import styles from "../ranking/ranking.module.css";
+import {Loading} from "../loading/Loading";
 
 const CONFIG = require("../config.json")
 
@@ -104,7 +104,7 @@ const Ranking = () => {
         )
     }
 
-    return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
+    return <Loading/>
 }
 
 export default Ranking

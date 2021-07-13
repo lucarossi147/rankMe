@@ -7,6 +7,7 @@ import styles from "./profile.module.css";
 const CONFIG = require("../config.json");
 
 function ImageForm(props){
+    console.log("IMAGE FORM")
     const [selectedFile, setFile] = useState()
     const accessToken = localStorage.getItem('accessToken')
 

@@ -3,7 +3,6 @@ import FormSocial from "./FormSocial"
 import {Home} from "../Home/Home"
 import {useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom"
-import ReactLoading from 'react-loading';
 import axios from "axios";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import FormLocality from "./FormLocality";
@@ -12,6 +11,7 @@ import NavComponent from "../navbar/NavComponent";
 import styles from './profile.module.css'
 import Badges from "./Badges";
 import {Bio} from "./Bio";
+import {Loading} from "../loading/Loading";
 
 const CONFIG = require("../config.json");
 
@@ -55,15 +55,16 @@ const ProfileAuth = (props) => {
                     setError(error)
                 })
         }
+
         fetchProfile()
-    }, [isLoaded, reload, id, editable])
+    }, [reload, editable])
 
 
 
     if(error){
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <ReactLoading className={styles.center} type={"bars"} color={"#26547C"} height={200} width={100} />
+        return <Loading/>
     } else {
         return (
             <>
@@ -103,11 +104,20 @@ const ProfileAuth = (props) => {
                         </div>
                     </Row>
                     <Row>
-                        <Badges/>
+                        <ShowBadges user={user}/>
                     </Row>
                 </Container>
             </>
         )
+    }
+}
+
+function ShowBadges(props) {
+    const id = useSelector(state => state.userReducer._id)
+    if(id === props.user._id){
+        return <Badges/>
+    } else {
+        return <></>
     }
 }
 
@@ -138,7 +148,7 @@ function EditButton(props) {
 
 export const Locality = (props) => {
     const user =  useSelector(state => state.userReducer)
-    if(!user.country && (user._id === props._id)){
+    if(!user.country && (props.user._id === user._id)){
         return <FormLocality callback={props.callback}/>
     } else {
         return null
@@ -154,14 +164,15 @@ const Upload = (props) => {
 }
 
 function ImageUser(props) {
-    const user = props.user
     const viewUpload = props.display
+    const user = props.user
+
     if(user._id === useSelector(state => state.userReducer._id)){
         return (
             <Image className={styles.image}
                    src={CONFIG.SERVER_URL + "/images/" + user.picture}
                    roundedCircle
-                   alt="Profile not found"
+                   alt="Profile pic not setted"
                    onClick={() => props.callback(!viewUpload)}
             />
         ) } else {
@@ -169,7 +180,7 @@ function ImageUser(props) {
             <Image className={styles.image}
                    src={CONFIG.SERVER_URL + "/images/" + user.picture}
                    roundedCircle
-                   alt="Profile not found"
+                   alt="Profile pic not setted"
             />
         )
     }

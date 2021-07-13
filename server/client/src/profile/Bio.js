@@ -8,11 +8,13 @@ const CONFIG = require("../config.json")
 export function Bio(props) {
 
     const accessToken = localStorage.getItem('accessToken')
-    const [text, setText] = useState(props.user.bio || "")
+    const [text, setText] = useState("")
 
     useEffect(() => {
         setText(props.user.bio)
     })
+
+
     const handleChange = (evt) => {
         const {name,value} = evt.target;
         if(name === 'bio'){
@@ -27,6 +29,11 @@ export function Bio(props) {
             headers: {
                 'Authorization': 'Bearer ' + accessToken
             }
+        }
+
+        if(text === ""){
+            errorNotify("Bio is empty")
+            return
         }
 
         axios.post(CONFIG.SERVER_URL + "/bio",

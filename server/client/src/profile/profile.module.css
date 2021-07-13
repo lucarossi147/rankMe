@@ -4,11 +4,6 @@
     object-fit: cover;
 }
 
-.center {
-    display: flex;
-    align-content: center;
-}
-
 .padded {
     padding: 5%;
 }
