@@ -5,30 +5,32 @@ Progetto applicazioni e servizi web
 Per server e client entrare nella rispettiva cartella, per lanciare entrambi entrare in /server
 Per lanciare il server:
 
-#npm run server
+` npm run server `
 
 Per il client:
 
-#npm run client
+` npm run client `
 
 Per entrambi:
 
-#npm run dev
+` npm run dev `
 
 Per lanciare l'intero applicativo usando docker-compose:
 
-Prima di compilare le immagini, assegnare nel file index.js "DOCKER_DB" come URI di connessione al db Mongo, altrimenti 
+Prima di compilare le immagini, assegnare nel file index.js `DOCKER_DB` come URI di connessione al db Mongo, altrimenti 
 non funzionerà perchè il server non riuscirà a contattare correttamente il db.
 
-docker-compose build
+```docker-compose build
 docker-compose -f  up -d
+```
 
 Questo comando lancierà tre container, client server e un database mongodb
 Tutti e tre condividono una rete, "interna" sulla quale il client comunica con il server
 e il server con il DB
 
-Dockerfile client:
-#Tell docker to use this image, node, as base image
+## Dockerfile:
+```
+# Tell docker to use this image, node, as base image
 FROM node:alpine
 
 # Set a envirnoment variable to use later
@@ -52,3 +54,4 @@ EXPOSE 5000
 
 #Set comand to launch at start
 CMD ["npm", "run", "start"]
+```
